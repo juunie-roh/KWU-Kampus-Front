@@ -44,10 +44,12 @@ header h1 { font-size: 0px; }
 header h1>a { font-size: 40px; color: #fff; }
 header #menuBtn { 
   width: 1em; height: 1em; 
+  border: 1px solid transparent;
+  border-radius: 0.2em;
   font-size: 40px; 
 }
 #menuBtn i { color: #fff; font-size: 40px; font-weight: 500; }
-#menuBtn:hover { cursor: pointer; }
+#menuBtn:hover { cursor: pointer; border-color: #333; background: var(--main-color); }
 #sideMenu { 
   position: absolute;
   display: block;
