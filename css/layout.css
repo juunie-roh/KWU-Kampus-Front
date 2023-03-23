@@ -7,39 +7,80 @@
 .page {
   position: relative;
   width: 100%;
+  max-width: 1920px !important;
 }
 
 .main {
   display: flex;
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   margin-top: 80px;
 }
+
+.inner {
+  position: relative;
+  width: 100%;
+  padding: 0 50px;
+}
+
 /* __COMMON__  */
 
 header {
   position: fixed;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  padding: 0 20px;
+  left: 0; top: 0;
+  width: 100%; height: 80px;
   background: linear-gradient(to bottom right, var(--light-bg), var(--main-color));
   z-index: 99;
 }
 
-header>h1 { font-size: 0px; }
-header>h1>a { font-size: 40px; color: #fff; }
+header>.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+header h1 { font-size: 0px; }
+header h1>a { font-size: 40px; color: #fff; }
+header #menuBtn { 
+  width: 1em; height: 1em; 
+  font-size: 40px; 
+}
+#menuBtn i { color: #fff; font-size: 40px; font-weight: 500; }
+#menuBtn:hover { cursor: pointer; }
+#sideMenu { 
+  position: absolute;
+  display: block;
+  right: 0; top: 80px;
+  width: 25vw; height: 93vh;
+  padding: 30px;
+  border-left: 5px solid var(--main-color);
+  background: #fff;
+  transform: translateX(100%);
+  transition: 0.3s ease;
+}
+#sideMenu.on { width: 25vw; transform: translateX(0); }
+.category {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #aaa;
+}
+.category .text { display: flex; justify-content: space-between; align-items: center; }
+.category .text:hover { cursor: pointer; }
+.category .text>span,
+.category .text>i { font-size: 24px; font-weight: 600; }
+.category.on .text>i { transform: rotate(180deg); }
+.category .sub-categories { height: 0; }
+.category.on .sub-categories { height: auto; }
+.sub-categories>li { width: 100%; }
+.sub-categories>li>a { font-size: 16px; }
 
 .floor {
   position: relative;
   display:block;
-  width: 300px;
-  height: 100%;
+  width: 300px; height: 100%;
   overflow-y: scroll;
   border: 1px solid black;
 }

@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Building-detail-example</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/layout.css">
 </head>
@@ -13,45 +14,49 @@
 <body>
   <div class="page">
     <header>
-      <h1>광운대학교<a href="">(logo)</a></h1>
+      <div class="inner">
+        <h1>광운대학교<a href="">(logo img)</a></h1>
+        <div id="menuBtn"><i class='bx bx-search' ></i></div>
+        <div id="sideMenu">
+          <div class="category">
+            <div class="text">
+              <span>카테고리 1</span>
+              <i class='bx bxs-chevron-down'></i>
+            </div>
+            <ul class="sub-categories">
+              <li><a href="">세부 카테고리 1</a></li>
+              <li><a href="">세부 카테고리 2</a></li>
+              <li><a href="">세부 카테고리 3</a></li>
+            </ul>
+          </div>
+          <div class="category">
+            <div class="text">
+              <span>카테고리 2</span>
+              <i class='bx bxs-chevron-down'></i>
+            </div>
+            <ul class="sub-categories">
+              <li><a href="">세부 카테고리 1</a></li>
+              <li><a href="">세부 카테고리 2</a></li>
+              <li><a href="">세부 카테고리 3</a></li>
+            </ul>
+          </div>
+          <div class="category">
+            <div class="text">
+              <span>카테고리 3</span>
+              <i class='bx bxs-chevron-down'></i>
+            </div>
+            <ul class="sub-categories">
+              <li><a href="">세부 카테고리 1</a></li>
+              <li><a href="">세부 카테고리 2</a></li>
+              <li><a href="">세부 카테고리 3</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <script src="../js/header.js"></script>
     </header>
 
-    <div class="main">
-      <div class="floor">
-        <dl>
-          <dt>2F</dt>
-          <dd>
-            <ul>
-              <li>facility1</li>
-              <li>facility2</li>
-              <li>facility3</li>
-              <li>facility4</li>
-              <li>facility5</li>
-              <li>facility6</li>
-              <li>facility7</li>
-              <li>facility8</li>
-              <li>facility9</li>
-            </ul>
-          </dd>
-          <dt>1F</dt>
-          <dd>
-            <ul>
-              <li>facility1</li>
-              <li>facility2</li>
-              <li>facility3</li>
-              <li>facility4</li>
-              <li>facility5</li>
-              <li>facility6</li>
-              <li>facility7</li>
-              <li>facility8</li>
-              <li>facility9</li>
-            </ul>
-          </dd>
-        </dl>
-      </div>
-      <div class="map">
-      </div>
-    </div>
+    <main class="main"></main>
   </div>
 </body>
 
