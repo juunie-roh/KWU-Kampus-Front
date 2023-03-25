@@ -86,7 +86,8 @@ header #menuBtn {
   border-bottom: 1px solid #aaa;
 }
 .category .text { display: flex; justify-content: space-between; align-items: center; }
-.category .text:hover { cursor: pointer; }
+.category .text:hover { cursor: pointer; color: var(--light-bg); }
+.category.on .text { color: var(--light-bg); }
 .category .text>span,
 .category .text>i { font-size: 24px; font-weight: 600; }
 .category.on .text>i { transform: rotate(180deg); }
