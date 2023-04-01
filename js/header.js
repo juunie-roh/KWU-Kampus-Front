@@ -7,16 +7,29 @@ menuBtn.addEventListener('click', function() {
   sideMenu.classList.toggle('on');
 });
 
-for (let category of categories) {
-  category.addEventListener('click', function() {
-    if (category.classList.contains('on')) {
-      category.classList.remove('on');
-      return;
-    }
+console.log(categories);
 
-    for (let cat of categories) {
-      cat.classList.remove('on');
-    }
-    category.classList.add('on');
-  })
+let prevOnCategory;
+for (const category of categories) {
+  if (category.classList.contains('on')) {
+    prevOnCategory = category;
+    break;
+  }
 }
+
+const onClickCategory = () => {
+  if (category.classList.contains('on')) {
+    category.classList.remove('on');
+    return;
+  }
+
+  prevOnCategory.classList.remove('on');
+  category.classList.add('on');
+  prevOnCategory = category;
+
+  return;
+}
+
+for (const category of categories) {
+  category.addEventListener('click', onClickCategory);
+};
