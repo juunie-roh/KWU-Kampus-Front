@@ -204,10 +204,10 @@ ul>li { padding: 0.5em 1em; }
   line-height: 80px;
   text-align: center;
 }
-#detail .img-wrap .roomNum:nth-child(1) { left: 843px; top: 478px; }
-#detail .img-wrap .roomNum:nth-child(2) { left: 514px; top: 626px; }
-#detail .img-wrap .roomNum:nth-child(3) { left: 430px; top: 390px; }
-#detail .img-wrap .roomNum:nth-child(4) { left: 173px; top: 530px; }
+#detail .img-wrap .roomNum:nth-child(1) { left: 69%; top: 44%; }
+#detail .img-wrap .roomNum:nth-child(2) { left: 43%; top: 60%; }
+#detail .img-wrap .roomNum:nth-child(3) { left: 36%; top: 35%; }
+#detail .img-wrap .roomNum:nth-child(4) { left: 14%; top: 50%; }
 
 #detail .text-wrap {
   width: 50%; height: 100%;
