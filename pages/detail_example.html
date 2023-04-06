@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +9,6 @@
   <link rel="stylesheet" href="/KWU-fac-header/css/reset.css">
   <link rel="stylesheet" href="/KWU-fac-header/css/layout.css">
 </head>
-
 <body>
   <div class="page">
     <header>
@@ -68,24 +66,66 @@
       <script src="/KWU-fac-header/js/header.js"></script>
     </header>
 
-    <main class="main">
-      <div class="box">
-        <div class="floor"></div>
-        <div class="prop prop01">
-          <a href="/KWU-fac-header/pages/detail_example.html">
-            prop01
-            <br>
-            detail_example
-          </a>
+    <main id="detail">
+      <div class="inner">
+        <div class="img-wrap">
+          <div class="roomNum">101</div>
+          <div class="roomNum">102</div>
+          <div class="roomNum">103</div>
+          <div class="roomNum">104</div>
         </div>
-        <div class="prop prop02">prop02</div>
-        <div class="prop prop03">prop03</div>
-        <div class="prop prop04">prop04</div>
-        <div class="prop prop05">prop05</div>
+        <div class="text-wrap">
+          <ul id="floors">
+            <li>
+              <div class="text">
+                <span class="floor-title">1F</span>
+              </div>
+              <ul id="rooms">
+                <li>101</li>
+                <li>102</li>
+                <li>103</li>
+                <li>104</li>
+              </ul>
+            </li>
+            <li>
+              <div class="text">
+                <span class="floor-title">2F</span>
+              </div>
+              <ul id="rooms">
+                <li>201</li>
+                <li>202</li>
+                <li>203</li>
+                <li>204</li>
+              </ul>
+            </li>
+            <li>
+              <div class="text">
+                <span class="floor-title">3F</span>
+              </div>
+              <ul id="rooms">
+                <li>301</li>
+                <li>302</li>
+                <li>303</li>
+                <li>304</li>
+              </ul>
+            </li>
+            <li>
+              <div class="text">
+                <span class="floor-title">4F</span>
+              </div>
+              <ul id="rooms">
+                <li>401</li>
+                <li>402</li>
+                <li>403</li>
+                <li>404</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
-    </main>
 
+      <script src="/KWU-fac-header/js/detail-example.js"></script>
+    </main>
   </div>
 </body>
-
 </html>

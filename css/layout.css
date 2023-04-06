@@ -10,7 +10,7 @@
   max-width: 1920px !important;
 }
 
-.main {
+main {
   position: relative;
   width: 100%; height: 100%;
   margin-top: 80px;
@@ -164,11 +164,87 @@ ul>li { padding: 0.5em 1em; }
   background: white;
   box-shadow: -7px 0px 38px rgba(0, 0, 0, 0.30), 
               -12px 0px 12px rgba(0, 0, 0, 0.22);
+  transform-origin: center bottom;
+  transition: 0.5s ease;
   line-height: 100px;
   text-align: center;
 }
 .prop01 { transform: translate3d(0, 36px, 100px); }
+.prop01 a {
+  position: relative;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  width: 100%; height: 100%;
+  cursor: pointer;
+}
+.prop01:hover { transform: translate3d(0, 36px, 100px) scale(1.5); }
 .prop02 { transform: translate3d(500px, 36px, 100px); }
 .prop03 { transform: translate3d(250px, 0, 0); }
 .prop04 { transform: translate3d(300px, 18px, 50px); }
 .prop05 { transform: translate3d(200px, -19px, -50px); }
+
+/* detail_example: */
+#detail .inner {
+  display: flex; flex-direction: row;
+  height: calc(100vh - 80px);
+}
+
+#detail .img-wrap {
+  position: relative;
+  width: 100%; height: 100%;
+  background-color: #ddd;
+}
+
+#detail .img-wrap .roomNum {
+  position: absolute;
+  width: 120px; height: 80px;
+  background: blue;
+  color: #fff;
+  font-size: 36px;
+  line-height: 80px;
+  text-align: center;
+}
+#detail .img-wrap .roomNum:nth-child(1) { left: 843px; top: 478px; }
+#detail .img-wrap .roomNum:nth-child(2) { left: 514px; top: 626px; }
+#detail .img-wrap .roomNum:nth-child(3) { left: 430px; top: 390px; }
+#detail .img-wrap .roomNum:nth-child(4) { left: 173px; top: 530px; }
+
+#detail .text-wrap {
+  width: 50%; height: 100%;
+  border-left: 3px solid var(--light-bg);
+}
+
+#floors {
+  display: flex; flex-direction: column-reverse;
+  justify-content: flex-end; align-items: flex-start;
+  width: 100%; height: 100%;
+  padding: 20px;
+}
+
+#floors>li { 
+  width: 100%; height: auto;
+  overflow: hidden; 
+  cursor: pointer; 
+}
+
+#floors .floor-title {
+  display: block;
+  margin-bottom: 20px;
+  border-bottom: 4px solid gray;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+#rooms {
+  display: flex; flex-wrap: wrap;
+  width: 100%; height: auto;
+  overflow: hidden;
+}
+
+#rooms>li {
+  width: 100px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+}

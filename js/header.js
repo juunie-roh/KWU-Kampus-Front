@@ -2,7 +2,7 @@ const menuBtn = document.getElementById('menuBtn');
 const sideMenu = document.getElementById('sideMenu');
 const categories = document.getElementsByClassName('category');
 
-menuBtn.addEventListener('click', function() {
+menuBtn.addEventListener('click', () => {
   menuBtn.classList.toggle('on');
   sideMenu.classList.toggle('on');
 });
@@ -10,7 +10,7 @@ menuBtn.addEventListener('click', function() {
 // let prevOnCategory;
 
 for (const category of categories) {
-  category.addEventListener('click', function(e) {
+  category.addEventListener('click', (e) => {
     const textHeight = category.querySelector('.text').clientHeight;
     const subCategoriesHeight = category.querySelector('.sub-categories').clientHeight;
 
