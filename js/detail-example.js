@@ -7,7 +7,7 @@ const floorsLists = [
     [301, 302, 303, 304],
     [401, 402, 403, 404],
 ];
-const receivedBgUrl = "/KWU-fac-header/images/details-example.jpg";
+const receivedBgUrl = "../images/details-example.jpg";
 
 // 로딩 화면 구현 시 필요:
 // let isLoading = Boolean();
