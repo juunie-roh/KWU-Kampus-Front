@@ -1,8 +1,45 @@
-const floors = document.querySelectorAll('#floors>li');
+const floorList = document.getElementById('floors');
 const roomNums = document.querySelectorAll('#detail .img-wrap .roomNum');
 const floorDefaultHeight = 80;
 
-const floorsLists = [
+const receivedFloorCount = 4;
+const receivedRoomCount = 4;
+const setFloorText = (n, m) => {
+    for (let i = 0; i < n; ++i) {
+        const liFloor = document.createElement('li');
+        const div = document.createElement('div');
+        div.className = 'text';
+        const span = document.createElement('span');
+        span.className = 'floor-title';
+        span.innerText = `${i + 1}F`;
+        // const dt = document.createElement('dt');
+        // dt.className = 'floor-title';
+        // dt.innerText = `${i + 1}F`
+        // floorList.appendChild(dt);
+        div.appendChild(span);
+        // console.log(div);
+        liFloor.appendChild(div);
+        // const dl = document.createElemene('dl');
+        const ul = document.createElement('ul');
+        ul.setAttribute('id', 'rooms');
+        for (let j = 0; j < m; j++) {
+            const liRoom = document.createElement('li');
+            liRoom.innerText = `${i + 1}0${j + 1}`;
+            ul.appendChild(liRoom);
+        }
+        // console.log(ul);
+        liFloor.appendChild(ul);
+        
+        // console.log(liFloor);
+        floorList.appendChild(liFloor);
+        // dl.appendChild(ul);
+        // floorList.appendChild(dl);
+    }
+}
+
+setFloorText(receivedFloorCount, receivedRoomCount);
+
+const receivedFloorList = [
     [101, 102, 103, 104],
     [201, 202, 203, 204],
     [301, 302, 303, 304],
@@ -33,6 +70,7 @@ const setFloorBg = (bgUrl) => {
 setFloorBg(receivedBgUrl);
 
 let prevElement = undefined;
+const floors = document.querySelectorAll('#floors>li');
 floors.forEach((floor, i) => {
     const floorTitle = floor.querySelector('.floor-title');
     floorTitle.addEventListener('click', e => {
@@ -55,13 +93,13 @@ floors.forEach((floor, i) => {
 
         // 선택한 층에 따라 표시되는 호수(방 번호) 변경
         floor.classList.toggle('active');
-        const fl = floorsLists[i];
+        const fl = receivedFloorList[i];
         roomNums.forEach((rn, j) => {
             rn.innerHTML = `${fl[j]}`;
         });
         
         
         prevElement = floor;
-        floor.style.height = floorDefaultHeight + roomsHeight + 'px';
+        floor.style.height = floorDefaultHeight + roomsHeight + 18 + 'px';
     })
 });
