@@ -1,5 +1,6 @@
 const floors = document.querySelectorAll('#floors>li');
 const roomNums = document.querySelectorAll('#detail .img-wrap .roomNum');
+const floorDefaultHeight = 80;
 
 const floorsLists = [
     [101, 102, 103, 104],
@@ -33,17 +34,15 @@ setFloorBg(receivedBgUrl);
 
 let prevElement = undefined;
 floors.forEach((floor, i) => {
-    // // 클래스에 active이 포함되었다면 활성화된 Element로 저장
-    // if (floor.classList.contains('active')) {
-    //     prevElement = floor;
-    // }
-    floor.addEventListener('click', e => {
+    const floorTitle = floor.querySelector('.floor-title');
+    floorTitle.addEventListener('click', e => {
         e.preventDefault();
-        const textHeight = floor.querySelector('.text').clientHeight;
         const roomsHeight = floor.querySelector('#rooms').clientHeight;
+
+        // active 되어있다면 제거하고 종료
         if (floor.classList.contains('active')) {
             floor.classList.remove('active');
-            // floor.style.height = textHeight + 'px';
+            floor.style.height = floorDefaultHeight + 'px';
             return;
         }
 
@@ -51,7 +50,7 @@ floors.forEach((floor, i) => {
         // 다른 element 클릭 시 저장한 이전 element를 비활성화
         if (prevElement) {
             prevElement.classList.remove('active');
-            // prevElement.style.height = textHeight + 'px';
+            prevElement.style.height = floorDefaultHeight + 'px';
         }
 
         // 선택한 층에 따라 표시되는 호수(방 번호) 변경
@@ -63,6 +62,6 @@ floors.forEach((floor, i) => {
         
         
         prevElement = floor;
-        // floor.style.height = floor.clientHeight + roomsHeight + 'px';
+        floor.style.height = floorDefaultHeight + roomsHeight + 'px';
     })
 });
