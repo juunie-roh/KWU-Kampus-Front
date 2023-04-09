@@ -4,8 +4,8 @@ const floorDefaultHeight = 80;
 
 const receivedFloorCount = 4;
 const receivedRoomCount = 4;
-const setFloorText = (n, m) => {
-    for (let i = 0; i < n; ++i) {
+const setFloorText = (floorCount, roomCount) => {
+    for (let i = 0; i < floorCount; ++i) {
         const liFloor = document.createElement('li');
         const div = document.createElement('div');
         div.className = 'text';
@@ -22,7 +22,7 @@ const setFloorText = (n, m) => {
         // const dl = document.createElemene('dl');
         const ul = document.createElement('ul');
         ul.setAttribute('id', 'rooms');
-        for (let j = 0; j < m; j++) {
+        for (let j = 0; j < roomCount; j++) {
             const liRoom = document.createElement('li');
             liRoom.innerText = `${i + 1}0${j + 1}`;
             ul.appendChild(liRoom);
@@ -69,13 +69,17 @@ const setFloorBg = (bgUrl) => {
 // setFloorList(receivedBuildingInfo);
 setFloorBg(receivedBgUrl);
 
+let rooms;
+
 let prevElement = undefined;
+let prevDesc = undefined;
 const floors = document.querySelectorAll('#floors>li');
 floors.forEach((floor, i) => {
     const floorTitle = floor.querySelector('.floor-title');
     floorTitle.addEventListener('click', e => {
         e.preventDefault();
         const roomsHeight = floor.querySelector('#rooms').clientHeight;
+        if (prevDesc) { prevDesc.removeAttribute('style'); }
 
         // active 되어있다면 제거하고 종료
         if (floor.classList.contains('active')) {
@@ -95,10 +99,28 @@ floors.forEach((floor, i) => {
         floor.classList.toggle('active');
         const fl = receivedFloorList[i];
         roomNums.forEach((rn, j) => {
-            rn.innerHTML = `${fl[j]}`;
+            rn.querySelector('span').innerText = `${fl[j]}`;
+            rn.querySelector('.desc p').innerText = `${fl[j]} description`;
         });
         
-        
+        rooms = floor.querySelectorAll('#rooms li');
+        // console.log(rooms);
+
+        rooms.forEach((room, idx) => {
+
+            room.addEventListener('click', () => {
+                if (prevDesc) { prevDesc.removeAttribute('style'); }
+                else { console.log('no prevDesc'); }
+
+                const desc = roomNums[idx].querySelector('.desc');
+                desc.style.opacity = '1';
+                desc.style.transform = 'translateY(0)';
+                desc.style.pointerEvents = 'all';
+
+                prevDesc = desc;
+                console.log('prevDesc: '+ prevDesc.getAttribute('style'));
+            })
+        })
         prevElement = floor;
         floor.style.height = floorDefaultHeight + roomsHeight + 18 + 'px';
     })
