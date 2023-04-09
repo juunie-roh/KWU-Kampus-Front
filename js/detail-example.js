@@ -110,7 +110,6 @@ floors.forEach((floor, i) => {
 
             room.addEventListener('click', () => {
                 if (prevDesc) { prevDesc.removeAttribute('style'); }
-                else { console.log('no prevDesc'); }
 
                 const desc = roomNums[idx].querySelector('.desc');
                 desc.style.opacity = '1';
@@ -118,7 +117,6 @@ floors.forEach((floor, i) => {
                 desc.style.pointerEvents = 'all';
 
                 prevDesc = desc;
-                console.log('prevDesc: '+ prevDesc.getAttribute('style'));
             })
         })
         prevElement = floor;
