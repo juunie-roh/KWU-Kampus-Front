@@ -10,8 +10,9 @@ menuBtn.addEventListener('click', () => {
 // let prevOnCategory;
 
 for (const category of categories) {
-  category.addEventListener('click', (e) => {
-    const textHeight = category.querySelector('.text').clientHeight;
+  const text = category.querySelector('.text');
+  text.addEventListener('click', (e) => {
+    const textHeight = text.clientHeight;
     const subCategoriesHeight = category.querySelector('.sub-categories').clientHeight;
 
     if (category.classList.contains('on')) {
