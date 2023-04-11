@@ -7,8 +7,6 @@ menuBtn.addEventListener('click', () => {
   sideMenu.classList.toggle('on');
 });
 
-// let prevOnCategory;
-
 for (const category of categories) {
   const text = category.querySelector('.text');
   text.addEventListener('click', (e) => {
@@ -21,14 +19,8 @@ for (const category of categories) {
       return;
     }
 
-    // if (prevOnCategory) {
-    //   prevOnCategory.classList.remove('on');
-    //   prevOnCategory.style.height = prevOnCategory.querySelector('.text').clientHeight + 'px';
-    // }
-
     category.classList.add('on');
     category.style.height = category.clientHeight + subCategoriesHeight + 'px';
-    // prevOnCategory = category;
     return;
   });
 };
