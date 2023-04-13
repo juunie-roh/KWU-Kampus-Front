@@ -111,7 +111,7 @@ header #menuBtn {
   white-space: nowrap;
 }
 .category .mask>span { position: absolute; left: 10px; top: 0px; color: #fff; }
-.category .mask>img { position: relative; left: 225px; top: 5px; filter: invert(100%); }
+.category .mask>img { position: relative; left: 223px; top: 5px; filter: invert(100%); }
 .category.on .mask { width: 100%; transition: width 0.3s ease-in-out; }
 .category:hover .text { cursor: pointer; color: var(--light-bg); }
 .category .text span { font-size: 24px; font-weight: 600; }
