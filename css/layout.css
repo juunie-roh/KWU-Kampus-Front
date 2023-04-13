@@ -103,7 +103,7 @@ header #menuBtn {
   position: absolute; 
   left: 0px; top: 0px;
   display: block; 
-  width: 0px; height: 100%;
+  width: 0px; height: 101%;
   padding: 0; 
   overflow: hidden;
   background: var(--light-bg); 
