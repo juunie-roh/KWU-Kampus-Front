@@ -9,6 +9,9 @@ menuBtn.addEventListener('click', () => {
 
 for (const category of categories) {
   const text = category.querySelector('.text');
+  const textContent = category.querySelector('.text span');
+  const maskContent = category.querySelector('.mask span');
+  maskContent.textContent = textContent.textContent;
   text.addEventListener('click', (e) => {
     const textHeight = text.clientHeight;
     const subCategoriesHeight = category.querySelector('.sub-categories').clientHeight;

@@ -15,4 +15,4 @@
 
 ul, ol { list-style: none; }
 a { text-decoration: none; color: inherit; }
-a:hover { text-decoration: underline; }
+/* a:hover { text-decoration: underline; } */
