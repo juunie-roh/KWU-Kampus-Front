@@ -93,7 +93,8 @@ header #menuBtn {
 .category:hover .text { cursor: pointer; color: var(--light-bg); }
 .category .text>span,
 .category .text>i { font-size: 24px; font-weight: 600; }
-.category.on .text>i { transform: rotate(180deg); }
+.category .text>svg { width: 24px; height: 24px; fill: #333; }
+.category.on .text>img { transform: rotate(180deg); }
 .category .sub-categories { height: auto; }
 .sub-categories>li { width: 100%; }
 .sub-categories>li>a { font-size: 16px; }
