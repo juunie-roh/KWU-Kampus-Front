@@ -96,12 +96,10 @@ header #menuBtn {
 .category .text { 
   position: relative; 
   display: flex; 
-  align-items: center; 
+  justify-content: space-between; align-items: center; 
   padding: 0 10px;
   cursor: pointer;
 }
-.category .text>img,
-.category .mask>img { transform: rotate(270deg); transition: .3s .3s ease;}
 .category .mask { 
   position: absolute; 
   left: 0px; top: 0px;
@@ -114,8 +112,8 @@ header #menuBtn {
   transition: width 0.3s 0.3s ease-in-out;
   white-space: nowrap;
 }
-.category .mask>span { position: absolute; left: 40px; top: 0px; color: #fff; }
-.category .mask>img { position: absolute; left: 10px; filter: invert(100%); }
+.category .mask>span { position: absolute; left: 10px; top: 0px; color: #fff; }
+.category .mask>img { position: absolute; left: 246px; filter: invert(100%); }
 .category.on .mask { width: 100%; transition: width 0.3s ease-in-out; }
 .category:hover .text { cursor: pointer; color: var(--light-bg); }
 .category .text span { font-size: 24px; font-weight: 600; }
