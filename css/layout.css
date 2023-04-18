@@ -74,17 +74,18 @@ header #menuBtn {
   position: absolute;
   display: block;
   right: -320px; top: 80px;
-  width: 320px; height: 93vh;
-  padding: 30px;
+  width: 320px; height: calc(100vh - 80px);
+  padding: 20px;
   border-left: 2px solid var(--light-bg);
   background: #fff;
   transform: translateX(0);
   transition: 0.3s ease;
+  overflow: hidden;
 }
-#sideMenu.on { width: 320px; transform: translateX(-100%); overflow-y: scroll; }
+#sideMenu.on { transform: translateX(-100%); overflow-y: scroll; }
 .category {
   position: relative;
-  width: 100%; height: 34px;
+  width: 280px; height: 34px;
   overflow: hidden;
   margin-bottom: 10px;
   border-bottom: 1px solid #aaa;
@@ -102,7 +103,8 @@ header #menuBtn {
 .category .mask { 
   position: absolute; 
   left: 0px; top: 0px;
-  display: block; 
+  display: flex; 
+  align-items: center;
   width: 0px; height: 101%;
   padding: 0; 
   overflow: hidden;
@@ -111,7 +113,7 @@ header #menuBtn {
   white-space: nowrap;
 }
 .category .mask>span { position: absolute; left: 10px; top: 0px; color: #fff; }
-.category .mask>img { position: relative; left: 223px; top: 5px; filter: invert(100%); }
+.category .mask>img { position: absolute; left: 246px; filter: invert(100%); }
 .category.on .mask { width: 100%; transition: width 0.3s ease-in-out; }
 .category:hover .text { cursor: pointer; color: var(--light-bg); }
 .category .text span { font-size: 24px; font-weight: 600; }
@@ -128,24 +130,6 @@ header #menuBtn {
   width: 300px; height: 100%;
   overflow-y: scroll;
   border: 1px solid black;
-}
-
-dl>dt { 
-  position: relative;
-  font-size: 20px; 
-  font-weight: 600;
-  padding-left: 10px; 
-  margin-top: 20px;
-}
-dl>dt:before { 
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--main-color);
 }
 
 ul { display: flex; flex-wrap: wrap; }
@@ -277,7 +261,7 @@ ul>li { padding: 0.5em 1em; }
 #detail .text-wrap {
   width: 500px; height: 100%;
   background-color: #eee;
-  border-left: 3px solid var(--light-bg);
+  border-right: 3px solid var(--light-bg);
 }
 
 #floors {
