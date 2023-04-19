@@ -197,10 +197,73 @@ ul>li { padding: 0.5em 1em; }
   height: calc(100vh - 80px);
 }
 
+
+#detail .text-wrap {
+  width: 500px; height: 100%;
+  background-color: #eee;
+  border-right: 3px solid var(--light-bg);
+  border-left: 3px solid var(--light-bg);
+  overflow-y: auto;
+}
+
+#floors {
+  display: flex; flex-direction: column-reverse;
+  justify-content: flex-end; align-items: flex-start;
+  width: 100%; height: 100%;
+  padding: 10px;
+}
+
+#floors>li { 
+  width: 100%; height: auto;
+  overflow: hidden; 
+  cursor: pointer; 
+}
+
+#floors span.floor-title {
+  display: block;
+  margin-bottom: 20px;
+  border-bottom: 4px solid gray;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+#rooms {
+  display: flex; flex-wrap: wrap;
+  width: 100%; height: auto;
+  overflow: hidden;
+}
+
+#rooms>li {
+  width: 60px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+}
+#rooms>li:hover {
+  text-decoration: underline;
+}
+
+
 #detail .img-wrap {
   position: relative;
+  width: calc(100% - 500px); height: 100%;
+  overflow: hidden;
+}
+#detail .img-wrap .navbar {
+  position: relative;
+  width: 100%; height: 3em;
+  padding: 1em;
+  background: #ddd;
+
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#detail .img-wrap .imgBg {
+  position: relative;
   width: 100%; height: 100%;
-  background-color: #ddd;
 }
 
 #detail .img-wrap .roomNum {
@@ -256,49 +319,3 @@ ul>li { padding: 0.5em 1em; }
 #detail .img-wrap .roomNum:nth-child(2) { left: 44%; top: 60%; }
 #detail .img-wrap .roomNum:nth-child(3) { left: 37%; top: 34%; }
 #detail .img-wrap .roomNum:nth-child(4) { left: 17%; top: 49%; }
-
-
-#detail .text-wrap {
-  width: 500px; height: 100%;
-  background-color: #eee;
-  border-right: 3px solid var(--light-bg);
-}
-
-#floors {
-  display: flex; flex-direction: column-reverse;
-  justify-content: flex-end; align-items: flex-start;
-  width: 100%; height: 100%;
-  padding: 10px;
-}
-
-#floors>li { 
-  width: 100%; height: 80px;
-  overflow: hidden; 
-
-  cursor: pointer; 
-}
-
-#floors span.floor-title {
-  display: block;
-  margin-bottom: 20px;
-  border-bottom: 4px solid gray;
-  font-size: 32px;
-  font-weight: 600;
-}
-
-#rooms {
-  display: flex; flex-wrap: wrap;
-  width: 100%; height: auto;
-  overflow: hidden;
-}
-
-#rooms>li {
-  width: 60px;
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.4;
-}
-#rooms>li:hover {
-  text-decoration: underline;
-}
