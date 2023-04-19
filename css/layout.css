@@ -201,8 +201,8 @@ ul>li { padding: 0.5em 1em; }
 #detail .text-wrap {
   width: 500px; height: 100%;
   background-color: #eee;
-  border-right: 3px solid var(--light-bg);
-  border-left: 3px solid var(--light-bg);
+  border-right: 3px solid var(--main-color);
+  border-left: 3px solid var(--main-color);
   overflow-y: auto;
 }
 
@@ -216,22 +216,30 @@ ul>li { padding: 0.5em 1em; }
 #floors>li { 
   width: 100%; height: auto;
   overflow: hidden; 
-  cursor: pointer; 
 }
 
 #floors span.floor-title {
   display: block;
-  margin-bottom: 20px;
-  border-bottom: 4px solid gray;
-  font-size: 32px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ccc;
+  font-size: 30px;
   font-weight: 600;
+  text-indent: 0.5em;
+  cursor: pointer;
+}
+#floors li.active span.floor-title {
+  background: var(--light-bg);
+  color: #fff;
 }
 
 #rooms {
   display: flex; flex-wrap: wrap;
   width: 100%; height: auto;
   overflow: hidden;
+  pointer-events: none;
+  cursor: normal;
 }
+#floors li.active #rooms { pointer-events: all; cursor: pointer; }
 
 #rooms>li {
   width: 60px;
@@ -288,6 +296,11 @@ ul>li { padding: 0.5em 1em; }
   pointer-events: none;
   transform: translateY(-30px);
   transition: all 0.5s;
+}
+.roomNum .desc.active {
+  pointer-events: all;
+  opacity: 1;
+  transform: translateY(0);
 }
 .desc::before {
   content: '';
