@@ -3,6 +3,14 @@ const roomNums = document.querySelectorAll('#detail .img-wrap .roomNum');
 
 const receivedFloorCount = 4;
 const receivedRoomCount = 4;
+/**
+ * 건물에 대한 정보 중 총 층(floor)수와 호(room)수를 받아와서
+ * detail_example.html에 Floor List를 구성하는 새 element 들을 생성합니다.
+ * 
+ * @param {number} floorCount the integer number of floors
+ * @param {number} roomCount the integer number of rooms in each floors
+ * @result Create new elements under `ul#floors`
+ */
 const setFloorText = (floorCount, roomCount) => {
     for (let i = 0; i < floorCount; ++i) {
         const liFloor = document.createElement('li');
@@ -52,7 +60,10 @@ const setFloorList = (info) => {
         // something action here
     }
 }
-
+/**
+ * `main#detail > div.img-wrap > div.imgBg` 의 background url을 `bgUrl`로 설정합니다.
+ * @param {string} bgUrl 건물 단면도 배경으로 쓰일 이미지의 url string
+ */
 const setFloorBg = (bgUrl) => {
     const target = document.querySelector('#detail .img-wrap .imgBg');
     target.style.background = `url(${bgUrl}) no-repeat center center / contain`;
@@ -61,14 +72,33 @@ const setFloorBg = (bgUrl) => {
 // setFloorList(receivedBuildingInfo);
 setFloorBg(receivedBgUrl);
 
-let rooms;
-
+let rooms = undefined;
 let prevElement = undefined;
 let prevDesc = undefined;
 const floors = document.querySelectorAll('#floors>li');
 floors.forEach((floor, i) => {
-    // 1층을 Default로 보여줌
-    if (i === 0) floor.classList.add('active');
+    // 1층을 Default로 보여주기 위한 설정
+    if (i === 0) { 
+        floor.classList.add('active'); 
+        const fl = receivedFloorList[i];
+        roomNums.forEach((rn, j) => {
+            rn.querySelector('span').innerText = `${fl[j]}`;
+            rn.querySelector('.desc p').innerText = `${fl[j]} description`;
+        });
+        
+        rooms = floor.querySelectorAll('#rooms li');
+        rooms.forEach((room, idx) => {
+            room.addEventListener('click', (e) => {
+                if (prevDesc) { prevDesc.classList.remove('active'); }
+
+                const desc = roomNums[idx].querySelector('.desc');
+                desc.classList.add('active');
+                prevDesc = desc;
+            })
+        });
+
+        prevElement = floor;
+    }
 
     const floorTitle = floor.querySelector('.floor-title');
     floorTitle.addEventListener('click', e => {
@@ -91,7 +121,7 @@ floors.forEach((floor, i) => {
         
         rooms = floor.querySelectorAll('#rooms li');
         rooms.forEach((room, idx) => {
-            room.addEventListener('click', () => {
+            room.addEventListener('click', (e) => {
                 if (prevDesc) { prevDesc.classList.remove('active'); }
 
                 const desc = roomNums[idx].querySelector('.desc');
@@ -101,5 +131,5 @@ floors.forEach((floor, i) => {
         });
 
         prevElement = floor;
-    })
+    });
 });
