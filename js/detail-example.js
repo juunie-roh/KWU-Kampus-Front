@@ -62,7 +62,7 @@ const setFloorList = (info) => {
 }
 /**
  * `main#detail > div.img-wrap > div.imgBg` 의 background url을 `bgUrl`로 설정합니다.
- * @param {string} bgUrl 건물 단면도 배경으로 쓰일 이미지의 url string
+ * @param {string} bgUrl url string of the background image
  */
 const setFloorBg = (bgUrl) => {
     const target = document.querySelector('#detail .img-wrap .imgBg');
