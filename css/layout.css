@@ -25,6 +25,7 @@ main {
 
 /* __COMMON__  */
 
+/* header */
 header {
   position: fixed;
   left: 0; top: 0;
@@ -117,12 +118,15 @@ header #menuBtn {
 .category.on .mask { width: 100%; transition: width 0.3s ease-in-out; }
 .category:hover .text { cursor: pointer; color: var(--light-bg); }
 .category .text span { font-size: 24px; font-weight: 600; }
+.category .text>img,
+.category .mask>img { transition: transform .3s ease; }
 .category.on .text>img,
-.category.on .mask>img { transform: rotate(180deg); }
+.category.on .mask>img { transform: rotate(180deg); transition: transform .3s .3s ease; }
 .category .sub-categories { height: auto; }
 .sub-categories>li { width: 100%; }
 .sub-categories>li>a { font-size: 16px; }
 .sub-categories>li>a:hover { text-decoration: underline; }
+/* header end */
 
 .floor {
   position: relative;
