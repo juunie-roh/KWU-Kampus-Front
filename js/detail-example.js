@@ -62,7 +62,7 @@ const setFloorList = (info) => {
 }
 
 const setFloorBg = (bgUrl) => {
-    const target = document.querySelector('#detail .img-wrap');
+    const target = document.querySelector('#detail .img-wrap .imgBg');
     target.style.background = `url(${bgUrl}) no-repeat center center / contain`;
 }
 
@@ -84,7 +84,7 @@ floors.forEach((floor, i) => {
         // active 되어있다면 제거하고 종료
         if (floor.classList.contains('active')) {
             floor.classList.remove('active');
-            floor.style.height = floorDefaultHeight + 'px';
+            // floor.style.height = floorDefaultHeight + 'px';
             return;
         }
 
@@ -92,7 +92,7 @@ floors.forEach((floor, i) => {
         // 다른 element 클릭 시 저장한 이전 element를 비활성화
         if (prevElement) {
             prevElement.classList.remove('active');
-            prevElement.style.height = floorDefaultHeight + 'px';
+            // prevElement.style.height = floorDefaultHeight + 'px';
         }
 
         // 선택한 층에 따라 표시되는 호수(방 번호) 변경
@@ -120,6 +120,6 @@ floors.forEach((floor, i) => {
             })
         })
         prevElement = floor;
-        floor.style.height = floorDefaultHeight + roomsHeight + 18 + 'px';
+        // floor.style.height = floorDefaultHeight + roomsHeight + 18 + 'px';
     })
 });
