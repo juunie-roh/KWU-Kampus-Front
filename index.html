@@ -15,6 +15,12 @@
     <header>
       <div class="inner">
         <h1>광운대학교<a href="./index.html">(logo img)</a></h1>
+        <!-- Temporary Links List -->
+        <ul>
+          <li>Temporary Links</li>
+          <li><a href="./pages/detail_example.html">Detail Example</a></li>
+        </ul>
+        <!-- Temporary Links List end -->
         <div id="menuBtn">
           <!-- <i class='bx bx-search' ></i> -->
           <div class="center">
@@ -80,7 +86,7 @@
     </header>
 
     <main class="main">
-      <div class="box">
+      <!-- <div class="box">
         <div class="floor"></div>
         <div class="prop prop01">
           <a href="./pages/detail_example.html">
@@ -93,7 +99,17 @@
         <div class="prop prop03">prop03</div>
         <div class="prop prop04">prop04</div>
         <div class="prop prop05">prop05</div>
-      </div>
+      </div> -->
+      <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+      <script type="importmap">
+        {
+          "imports": {
+            "three": "../build/three.module.js",
+            "three/addons/": "./jsm/"
+          }
+        }
+      </script>
+      <script type="module" src="./js/main.js"></script>
     </main>
 
   </div>
