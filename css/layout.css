@@ -57,9 +57,9 @@ header h1 { font-size: 0px; }
 header h1>a { font-size: 40px; color: #fff; }
 
 /* Temporary Links List */
-header>ul { display: flex; gap: 20px; }
-header>ul li { color: #fff; }
-header>ul li a { text-decoration: underline; }
+header ul.temp-links { display: flex; gap: 20px; }
+header ul.temp-links li { color: #fff; }
+header ul.temp-links li a { text-decoration: underline; }
 /* Temporary Links List end */
 
 header #menuBtn { 
