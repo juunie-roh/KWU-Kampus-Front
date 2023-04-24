@@ -16,8 +16,8 @@ function init() {
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+  renderer.setSize(window.innerWidth, window.innerHeight - 80);
+  document.querySelector('main').appendChild(renderer.domElement);
 
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
   camera.position.set(400, 200, 0);
@@ -103,3 +103,14 @@ function render() {
   renderer.render(scene, camera);
 
 }
+
+const fixedHelp = document.getElementById('fixedHelp');
+fixedHelp.addEventListener('click', () => {
+  if (fixedHelp.classList.contains('active')) {
+    fixedHelp.classList.remove('active');
+    fixedHelp.removeAttribute('style');
+    return;
+  }
+  fixedHelp.classList.add('active');
+  fixedHelp.style.height = fixedHelp.querySelector('ul').clientHeight + 40 + 'px';
+})

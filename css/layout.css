@@ -20,7 +20,7 @@ main {
 .inner {
   position: relative;
   width: 100%;
-  padding: 0 110px;
+  padding: 0 50px;
 }
 
 /* Layout 확인용 Test Bg Division */
@@ -64,7 +64,6 @@ header ul.temp-links li a { text-decoration: underline; }
 
 header #menuBtn { 
   width: 50px; height: 50px;
-  margin-right: -50px;
   cursor: pointer;
 }
 #menuBtn i { color: #fff; font-size: 40px; font-weight: 500; }
@@ -148,6 +147,30 @@ header #menuBtn {
 .sub-categories>li>a { font-size: 16px; }
 .sub-categories>li>a:hover { text-decoration: underline; }
 /* header end */
+
+/* fixed-how-to-use */
+#fixedHelp {
+  position: fixed;
+  left: 20px; top: 100px;
+  display: block;
+  width: 70px; height: 70px;
+  padding: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+#fixedHelp.active { width: 200px; }
+#fixedHelp.active img.help-icon { display: none; }
+#fixedHelp ul { display: none; }
+#fixedHelp.active ul { display: block; }
+#fixedHelp ul li {
+  display: flex;
+  justify-content: space-between; align-items: center;
+  width: 100%; height: 24px;
+  margin: 10px 0;
+}
 
 .floor {
   position: relative;
