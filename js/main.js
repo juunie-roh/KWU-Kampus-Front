@@ -62,11 +62,11 @@ function init() {
   // lights
 
   const dirLight1 = new THREE.DirectionalLight(0xffffff);
-  dirLight1.position.set(1, 1, 1);
+  dirLight1.position.set(10, 12, 9);
   scene.add(dirLight1);
 
-  const dirLight2 = new THREE.DirectionalLight(0x002288);
-  dirLight2.position.set(-1, -1, -1);
+  const dirLight2 = new THREE.DirectionalLight(0x002266);
+  dirLight2.position.set(-9, -12, -10);
   scene.add(dirLight2);
 
   const ambientLight = new THREE.AmbientLight(0x222222);
