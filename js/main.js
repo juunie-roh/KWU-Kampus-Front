@@ -59,6 +59,17 @@ function init() {
 
   }
 
+  // world floor
+  const planeSize = 2000;
+  const planeTexture = new THREE.TextureLoader().load('../images/KakaoMap_KWU.png');
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(planeSize, planeSize, 8, 8),
+    new THREE.MeshBasicMaterial({side: THREE.DoubleSide, map: planeTexture})
+  );
+  plane.rotateX(- Math.PI / 2);
+  plane.rotateZ(Math.PI / 2);
+  scene.add(plane);
+
   // lights
 
   const dirLight1 = new THREE.DirectionalLight(0xffffff);
