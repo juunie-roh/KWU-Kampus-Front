@@ -66,7 +66,7 @@ function init() {
     const model = gltf.scene;
     model.position.set(112, 0, -460);
     model.rotateY(- Math.PI / 180 * 106);
-    model.scale.setScalar(2.4);
+    model.scale.setScalar(2);
     
     scene.add(model);
   }, undefined, (error) => {
