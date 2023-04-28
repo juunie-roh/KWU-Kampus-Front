@@ -62,7 +62,7 @@ function init() {
 
   // loader
   const loader = new GLTFLoader();
-  loader.load('../models/SaeBit.glb', (gltf) => {
+  loader.load('/models/SaeBit.glb', (gltf) => {
     const model = gltf.scene;
     model.position.set(112, 0, -460);
     model.rotateY(- Math.PI / 180 * 106);
@@ -75,7 +75,7 @@ function init() {
 
   // world floor
   const planeSize = 2000;
-  const planeTexture = new THREE.TextureLoader().load('../images/KakaoMap_KWU.png');
+  const planeTexture = new THREE.TextureLoader().load('/images/KakaoMap_KWU.png');
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(planeSize, planeSize, 8, 8),
     new THREE.MeshBasicMaterial({side: THREE.DoubleSide, map: planeTexture})
