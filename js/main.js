@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 // import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { MapControls } from 'three/addons/controls/MapControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 let camera, controls, scene, renderer;
 
@@ -40,24 +41,37 @@ function init() {
 
   // world
 
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  geometry.translate(0, 0.5, 0);
-  const material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
+  // const geometry = new THREE.BoxGeometry(1, 1, 1);
+  // geometry.translate(0, 0.5, 0);
+  // const material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
 
-  for (let i = 0; i < 500; i++) {
+  // for (let i = 0; i < 500; i++) {
 
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.x = Math.random() * 1600 - 800;
-    mesh.position.y = 0;
-    mesh.position.z = Math.random() * 1600 - 800;
-    mesh.scale.x = 20;
-    mesh.scale.y = Math.random() * 80 + 10;
-    mesh.scale.z = 20;
-    mesh.updateMatrix();
-    mesh.matrixAutoUpdate = false;
-    scene.add(mesh);
+  //   const mesh = new THREE.Mesh(geometry, material);
+  //   mesh.position.x = Math.random() * 1600 - 800;
+  //   mesh.position.y = 0;
+  //   mesh.position.z = Math.random() * 1600 - 800;
+  //   mesh.scale.x = 20;
+  //   mesh.scale.y = Math.random() * 80 + 10;
+  //   mesh.scale.z = 20;
+  //   mesh.updateMatrix();
+  //   mesh.matrixAutoUpdate = false;
+  //   scene.add(mesh);
 
-  }
+  // }
+
+  // loader
+  const loader = new GLTFLoader();
+  loader.load('../models/SaeBit.glb', (gltf) => {
+    const model = gltf.scene;
+    model.position.set(112, 0, -460);
+    model.rotateY(- Math.PI / 180 * 106);
+    model.scale.setScalar(2.4);
+    
+    scene.add(model);
+  }, undefined, (error) => {
+    console.error(error);
+  });
 
   // world floor
   const planeSize = 2000;
