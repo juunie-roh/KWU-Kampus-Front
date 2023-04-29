@@ -145,26 +145,29 @@ function createModal( position ) {
   // Drawing Lines:
   const points = [];
   points.push( new THREE.Vector3( 0, 0, 0 ) );
-  points.push( new THREE.Vector3( 80, 80, 80 ) );
+  points.push( new THREE.Vector3( 50, 50, 50 ) );
   // points.push( new THREE.Vector3( 50, 0, 0 ) );
 
   const geometry = new THREE.BufferGeometry().setFromPoints( points );
   const material = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 5 } );
   const line = new THREE.Line( geometry, material );
   line.position.set( 0, 0, 0 );
+  line.material.depthTest = false; // renderOrder
 
   // testing group:
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry( 50, 50, 8, 8, ),
     new THREE.MeshBasicMaterial( { color: 0x000000, side: THREE.FrontSide, transparent: true, opacity: 0.5 } )
   );
-  plane.position.set( 80, 80, 80 );
+  plane.position.set( 50, 50, 50 );
+  plane.material.depthTest = false; // renderOrder
 
   const group = new THREE.Group();
   group.add( line );
   group.add( plane );
   group.position.copy( position );
   modals.push( group );
+  group.renderOrder = 1;
   scene.add( group );
 
 }
