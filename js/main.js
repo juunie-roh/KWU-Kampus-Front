@@ -76,18 +76,17 @@ function init() {
 
   // Create GUI Control Pannel
   const gui = new GUI( { container: document.getElementById( 'guiContainer' ), title: 'Information' } );
-  gui.add(document, 'title');
   let obj = {
     myBoolean: false,
     myString: 'Test String',
     myNumber: 512,
-    myFunction: function() { alert( 'hi' ) } // onclick callback
+    자세히보기: function() { alert( 'hi' ) } // onclick callback
   }
   
   gui.add( obj, 'myBoolean' ); 	// checkbox
   gui.add( obj, 'myString' ); 	// text field
   gui.add( obj, 'myNumber' ); 	// number field
-  gui.add( obj, 'myFunction' ); 	// button
+  gui.add( obj, '자세히보기' ); 	// button
 
 }
 

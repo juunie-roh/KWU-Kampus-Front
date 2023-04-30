@@ -163,6 +163,11 @@ header #menuBtn {
   background: var( --main-color );
   border-radius: 10px;
 }
+
+@media screen and (max-width: 600px) {
+  #guiContainer { width: 100%; }
+  #guiContainer .lil-gui.root { width: calc(100% - 40px); }
+}
 /* fixed information modal end */
 
 /* fixed-how-to-use */
