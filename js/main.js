@@ -41,19 +41,9 @@ function init() {
 
   controls.maxPolarAngle = Math.PI / 2;
 
-  // loader
-  const loader = new GLTFLoader();
-  loader.load('./models/SaeBit.glb', ( gltf ) => {
-    const model = gltf.scene;
-    model.position.set( 112, 0, -460 );
-    model.rotateY( - Math.PI / 180 * 106 );
-    model.scale.setScalar( 2 );
-    
-    createModal( model.position );
-    scene.add( model );
-  }, undefined, ( error ) => {
-    console.error( error );
-  });
+  // GLTF Loader
+  const gltfLoader = new GLTFLoader();
+  loadModel( gltfLoader, './models/SaeBit.glb', new THREE.Vector3( 112, 0, -460 ), -106, 2 );
 
   // world floor
   const planeSize = 2000;
@@ -62,7 +52,7 @@ function init() {
     new THREE.PlaneGeometry( planeSize, planeSize, 8, 8 ),
     new THREE.MeshBasicMaterial( { side: THREE.FrontSide, map: planeTexture } )
   );
-  worldFloor.rotateX( - Math.PI / 2 );
+  worldFloor.rotateX( Math.PI / (-2) );
   worldFloor.rotateZ( Math.PI / 2 );
   scene.add(worldFloor);
 
@@ -90,7 +80,7 @@ function init() {
     myBoolean: false,
     myString: 'Test String',
     myNumber: 512,
-    myFunction: function() { alert( 'hi' ) }
+    myFunction: function() { alert( 'hi' ) } // onclick callback
   }
   
   gui.add( obj, 'myBoolean' ); 	// checkbox
@@ -111,8 +101,11 @@ function onWindowResize() {
 function animate() {
 
   requestAnimationFrame( animate );
+  // Let the groups generated from `createMedal()` to face camera all the time
   modals.forEach( ( modal ) => {
+
     modal.quaternion.copy( camera.quaternion );
+
   });
   controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
   render();
@@ -126,7 +119,7 @@ function render() {
 }
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
-fixedHelp.addEventListener('click', () => {
+fixedHelp.addEventListener( 'click', () => {
 
   if ( fixedHelp.classList.contains( 'active' ) ) {
 
@@ -139,35 +132,89 @@ fixedHelp.addEventListener('click', () => {
   fixedHelp.classList.add( 'active' );
   fixedHelp.style.height = fixedHelp.querySelector( 'ul' ).clientHeight + 40 + 'px';
 
-});
+} );
 
+/**
+ * 건물 모델, `*.glb`를 불러옵니다.
+ * 
+ * `loader` 를 사용해 `modelPath` 에 있는 모델을 불러옵니다.   
+ * 모델의 위치, 회전시킬 각도, 크기 조정을 위한 스케일을 설정하여 `scene` 및 `buildings` 리스트에 추가하고, `createModal()` 에 `position` 을 전달합니다.
+ * @param { GLTFLoader } loader `GLTFLoader` used in this file.
+ * @param { string } modelPath 
+ * @param { THREE.Vector3 } position 
+ * @param { number } angle 
+ * @param { number } scale 
+ */
+async function loadModel ( loader, modelPath, position, angle, scale ) {
+
+  await loader.load( modelPath, async ( gltf ) => {
+
+    const model = await gltf.scene;
+    model.position.copy( position );
+    model.rotateY( Math.PI / 180 * angle );
+    model.scale.setScalar( scale );
+    
+    createModal( model.position );
+    buildings.push( model );
+    scene.add( model );
+
+  }, ( progress ) => {
+
+    console.log( progress.loaded / progress.total * 100 + "% loaded!" );
+
+  }, ( error ) => {
+
+    console.error( error );
+
+  } );
+
+}
+
+// async function loadModelTest ( loader, path ) {
+//   await loader.load(path, async ( gltf ) => {
+//     const model = await gltf.scene;
+//     models.push( model );
+//   }, ( xhr ) => {
+//     console.log( ( xhr.loaded / xhr.total * 100 ) + "% loaded");
+//   }, ( error ) => {
+//     console.error( error );
+//   } );
+// }
+
+/**
+ * 건물 이름 표시를 위한 3D 모달 생성 함수입니다.   
+ * `position` 에 해당하는 위치에서 `THREE.Line` 과 `THREE.Mesh (plane)` 을 갖는 `THREE.Group` 을 생성합니다.
+ * @param {THREE.Vector3} position position of a target model
+ */
 function createModal( position ) {
   // Drawing Lines:
   const points = [];
   points.push( new THREE.Vector3( 0, 0, 0 ) );
   points.push( new THREE.Vector3( 50, 50, 50 ) );
-  // points.push( new THREE.Vector3( 50, 0, 0 ) );
 
-  const geometry = new THREE.BufferGeometry().setFromPoints( points );
-  const material = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 5 } );
-  const line = new THREE.Line( geometry, material );
+  const line = new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints( points ),
+    new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 5 } )
+  );
   line.position.set( 0, 0, 0 );
-  line.material.depthTest = false; // renderOrder
+  line.material.depthTest = false; // for renderOrder
 
-  // testing group:
+  // Create Plane:
+  // (Will be replaced by Text)
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry( 50, 50, 8, 8, ),
     new THREE.MeshBasicMaterial( { color: 0x000000, side: THREE.FrontSide, transparent: true, opacity: 0.5 } )
   );
   plane.position.set( 50, 50, 50 );
-  plane.material.depthTest = false; // renderOrder
+  plane.material.depthTest = false; // for renderOrder
 
+  // Create Group:
   const group = new THREE.Group();
   group.add( line );
   group.add( plane );
   group.position.copy( position );
   modals.push( group );
-  group.renderOrder = 1;
+  group.renderOrder = 1; // renderOrder (z-index)
   scene.add( group );
 
 }
