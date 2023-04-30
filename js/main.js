@@ -174,17 +174,6 @@ async function loadModel ( loader, modelPath, position, name, angle, scale ) {
 
 }
 
-// async function loadModelTest ( loader, path ) {
-//   await loader.load(path, async ( gltf ) => {
-//     const model = await gltf.scene;
-//     models.push( model );
-//   }, ( xhr ) => {
-//     console.log( ( xhr.loaded / xhr.total * 100 ) + "% loaded");
-//   }, ( error ) => {
-//     console.error( error );
-//   } );
-// }
-
 /**
  * 건물 이름 표시를 위한 3D 모달 생성 함수입니다.   
  * `position` 에 해당하는 위치에서 `THREE.Line` 과 `THREE.Mesh (text)` 을 갖는 `THREE.Group` 을 생성합니다.
