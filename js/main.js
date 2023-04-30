@@ -8,6 +8,22 @@ let camera, controls, scene, renderer;
 const buildings = [];
 const modals = [];
 
+const fixedHelp = document.getElementById( 'fixedHelp' );
+fixedHelp.addEventListener( 'click', () => {
+
+  if ( fixedHelp.classList.contains( 'active' ) ) {
+
+    fixedHelp.classList.remove( 'active' );
+    fixedHelp.removeAttribute( 'style' );
+    return;
+
+  }
+
+  fixedHelp.classList.add( 'active' );
+  fixedHelp.style.height = fixedHelp.querySelector( 'ul' ).clientHeight + 40 + 'px';
+
+} );
+
 init();
 //render(); // remove when using next line for animation loop (requestAnimationFrame)
 animate();
@@ -45,6 +61,7 @@ function init() {
   // GLTF Loader
   const gltfLoader = new GLTFLoader();
   loadModel( gltfLoader, './models/SaeBit.glb', new THREE.Vector3( 112, 0, -460 ), 'SaeBit', -106, 2 );
+  loadModel( gltfLoader, './models/HwaDo.glb', new THREE.Vector3(-30, 0, -210), 'HwaDo', -118, 2);
 
   // world floor
   const planeSize = 2000;
@@ -118,22 +135,6 @@ function render() {
 
 }
 
-const fixedHelp = document.getElementById( 'fixedHelp' );
-fixedHelp.addEventListener( 'click', () => {
-
-  if ( fixedHelp.classList.contains( 'active' ) ) {
-
-    fixedHelp.classList.remove( 'active' );
-    fixedHelp.removeAttribute( 'style' );
-    return;
-
-  }
-
-  fixedHelp.classList.add( 'active' );
-  fixedHelp.style.height = fixedHelp.querySelector( 'ul' ).clientHeight + 40 + 'px';
-
-} );
-
 /**
  * 건물 모델, `*.glb`를 불러옵니다.
  * 
@@ -187,7 +188,7 @@ async function loadModel ( loader, modelPath, position, name, angle, scale ) {
 /**
  * 건물 이름 표시를 위한 3D 모달 생성 함수입니다.   
  * `position` 에 해당하는 위치에서 `THREE.Line` 과 `THREE.Mesh (text)` 을 갖는 `THREE.Group` 을 생성합니다.
- * @param {THREE.Vector3} position position of the target model
+ * @param { THREE.Vector3 } position position of the target model
  * @param { string } name name of the target building
  */
 function createModal( position, name ) {
