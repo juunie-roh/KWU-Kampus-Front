@@ -36,7 +36,7 @@ function init() {
 
   renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
-  renderer.setSize( window.innerWidth, window.innerHeight - 80 );
+  renderer.setSize( window.innerWidth, window.innerHeight - document.querySelector( 'header' ).clientHeight - 1 );
   document.querySelector('main').appendChild( renderer.domElement );
 
   camera = new THREE.PerspectiveCamera (60, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -97,13 +97,17 @@ function init() {
     myBoolean: false,
     myString: 'Test String',
     myNumber: 512,
-    자세히보기: function() { alert( 'hi' ) } // onclick callback
+    myFunction: function() { alert( 'hi' ) }, // onclick callback
+    onClickSaeBit: function() { gui.controllers[ 1 ].setValue( '새빛관 테스트 버튼 clicked' ); gui.controllers[ 2 ].setValue( 9 ); }, // onclick saebit here (test button)
+    onClickHwaDo: function() { gui.controllers[ 1 ].setValue( '화도관 테스트 버튼 clicked' ); gui.controllers[ 2 ].setValue( 6 ); }, // onclick hwado here (test button)
   }
   
   gui.add( obj, 'myBoolean' ); 	// checkbox
   gui.add( obj, 'myString' ); 	// text field
   gui.add( obj, 'myNumber' ); 	// number field
-  gui.add( obj, '자세히보기' ); 	// button
+  gui.add( obj, 'myFunction' ).name( '테스트 링크' ); 	// button
+  gui.add( obj, 'onClickSaeBit' ).name( '새빛관 onClick test' );
+  gui.add( obj, 'onClickHwaDo' ).name( '화도관 onClick test' );
 
 }
 
@@ -118,7 +122,7 @@ function onWindowResize() {
 function animate() {
 
   requestAnimationFrame( animate );
-  // Let the groups generated from `createMedal()` to face camera all the time
+  // Let the groups generated from `createModal()` to face camera all the time
   modals.forEach( ( modal ) => {
 
     modal.quaternion.copy( camera.quaternion );
@@ -141,7 +145,7 @@ function render() {
  * `loader` 를 사용해 `modelPath` 에 있는 모델을 불러옵니다.   
  * 모델의 위치, 회전시킬 각도, 크기 조정을 위한 스케일을 설정하여 `scene` 및 `buildings` 리스트에 추가하고, `createModal()` 에 `position` 을 전달합니다.
  * 
- * 모델만 불러오고, 모델의 position, angle, scale 을 설정하는 기능을 나눠야함.
+ * 모델을 불러오는 기능과 모델의 position, angle, scale 을 설정하는 기능을 나눠야함.
  * @param { GLTFLoader } loader `GLTFLoader` used in this file.
  * @param { string } modelPath 
  * @param { THREE.Vector3 } position 
@@ -215,8 +219,8 @@ function createModal( position, name ) {
     const shapes = font.generateShapes(message, 10);
     const geometry = new THREE.ShapeGeometry(shapes);
 
-    geometry.computeBoundingBox();
-    const yMid = 0.5 * (geometry.boundingBox.max.y - geometry.boundingBox.min.y);
+    // geometry.computeBoundingBox();
+    // const yMid = 0.5 * (geometry.boundingBox.max.y - geometry.boundingBox.min.y);
     // geometry.translate(0, yMid, 0);
 
     // make shape ( N.B. edge view not visible )
