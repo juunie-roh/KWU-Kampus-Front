@@ -173,9 +173,10 @@ function onClick( event ) {
 
 function onTouch( event ) {
 
+  event.preventDefault();
   onPointerMove( event );
   onClick();
-  
+
 }
 
 // three.js required
