@@ -4,17 +4,10 @@ import { MapControls } from 'three/addons/controls/MapControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 
-let width, height, camera, controls, scene, renderer, raycaster, gui;
+// basic javascripts
 
-const pointer = new THREE.Vector2(); // mouse cursor position tracking
-let intersects = []; // list to find which building is selected
-let INTERSECTED = undefined; // stores which building is selected
-
-const buildings = [];
-const modals = [];
 const receivedData = [];
 
-////////// BASIC JAVASCRIPTS //////////
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
 
@@ -30,10 +23,20 @@ fixedHelp.addEventListener( 'click', () => {
   fixedHelp.style.height = fixedHelp.querySelector( 'ul' ).clientHeight + 40 + 'px';
 
 } );
-////////// BASIC JAVASCRIPTS END //////////
 
+///////////////////////////////
+///// THREE.js from here: /////
+///////////////////////////////
 
-// THREE.js from here:
+let width, height, camera, controls, scene, renderer, raycaster, gui;
+
+const pointer = new THREE.Vector2(); // mouse cursor position tracking
+let intersects = []; // list to find which building is selected
+let INTERSECTED = undefined; // stores which building is selected
+
+const buildings = [];
+const modals = [];
+const arrows = [];
 
 init();
 animate();
@@ -80,7 +83,7 @@ function init() {
 
   const gltfLoader = new GLTFLoader();
   createModel( gltfLoader, './models/SaeBit.glb', new THREE.Vector3( 112, 0, -460 ), 'SaeBit', -106, 2 );
-  createModel( gltfLoader, './models/HwaDo.glb', new THREE.Vector3(-30, 0, -210), 'HwaDo', -118, 2);
+  createModel( gltfLoader, './models/HwaDo.glb', new THREE.Vector3( -30, 0, -210 ), 'HwaDo', -118, 2 );
 
   // world floor
 
@@ -116,26 +119,25 @@ function init() {
   gui = new GUI( { container: document.getElementById( 'guiContainer' ), title: 'Information' } );
   let obj = {
     myBoolean: false,
-    myString: 'Test String',
+    Name: 'stringName',
     myNumber: 512,
     myFunction: function() { alert( 'hi' ) }, // onclick callback
-    onClickSaeBit: function() { gui.controllers[ 1 ].setValue( '새빛관 테스트 버튼 clicked' ); gui.controllers[ 2 ].setValue( 9 ); }, // onclick saebit here (test button)
-    onClickHwaDo: function() { gui.controllers[ 1 ].setValue( '화도관 테스트 버튼 clicked' ); gui.controllers[ 2 ].setValue( 6 ); }, // onclick hwado here (test button)
   }
   
   gui.add( obj, 'myBoolean' ); 	// checkbox
-  gui.add( obj, 'myString' ); 	// text field
+  gui.add( obj, 'Name' ); 	// text field
   gui.add( obj, 'myNumber' ); 	// number field
   gui.add( obj, 'myFunction' ).name( 'alert hi' ); 	// button
-  gui.add( obj, 'onClickSaeBit' ).name( '새빛관 onClick test' );
-  gui.add( obj, 'onClickHwaDo' ).name( '화도관 onClick test' );
 
   window.addEventListener( 'resize', onWindowResize );
   window.addEventListener( 'pointermove', onPointerMove );
+  window.addEventListener( 'click', onClick );
   window.addEventListener( 'dblclick', ( event ) => { // dev
     // 더블 클릭시 카메라의 위치에서 카메라 방향으로 
     console.log( event );
-    scene.add( new THREE.ArrowHelper( camera.getWorldDirection( new THREE.Vector3 ), camera.getWorldPosition( new THREE.Vector3 ), 100, 0xff0000 ) );
+    const arrow = new THREE.ArrowHelper( camera.getWorldDirection( new THREE.Vector3 ), camera.getWorldPosition( new THREE.Vector3 ), 100, 0xff0000 );
+    scene.add( arrow );
+    arrows.push( arrow );
   } );
 
 }
@@ -159,6 +161,12 @@ function onPointerMove( event ) {
 
 function onClick( event ) {
 
+  if ( INTERSECTED ) {
+
+    INTERSECTED.userData.onClick();
+
+  }
+
 }
 
 // three.js required
@@ -167,7 +175,7 @@ function animate() {
 
   window.requestAnimationFrame( animate );
 
-  // Let the groups generated from `createModal()` to face camera all the time
+  // Let the groups generated from `createFont()` to face camera all the time
   modals.forEach( ( modal ) => {
 
     modal.quaternion.copy( camera.quaternion );
@@ -198,8 +206,9 @@ function render() {
  * @param { number } angle rotation angle applied to `rotateY`.
  * @param { number } scale recommended value is 2.
  */
-function createModel ( loader, modelPath, position, name, angle, scale ) {
+function createModel ( loader, modelPath, position, name = '', angle = 0, scale = 2 ) {
 
+  if ( modelPath === '' ) { console.error( 'modelPath not found' ); return; }
   loader.load( modelPath, async ( gltf ) => {
 
     const model = await gltf.scene;
@@ -231,13 +240,14 @@ function createModel ( loader, modelPath, position, name, angle, scale ) {
 
       onClick: function() {
 
-        model.userData.isActive = !model.userData.isActive;
         console.log( model.name + ' clicked!' );
+        gui.open();
+        gui.controllers[ 1 ].setValue( model.name );
 
       }
     }
     
-    createModal( model.position, name );
+    createFont( model.position, name );
     buildings.push( model );
     scene.add( model );
 
@@ -260,7 +270,7 @@ function createModel ( loader, modelPath, position, name, angle, scale ) {
  * @param { string } name name of the target building
  * @notice 현재 사용하는 폰트는 한글이 지원되지 않습니다. `name` 의 값이 한글일 경우, 물음표로 표시됩니다.
  */
-function createModal( position, name ) {
+function createFont( position, name ) {
   // Drawing Lines:
   const points = [];
   points.push( new THREE.Vector3( 0, 0, 0 ) );
@@ -273,6 +283,7 @@ function createModal( position, name ) {
   line.position.set( 0, 0, 0 );
   line.material.depthTest = false; // for renderOrder
 
+  // font loading function
   const loader = new FontLoader();
   loader.load( './fonts/helvetiker_bold.typeface.json', function ( font ) {
 
@@ -310,7 +321,7 @@ function createModal( position, name ) {
  * `pointer` 에서 `camera` 가 바라보는 방향으로 `raycaster` 를 생성해 교차하는 아이템을 가져옵니다.   
  * 
  * `buildings` 목록에서 `raycaster` 와 교차하는 아이템을 확인하여 가장 앞에 있는 것을 `INTERSECTED`로 설정한 후 `onPointerOver()` 를 수행합니다.   
- * 교차하는 아이템이 바뀌거나 사라졌을 때는 기존 아이템의 `onPointerOut`를 수행합니다.
+ * 교차하는 아이템이 바뀌거나 사라졌을 때는 기존 아이템의 `onPointerOut()`를 수행합니다.
  */
 function getIntersects() {
 
