@@ -119,13 +119,13 @@ function init() {
   gui = new GUI( { container: document.getElementById( 'guiContainer' ), title: 'Information' } );
   let obj = {
     myBoolean: false,
-    Name: 'stringName',
+    name: 'stringName',
     myNumber: 512,
     myFunction: function() { alert( 'hi' ) }, // onclick callback
   }
   
   gui.add( obj, 'myBoolean' ); 	// checkbox
-  gui.add( obj, 'Name' ); 	// text field
+  gui.add( obj, 'name' ).name( '건물명' ); 	// text field
   gui.add( obj, 'myNumber' ); 	// number field
   gui.add( obj, 'myFunction' ).name( 'alert hi' ); 	// button
 
@@ -135,10 +135,12 @@ function init() {
   window.addEventListener( 'dblclick', ( event ) => { // dev
     // 더블 클릭시 카메라의 위치에서 카메라 방향으로 
     console.log( event );
-    const arrow = new THREE.ArrowHelper( camera.getWorldDirection( new THREE.Vector3 ), camera.getWorldPosition( new THREE.Vector3 ), 100, 0xff0000 );
+    const arrow = new THREE.ArrowHelper( camera.getWorldDirection( new THREE.Vector3 ), camera.getWorldPosition( new THREE.Vector3 ), 15, 0xff0000 );
     scene.add( arrow );
     arrows.push( arrow );
   } );
+  // mobile
+  window.addEventListener( 'touchstart', onTouch );
 
 }
 
@@ -167,6 +169,13 @@ function onClick( event ) {
 
   }
 
+}
+
+function onTouch( event ) {
+
+  onPointerMove( event );
+  onClick();
+  
 }
 
 // three.js required
