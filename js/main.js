@@ -7,6 +7,26 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 // basic javascripts
 
 const receivedData = [];
+const exampleSaeBit = {
+  name: 'SaeBit',
+  floors: 9,
+  modelPath: './models/SaeBit.glb',
+  position: new THREE.Vector3( 112, 0, -460 ),
+  angle: -106,
+  scale: 2,
+  others: '',
+}
+const exampleHwaDo = {
+  name: 'HwaDo',
+  floors: 6,
+  modelPath: './models/HwaDo.glb',
+  position: new THREE.Vector3( -30, 0, -210 ),
+  angle: -118,
+  scale: 2,
+  others: '',
+}
+receivedData.push(exampleSaeBit);
+receivedData.push(exampleHwaDo);
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
@@ -82,8 +102,9 @@ function init() {
   // GLTF Loader
 
   const gltfLoader = new GLTFLoader();
-  createModel( gltfLoader, './models/SaeBit.glb', new THREE.Vector3( 112, 0, -460 ), 'SaeBit', -106, 2 );
-  createModel( gltfLoader, './models/HwaDo.glb', new THREE.Vector3( -30, 0, -210 ), 'HwaDo', -118, 2 );
+  receivedData.forEach( (building) => {
+    createModel( gltfLoader, building );
+  } );
 
   // world floor
 
@@ -207,21 +228,23 @@ function render() {
  * @param { number } angle rotation angle applied to `rotateY`.
  * @param { number } scale recommended value is 2.
  */
-function createModel ( loader, modelPath, position, name = '', angle = 0, scale = 2 ) {
+function createModel ( loader, building ) {
 
-  if ( modelPath === '' ) { console.error( 'modelPath not found' ); return; }
-  loader.load( modelPath, async ( gltf ) => {
+  if ( building.modelPath === '' ) { console.error( 'modelPath not found' ); return; }
+  loader.load( building.modelPath, async ( gltf ) => {
 
     const model = await gltf.scene;
-    model.name = name;
-    model.position.copy( position );
-    model.rotateY( Math.PI / 180 * angle );
-    model.scale.setScalar( scale );
+    model.name = building.name;
+    model.position.copy( building.position );
+    model.rotateY( Math.PI / 180 * building.angle );
+    model.scale.setScalar( building.scale );
 
-    // add events to this model via userData
     model.userData = {
-      isActive: false,
-
+      // isActive: false, // not used
+      floors: building.floors,
+      others: building.others,
+      
+      // add events to this model via userData
       onPointerOver: function() {
         for ( let child of model.children ) {
 
@@ -248,7 +271,7 @@ function createModel ( loader, modelPath, position, name = '', angle = 0, scale 
       }
     }
     
-    createFont( model.position, name );
+    createFont( model.position, model.name );
     buildings.push( model );
     scene.add( model );
 
