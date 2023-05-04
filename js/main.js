@@ -119,8 +119,8 @@ function init() {
   gui = new GUI( { container: document.getElementById( 'guiContainer' ), title: 'Information' } );
   let obj = {
     myBoolean: false,
-    name: 'stringName',
-    myNumber: 512,
+    name: '',
+    myNumber: 0,
     myFunction: function() { alert( 'hi' ) }, // onclick callback
   }
   
@@ -132,8 +132,7 @@ function init() {
   window.addEventListener( 'resize', onWindowResize );
   window.addEventListener( 'pointermove', onPointerMove );
   window.addEventListener( 'click', onClick );
-  window.addEventListener( 'dblclick', ( event ) => { // dev
-    // 더블 클릭시 카메라의 위치에서 카메라 방향으로 
+  window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
     console.log( event );
     const arrow = new THREE.ArrowHelper( camera.getWorldDirection( new THREE.Vector3 ), camera.getWorldPosition( new THREE.Vector3 ), 15, 0xff0000 );
     scene.add( arrow );
@@ -162,7 +161,7 @@ function onPointerMove( event ) {
 function onClick( event ) {
 
   onPointerMove(event);
-  
+
   if ( INTERSECTED ) {
 
     INTERSECTED.userData.onClick();
