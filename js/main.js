@@ -11,7 +11,7 @@ const exampleSaeBit = {
   name: 'SaeBit',
   floors: 9,
   modelPath: './models/SaeBit.glb',
-  position: new THREE.Vector3( 112, 0, -460 ),
+  position: { x: 112, y: 0, z: -460 },
   angle: -106,
   scale: 2,
   others: '',
@@ -20,7 +20,7 @@ const exampleHwaDo = {
   name: 'HwaDo',
   floors: 6,
   modelPath: './models/HwaDo.glb',
-  position: new THREE.Vector3( -30, 0, -210 ),
+  position: { x: -30, y: 0, z: -210 },
   angle: -118,
   scale: 2,
   others: '',
@@ -141,13 +141,13 @@ function init() {
   let obj = {
     myBoolean: false,
     name: '',
-    myNumber: 0,
+    floors: 0,
     myFunction: function() { alert( 'hi' ) }, // onclick callback
   }
   
   gui.add( obj, 'myBoolean' ); 	// checkbox
   gui.add( obj, 'name' ).name( '건물명' ); 	// text field
-  gui.add( obj, 'myNumber' ); 	// number field
+  gui.add( obj, 'floors' ).name( '층 수' ); 	// number field
   gui.add( obj, 'myFunction' ).name( 'alert hi' ); 	// button
 
   window.addEventListener( 'resize', onWindowResize );
@@ -219,14 +219,10 @@ function render() {
 /**
  * 건물의 모델링을 불러와 `scene`에 추가합니다.
  * 
- * `loader` 를 사용해 `modelPath` 에 있는 모델을 불러옵니다.   
+ * `loader` 를 사용해 `building.modelPath` 에 있는 모델을 불러옵니다.   
  * 모델의 위치, 회전시킬 각도, 크기 조정을 위한 스케일을 설정하여 `scene` 및 `buildings` 리스트에 추가하고, `createModal()` 에 `position` 을 전달합니다.
  * @param { GLTFLoader } loader `GLTFLoader` used in this file.
- * @param { string } modelPath string path url of target `*.glb` file.
- * @param { THREE.Vector3 } position a position where this model will be placed.
- * @param { string } name name of this model.
- * @param { number } angle rotation angle applied to `rotateY`.
- * @param { number } scale recommended value is 2.
+ * @param { object } building Item stored in `receivedData` list, an object containing informations of each buildings.
  */
 function createModel ( loader, building ) {
 
@@ -235,7 +231,7 @@ function createModel ( loader, building ) {
 
     const model = await gltf.scene;
     model.name = building.name;
-    model.position.copy( building.position );
+    model.position.set( building.position.x, building.position.y, building.position.z );
     model.rotateY( Math.PI / 180 * building.angle );
     model.scale.setScalar( building.scale );
 
@@ -267,6 +263,7 @@ function createModel ( loader, building ) {
         console.log( model.name + ' clicked!' );
         gui.open();
         gui.controllers[ 1 ].setValue( model.name );
+        gui.controllers[ 2 ].setValue( model.userData.floors );
 
       }
     }
