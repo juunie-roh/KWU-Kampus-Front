@@ -139,8 +139,6 @@ function init() {
     scene.add( arrow );
     arrows.push( arrow );
   } );
-  // mobile
-  window.addEventListener( 'touchstart', onTouch );
 
 }
 
@@ -163,19 +161,13 @@ function onPointerMove( event ) {
 
 function onClick( event ) {
 
+  onPointerMove(event);
+  
   if ( INTERSECTED ) {
 
     INTERSECTED.userData.onClick();
 
   }
-
-}
-
-function onTouch( event ) {
-
-  event.preventDefault();
-  onPointerMove( event );
-  onClick();
 
 }
 
