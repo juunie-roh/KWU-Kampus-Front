@@ -310,7 +310,7 @@ async function createFont( position, name ) {
 
   // font loading function
   const loader = new FontLoader();
-  await loader.load( './fonts/NanumSquareRound_ExtraBold_Regular.json', function ( font ) {
+  await loader.load( './fonts/NanumSquareRound.json', function ( font ) {
 
     const material = new THREE.MeshBasicMaterial( {
       color: 0x000000,
