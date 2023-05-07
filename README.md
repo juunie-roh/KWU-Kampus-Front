@@ -1,9 +1,11 @@
 # KWU-fac-header
 
 
-## How to run this project
+## How to Run
 
-### Using Terminal
+Follow steps bellow to run this project on your browser.
+
+### Common
 
 1. clone this repository
 
@@ -13,10 +15,28 @@
    ```
    will install packages in need
 
+[Run through Terminal](#run-through-terminal--npx-vite)
+
+[Run through VSCode Extension](#run-through-vscode-extension)
+
+### Run through Terminal ( npx vite )
+
 3. then, run vite:
    ```bash
    npx vite
    ```
-   will give you local host address
+   or
+   ```bash
+   npx serve
+   ```
+   will give you localhost / network address
 
 4. you can run this project from the given address
+
+### Run through VSCode Extension
+
+3. Open this repository in VSCode.
+
+4. Install VSCode Extension with id `ritwickdey.LiveServer`
+
+5. Open in Live Server
