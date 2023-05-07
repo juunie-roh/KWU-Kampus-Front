@@ -9,7 +9,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 const receivedData = [];
 
 const exampleSaeBit = {
-  name: 'SaeBit',
+  name: '새빛관',
   id: 0,
   modelPath: './models/SaeBit.glb',
   position: { x: 59, y: 0, z: -229 }, // { x: 118, y: 0, z: -458 },
@@ -18,7 +18,7 @@ const exampleSaeBit = {
   others: '',
 }
 const exampleHwaDo = {
-  name: 'HwaDo',
+  name: '화도관',
   id: 1,
   modelPath: './models/HwaDo.glb',
   position: { x: -16, y: 0, z: -106 }, // { x: -32, y: 0, z: -212 },
@@ -310,7 +310,7 @@ async function createFont( position, name ) {
 
   // font loading function
   const loader = new FontLoader();
-  await loader.load( './fonts/helvetiker_bold.typeface.json', function ( font ) {
+  await loader.load( './fonts/NanumSquareRound_ExtraBold_Regular.json', function ( font ) {
 
     const material = new THREE.MeshBasicMaterial( {
       color: 0x000000,
