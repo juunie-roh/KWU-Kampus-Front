@@ -12,22 +12,22 @@ const exampleSaeBit = {
   name: 'SaeBit',
   id: 0,
   modelPath: './models/SaeBit.glb',
-  position: { x: 112, y: 0, z: -460 },
-  angle: -106,
-  scale: 2,
+  position: { x: 59, y: 0, z: -229 }, // { x: 118, y: 0, z: -458 },
+  angle: -105.5,
+  scale: 1, // 2,
   others: '',
 }
 const exampleHwaDo = {
   name: 'HwaDo',
   id: 1,
   modelPath: './models/HwaDo.glb',
-  position: { x: -30, y: 0, z: -210 },
+  position: { x: -16, y: 0, z: -106 }, // { x: -32, y: 0, z: -212 },
   angle: -118,
-  scale: 2,
+  scale: 1, // 2,
   others: '',
 }
-receivedData.push(exampleSaeBit);
-receivedData.push(exampleHwaDo);
+receivedData.push( exampleSaeBit );
+receivedData.push( exampleHwaDo );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
@@ -56,8 +56,8 @@ let intersects = []; // list to find which building is selected
 let INTERSECTED = undefined; // stores which building is selected
 
 const buildings = [];
-const modals = [];
-const arrows = [];
+const fonts = [];
+// const arrows = [];
 
 init();
 animate();
@@ -81,7 +81,7 @@ function init() {
   document.querySelector( 'main' ).appendChild( renderer.domElement ); // where to append
 
   camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );
-  camera.position.set( 400, 200, 0 );
+  camera.position.set( 200, 100, 0 ); // ( 400, 200, 0 );
 
   // controls
 
@@ -95,7 +95,7 @@ function init() {
   controls.screenSpacePanning = false;
 
   controls.minDistance = 100;
-  controls.maxDistance = 700;
+  controls.maxDistance = 500;
 
   controls.maxPolarAngle = Math.PI / 2;
 
@@ -108,16 +108,16 @@ function init() {
 
   // world floor
 
-  const planeSize = 2000;
+  const planeSize = 1000; // 2000;
   const planeTexture = new THREE.TextureLoader().load( './images/KakaoMap_KWU.png' );
   const worldFloor = new THREE.Mesh(
     new THREE.PlaneGeometry( planeSize, planeSize, 8, 8 ),
     new THREE.MeshBasicMaterial( { side: THREE.FrontSide, map: planeTexture } )
   );
-  worldFloor.rotateX( Math.PI / (-2) );
+  worldFloor.rotateX( Math.PI / ( -2 ) );
   worldFloor.rotateZ( Math.PI / 2 );
   worldFloor.name = 'worldFloor';
-  scene.add(worldFloor);
+  scene.add( worldFloor );
 
   // lights
 
@@ -155,12 +155,12 @@ function init() {
   window.addEventListener( 'resize', onWindowResize );
   window.addEventListener( 'pointermove', onPointerMove );
   window.addEventListener( 'click', onClick );
-  window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
-    console.log( event );
-    const arrow = new THREE.ArrowHelper( camera.getWorldDirection( new THREE.Vector3 ), camera.getWorldPosition( new THREE.Vector3 ), 15, 0xff0000 );
-    scene.add( arrow );
-    arrows.push( arrow );
-  } );
+  // window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
+  //   console.log( event );
+  //   const arrow = new THREE.ArrowHelper( camera.getWorldDirection( new THREE.Vector3 ), camera.getWorldPosition( new THREE.Vector3 ), 15, 0xff0000 );
+  //   scene.add( arrow );
+  //   arrows.push( arrow );
+  // } );
 
 }
 
@@ -199,9 +199,9 @@ function animate() {
   window.requestAnimationFrame( animate );
 
   // Let the groups generated from `createFont()` to face the camera all the time
-  modals.forEach( ( modal ) => {
+  fonts.forEach( ( font ) => {
 
-    modal.quaternion.copy( camera.quaternion );
+    font.quaternion.copy( camera.quaternion );
 
   });
   controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
@@ -215,13 +215,13 @@ function render() {
 
 }
 
-// customed functions
+// custom functions
 
 /**
  * 건물의 모델링을 불러와 `scene`에 추가합니다.
  * 
  * `loader` 를 사용해 `building.modelPath` 에 있는 모델을 불러옵니다.   
- * 모델의 위치, 회전시킬 각도, 크기 조정을 위한 스케일을 설정하여 `scene` 및 `buildings` 리스트에 추가하고, `createModal()` 에 `position` 을 전달합니다.
+ * 모델의 위치, 회전시킬 각도, 크기 조정을 위한 스케일을 설정하여 `scene` 및 `buildings` 리스트에 추가하고, `createFont()` 에 `position` 을 전달합니다.
  * @param { GLTFLoader } loader `GLTFLoader` used in this file.
  * @param { object } building Item stored in `receivedData` list, an object containing informations of each buildings.
  */
@@ -289,7 +289,7 @@ function createModel ( loader, building ) {
 }
 
 /**
- * 건물 이름 표시를 위한 3D 모달 생성 함수입니다.   
+ * 건물 이름 표시를 위한 3D 폰트 생성 함수입니다.   
  * `position` 에 해당하는 위치에서 `THREE.Line` 과 `THREE.Mesh (text)` 을 갖는 `THREE.Group` 을 생성합니다.
  * @param { THREE.Vector3 } position position of the target model
  * @param { string } name name of the target building
@@ -299,7 +299,7 @@ async function createFont( position, name ) {
   // Drawing Lines:
   const points = [];
   points.push( new THREE.Vector3( 0, 0, 0 ) );
-  points.push( new THREE.Vector3( 50, 50, 50 ) );
+  points.push( new THREE.Vector3( 25, 25, 25 ) ); // ( 50, 50, 50 ) );
 
   const line = new THREE.Line(
     new THREE.BufferGeometry().setFromPoints( points ),
@@ -319,12 +319,12 @@ async function createFont( position, name ) {
     } );
 
     const message = name;
-    const shapes = font.generateShapes( message, 10 );
+    const shapes = font.generateShapes( message, 5 ); // 10 );
     const geometry = new THREE.ShapeGeometry( shapes );
 
     // make shape ( N.B. edge view not visible )
     const text = new THREE.Mesh( geometry, material );
-    text.position.set( 50, 50, 50 );
+    text.position.set( 25, 25, 25 );// ( 50, 50, 50 );
     text.material.depthTest = false; // for renderOrder
     group.add( text );
 
@@ -335,9 +335,9 @@ async function createFont( position, name ) {
   group.add( line );
   // group.add( plane );
   group.position.copy( position );
-  modals.push( group );
+  fonts.push( group );
   group.renderOrder = 1; // renderOrder (z-index)
-  group.name = name + ' Modal';
+  group.name = name + ' Font';
   scene.add( group );
 
 }
