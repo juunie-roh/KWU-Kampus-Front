@@ -226,12 +226,15 @@ function render() {
  * @param { GLTFLoader } loader `GLTFLoader` used in this file.
  * @param { object } building Item stored in `receivedData` list, an object containing informations of each buildings.
  */
-async function createModel ( loader, building ) {
+function createModel ( loader, building ) {
 
   if ( building.modelPath === '' ) { console.error( 'modelPath not found' ); }
-  await loader.load( building.modelPath, async ( gltf ) => {
+  loader.load( building.modelPath, async ( gltf ) => {
 
     const model = await gltf.scene;
+    if ( !model ) {
+      // error handling
+    }
     model.name = building.name;
     model.position.set( building.position.x, building.position.y, building.position.z );
     model.rotateY( Math.PI / 180 * building.angle );
