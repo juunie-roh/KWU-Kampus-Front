@@ -7,9 +7,10 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 // basic javascripts
 
 const receivedData = [];
+
 const exampleSaeBit = {
   name: 'SaeBit',
-  floors: 9,
+  id: 0,
   modelPath: './models/SaeBit.glb',
   position: { x: 112, y: 0, z: -460 },
   angle: -106,
@@ -18,7 +19,7 @@ const exampleSaeBit = {
 }
 const exampleHwaDo = {
   name: 'HwaDo',
-  floors: 6,
+  id: 1,
   modelPath: './models/HwaDo.glb',
   position: { x: -30, y: 0, z: -210 },
   angle: -118,
@@ -141,14 +142,16 @@ function init() {
   let obj = {
     myBoolean: false,
     name: '',
-    floors: 0,
+    id: 0,
     myFunction: function() { alert( 'hi' ) }, // onclick callback
   }
   
   gui.add( obj, 'myBoolean' ); 	// checkbox
   gui.add( obj, 'name' ).name( '건물명' ); 	// text field
-  gui.add( obj, 'floors' ).name( '층 수' ); 	// number field
+  gui.add( obj, 'id' ).name( 'Building ID' ); 	// number field
   gui.add( obj, 'myFunction' ).name( 'alert hi' ); 	// button
+  gui.controllers[1].$input.readOnly = true;
+  gui.controllers[2].$input.readOnly = true;
 
   window.addEventListener( 'resize', onWindowResize );
   window.addEventListener( 'pointermove', onPointerMove );
@@ -181,8 +184,7 @@ function onPointerMove( event ) {
 
 function onClick( event ) {
 
-  onPointerMove(event);
-
+  onPointerMove(event); // get pointer position
   if ( INTERSECTED ) {
 
     INTERSECTED.userData.onClick();
@@ -197,7 +199,7 @@ function animate() {
 
   window.requestAnimationFrame( animate );
 
-  // Let the groups generated from `createFont()` to face camera all the time
+  // Let the groups generated from `createFont()` to face the camera all the time
   modals.forEach( ( modal ) => {
 
     modal.quaternion.copy( camera.quaternion );
@@ -224,10 +226,10 @@ function render() {
  * @param { GLTFLoader } loader `GLTFLoader` used in this file.
  * @param { object } building Item stored in `receivedData` list, an object containing informations of each buildings.
  */
-function createModel ( loader, building ) {
+async function createModel ( loader, building ) {
 
-  if ( building.modelPath === '' ) { console.error( 'modelPath not found' ); return; }
-  loader.load( building.modelPath, async ( gltf ) => {
+  if ( building.modelPath === '' ) { console.error( 'modelPath not found' ); }
+  await loader.load( building.modelPath, async ( gltf ) => {
 
     const model = await gltf.scene;
     model.name = building.name;
@@ -237,7 +239,7 @@ function createModel ( loader, building ) {
 
     model.userData = {
       // isActive: false, // not used
-      floors: building.floors,
+      id: building.id,
       others: building.others,
       
       // add events to this model via userData
@@ -263,7 +265,7 @@ function createModel ( loader, building ) {
         console.log( model.name + ' clicked!' );
         gui.open();
         gui.controllers[ 1 ].setValue( model.name );
-        gui.controllers[ 2 ].setValue( model.userData.floors );
+        gui.controllers[ 2 ].setValue( model.userData.id );
 
       }
     }
@@ -291,7 +293,7 @@ function createModel ( loader, building ) {
  * @param { string } name name of the target building
  * @notice 현재 사용하는 폰트는 한글을 지원하지 않습니다. `name` 의 값이 한글일 경우, 물음표로 표시됩니다.
  */
-function createFont( position, name ) {
+async function createFont( position, name ) {
   // Drawing Lines:
   const points = [];
   points.push( new THREE.Vector3( 0, 0, 0 ) );
@@ -306,7 +308,7 @@ function createFont( position, name ) {
 
   // font loading function
   const loader = new FontLoader();
-  loader.load( './fonts/helvetiker_bold.typeface.json', function ( font ) {
+  await loader.load( './fonts/helvetiker_bold.typeface.json', function ( font ) {
 
     const material = new THREE.MeshBasicMaterial( {
       color: 0x000000,
