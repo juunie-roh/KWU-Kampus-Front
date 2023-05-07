@@ -67,7 +67,7 @@ function init() {
   // variables
 
   width = window.innerWidth;
-  height = window.innerHeight - 1; // prevent generating scroll bar
+  height = window.innerHeight; // prevent generating scroll bar
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
