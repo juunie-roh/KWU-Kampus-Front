@@ -19,7 +19,7 @@ Follow steps bellow to run this project on your browser.
 
 [Run through VSCode Extension](#run-through-vscode-extension)
 
-### Run through Terminal ( npx vite )
+### Run through Terminal
 
 3. then, run vite:
    ```bash
@@ -29,7 +29,7 @@ Follow steps bellow to run this project on your browser.
    ```bash
    npx serve
    ```
-   will give you localhost / network address
+   will give you local / network address
 
 4. you can run this project from the given address
 

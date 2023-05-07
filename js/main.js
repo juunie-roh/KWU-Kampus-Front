@@ -78,8 +78,7 @@ function init() {
   renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( width, height );
-  // where to append
-  document.querySelector( 'main' ).appendChild( renderer.domElement );
+  document.querySelector( 'main' ).appendChild( renderer.domElement ); // where to append
 
   camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );
   camera.position.set( 400, 200, 0 );
@@ -100,7 +99,7 @@ function init() {
 
   controls.maxPolarAngle = Math.PI / 2;
 
-  // GLTF Loader
+  // GLTF Loader, load models
 
   const gltfLoader = new GLTFLoader();
   receivedData.forEach( (building) => {
