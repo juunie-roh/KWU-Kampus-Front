@@ -71,7 +71,7 @@ function init() {
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
-  scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
+  scene.fog = new THREE.FogExp2( 0xcccccc, 0.003 );
 
   raycaster = new THREE.Raycaster(); // for mouse(pointer) tracking
 
@@ -80,7 +80,7 @@ function init() {
   renderer.setSize( width, height );
   document.querySelector( 'main' ).appendChild( renderer.domElement ); // where to append
 
-  camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );
+  camera = new THREE.PerspectiveCamera( 60, width / height, 1, 700 );// 1000 );
   camera.position.set( 200, 100, 0 ); // ( 400, 200, 0 );
 
   // controls
