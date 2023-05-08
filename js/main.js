@@ -12,8 +12,8 @@ const exampleSaeBit = {
   name: '새빛관',
   id: 0,
   modelPath: './models/SaeBit.glb',
-  position: { x: 59, y: 0, z: -229 }, // { x: 118, y: 0, z: -458 },
-  angle: -105.5,
+  position: { x: 55, y: 0, z: -229 }, // { x: 118, y: 0, z: -458 },
+  angle: 74.5,
   scale: 1, // 2,
   others: '',
 }
