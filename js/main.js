@@ -6,7 +6,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 
 // basic javascripts
 
-const receivedData = [];
+const exampleDatas = [];
 
 const exampleSaeBit = {
   name: '새빛관',
@@ -26,8 +26,8 @@ const exampleHwaDo = {
   scale: 1, // 2,
   others: '',
 }
-receivedData.push( exampleSaeBit );
-receivedData.push( exampleHwaDo );
+exampleDatas.push( exampleSaeBit );
+exampleDatas.push( exampleHwaDo );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
@@ -102,8 +102,8 @@ function init() {
   // GLTF Loader, load models
 
   const gltfLoader = new GLTFLoader();
-  receivedData.forEach( (building) => {
-    createModel( gltfLoader, building );
+  exampleDatas.forEach( ( data ) => {
+    createModel( gltfLoader, data );
   } );
 
   // world floor
