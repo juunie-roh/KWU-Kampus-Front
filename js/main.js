@@ -293,7 +293,6 @@ function createModel ( loader, building ) {
  * `position` 에 해당하는 위치에서 `THREE.Line` 과 `THREE.Mesh (text)` 을 갖는 `THREE.Group` 을 생성합니다.
  * @param { THREE.Vector3 } position position of the target model
  * @param { string } name name of the target building
- * @notice 현재 사용하는 폰트는 한글을 지원하지 않습니다. `name` 의 값이 한글일 경우, 물음표로 표시됩니다.
  */
 async function createFont( position, name ) {
   // Drawing Lines:
