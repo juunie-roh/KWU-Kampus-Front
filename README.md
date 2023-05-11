@@ -1,15 +1,16 @@
-# KWU-fac-header
+# KWU-Kampus-Front
 
+This repository is for main page of *Kwang-Woon University: Campus Tour* project.   
 
 ## How to Run
 
-Follow steps bellow to run this project on your browser.
+Follow steps bellow to run this project on your browser in local.
 
 ### Common
 
-1. clone this repository
+1. Clone this repository
 
-2. run below in your terminal:
+2. Open this repository in your terminal and run below:
    ```bash
    npm install
    ```
@@ -21,7 +22,7 @@ Follow steps bellow to run this project on your browser.
 
 ### Run through Terminal
 
-3. then, run vite:
+3. Then, run:
    ```bash
    npx vite
    ```
@@ -31,7 +32,7 @@ Follow steps bellow to run this project on your browser.
    ```
    will give you local / network address
 
-4. you can run this project from the given address
+4. You can run this project from the given address
 
 ### Run through VSCode Extension
 
@@ -39,4 +40,4 @@ Follow steps bellow to run this project on your browser.
 
 4. Install VSCode Extension with id `ritwickdey.LiveServer`
 
-5. Open in Live Server
+5. Open `index.html` in Live Server
