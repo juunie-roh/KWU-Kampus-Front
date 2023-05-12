@@ -9,8 +9,11 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 const exampleDatas = [];
 
 const exampleSaeBit = {
-  name: '새빛관',
-  id: 0,
+  id: '00',
+  building: '새빛관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
   modelPath: './models/SaeBit.glb',
   position: { x: 55, y: 0, z: -229 }, // { x: 118, y: 0, z: -458 },
   angle: 74.5,
@@ -18,8 +21,11 @@ const exampleSaeBit = {
   others: '',
 }
 const exampleHwaDo = {
-  name: '화도관',
-  id: 1,
+  id: '01',
+  building: '화도관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
   modelPath: './models/HwaDo.glb',
   position: { x: -16, y: 0, z: -106 }, // { x: -32, y: 0, z: -212 },
   angle: -118,
@@ -139,18 +145,24 @@ function init() {
 
   gui = new GUI( { container: document.getElementById( 'guiContainer' ), title: 'Information' } );
   let obj = {
-    myBoolean: false,
-    name: '',
-    id: 0,
+    building: '',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    id: '',
     myFunction: function() { alert( 'hi' ) }, // onclick callback
   }
   
-  gui.add( obj, 'myBoolean' ); 	// checkbox
-  gui.add( obj, 'name' ).name( '건물명' ); 	// text field
-  gui.add( obj, 'id' ).name( 'Building ID' ); 	// number field
+  gui.add( obj, 'building' ).name( '건물명' );
+  gui.add( obj, 'building_phone_num' ).name( '전화번호' );
+  gui.add( obj, 'management_team' ).name( '시설관리팀' );
+  gui.add( obj, 'management_team_phone_num' ).name( '시설관리팀 전화번호' );
+  gui.add( obj, 'id' ).name( 'Building ID' );
   gui.add( obj, 'myFunction' ).name( 'alert hi' ); 	// button
+  gui.controllers[0].$input.readOnly = true;
   gui.controllers[1].$input.readOnly = true;
   gui.controllers[2].$input.readOnly = true;
+  gui.controllers[3].$input.readOnly = true;
 
   window.addEventListener( 'resize', onWindowResize );
   window.addEventListener( 'pointermove', onPointerMove );
@@ -223,26 +235,29 @@ function render() {
  * `loader` 를 사용해 `building.modelPath` 에 있는 모델을 불러옵니다.   
  * 모델의 위치, 회전시킬 각도, 크기 조정을 위한 스케일을 설정하여 `scene` 및 `buildings` 리스트에 추가하고, `createFont()` 에 `position` 을 전달합니다.
  * @param { GLTFLoader } loader `GLTFLoader` used in this file.
- * @param { object } building Item stored in `receivedData` list, an object containing informations of each buildings.
+ * @param { object } data Item stored in `receivedData` list, an object containing informations of each buildings.
  */
-function createModel ( loader, building ) {
+function createModel ( loader, data ) {
 
-  if ( building.modelPath === '' ) { console.error( 'modelPath not found' ); }
-  loader.load( building.modelPath, async ( gltf ) => {
+  if ( data.modelPath === '' ) { console.error( 'modelPath not found' ); }
+  loader.load( data.modelPath, async ( gltf ) => {
 
     const model = await gltf.scene;
     if ( !model ) {
       // error handling
     }
-    model.name = building.name;
-    model.position.set( building.position.x, building.position.y, building.position.z );
-    model.rotateY( Math.PI / 180 * building.angle );
-    model.scale.setScalar( building.scale );
+    model.name = data.building;
+    model.position.set( data.position.x, data.position.y, data.position.z );
+    model.rotateY( Math.PI / 180 * data.angle );
+    model.scale.setScalar( data.scale );
 
     model.userData = {
       // isActive: false, // not used
-      id: building.id,
-      others: building.others,
+      id: data.id,
+      building_phone_num: data.building_phone_num,
+      management_team: data.management_team,
+      management_team_phone_num: data.management_team_phone_num,
+      others: data.others,
       
       // add events to this model via userData
       onPointerOver: function() {
@@ -266,8 +281,11 @@ function createModel ( loader, building ) {
 
         console.log( model.name + ' clicked!' );
         gui.open();
-        gui.controllers[ 1 ].setValue( model.name );
-        gui.controllers[ 2 ].setValue( model.userData.id );
+        gui.controllers[ 0 ].setValue( model.name );
+        gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
+        gui.controllers[ 2 ].setValue( model.userData.management_team );
+        gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
+        gui.controllers[ 4 ].setValue( model.userData.id );
 
       }
     }
