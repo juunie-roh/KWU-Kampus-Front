@@ -163,6 +163,11 @@ function init() {
   gui.controllers[1].$input.readOnly = true;
   gui.controllers[2].$input.readOnly = true;
   gui.controllers[3].$input.readOnly = true;
+  gui.open( false );
+
+  // // Grid Helper
+  // const gridHelper = new THREE.GridHelper( 1000, 100 );
+  // scene.add( gridHelper );
 
   window.addEventListener( 'resize', onWindowResize );
   window.addEventListener( 'pointermove', onPointerMove );
