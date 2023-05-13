@@ -173,10 +173,12 @@ function init() {
   window.addEventListener( 'pointermove', onPointerMove );
   window.addEventListener( 'click', onClick );
   // window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
-  //   console.log( event );
-  //   const arrow = new THREE.ArrowHelper( camera.getWorldDirection( new THREE.Vector3 ), camera.getWorldPosition( new THREE.Vector3 ), 15, 0xff0000 );
+  //   let worldDirection = new THREE.Vector3;
+  //   let worldPosition = new THREE.Vector3;
+  //   const arrow = new THREE.ArrowHelper( camera.getWorldDirection( worldDirection ), camera.getWorldPosition( worldPosition ), 15, 0xff0000 );
   //   scene.add( arrow );
-  //   arrows.push( arrow );
+  //   console.log( worldDirection );
+  //   console.log( worldPosition );
   // } );
 
 }
@@ -200,10 +202,10 @@ function onPointerMove( event ) {
 
 function onClick( event ) {
 
-  onPointerMove(event); // get pointer position
+  onPointerMove( event ); // get pointer position
   if ( INTERSECTED ) {
 
-    INTERSECTED.userData.onClick();
+    onClickModel( INTERSECTED );
 
   }
 
@@ -262,37 +264,8 @@ function createModel ( loader, data ) {
       building_phone_num: data.building_phone_num,
       management_team: data.management_team,
       management_team_phone_num: data.management_team_phone_num,
+      viewPosition: data.viewPosition,
       others: data.others,
-      
-      // add events to this model via userData
-      onPointerOver: function() {
-        for ( let child of model.children ) {
-
-          child.currentHex = child.material.emissive.getHex();
-          child.material.emissive.setHex( 0xff0000 );
-    
-        }
-      },
-
-      onPointerOut: function() {
-        for ( let child of model.children ) {
-
-          child.material.emissive.setHex( 0 );
-
-        }
-      },
-
-      onClick: function() {
-
-        console.log( model.name + ' clicked!' );
-        gui.open();
-        gui.controllers[ 0 ].setValue( model.name );
-        gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
-        gui.controllers[ 2 ].setValue( model.userData.management_team );
-        gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
-        gui.controllers[ 4 ].setValue( model.userData.id );
-
-      }
     }
     
     createFont( model.position, model.name );
@@ -308,6 +281,39 @@ function createModel ( loader, data ) {
     console.error( error );
 
   } );
+
+}
+
+function highlight( model ) {
+
+  for ( let child of model.children ) {
+
+    child.currentHex = child.material.emissive.getHex();
+    child.material.emissive.setHex( 0xff0000 );
+
+  }
+
+}
+
+function lowlight( model ) {
+
+  for ( let child of model.children ) {
+
+    child.material.emissive.setHex( 0 );
+
+  }
+
+}
+
+function onClickModel( model ) {
+
+  console.log( model.name + ' clicked!' );
+  gui.open();
+  gui.controllers[ 0 ].setValue( model.name );
+  gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
+  gui.controllers[ 2 ].setValue( model.userData.management_team );
+  gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
+  gui.controllers[ 4 ].setValue( model.userData.id );
 
 }
 
@@ -367,7 +373,7 @@ async function createFont( position, name ) {
 /**
  * `pointer` 에서 `camera` 가 바라보는 방향으로 `raycaster` 를 생성해 교차하는 아이템을 가져옵니다.   
  * 
- * `buildings` 목록에서 `raycaster` 와 교차하는 아이템을 확인하여 가장 앞에 있는 것을 `INTERSECTED`로 설정한 후 `onPointerOver()` 를 수행합니다.   
+ * `buildings[]` 에서 `raycaster` 와 교차하는 아이템을 확인하여 가장 앞에 있는 것을 `INTERSECTED`로 설정한 후 `onPointerOver()` 를 수행합니다.   
  * 교차하는 아이템이 바뀌거나 사라졌을 때는 기존 아이템의 `onPointerOut()`를 수행합니다.
  */
 function getIntersects() {
@@ -376,13 +382,13 @@ function getIntersects() {
   intersects = raycaster.intersectObjects( buildings, true );
   if ( intersects.length > 0 ) { 
     
-    if ( INTERSECTED ) INTERSECTED.userData.onPointerOut();
+    if ( INTERSECTED ) lowlight( INTERSECTED );
     INTERSECTED = intersects[ 0 ].object.parent;
-    INTERSECTED.userData.onPointerOver();
+    highlight( INTERSECTED );
   
   } else { 
     
-    if ( INTERSECTED ) INTERSECTED.userData.onPointerOut();
+    if ( INTERSECTED ) lowlight( INTERSECTED );
     INTERSECTED = undefined;
   
   }
