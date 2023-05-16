@@ -8,18 +8,6 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 
 const exampleDatas = [];
 
-const exampleSaeBit = {
-  id: '00',
-  building: '새빛관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  modelPath: './models/SaeBit.glb',
-  position: { x: 55, y: 0, z: -229 }, // { x: 118, y: 0, z: -458 },
-  angle: 74.5,
-  scale: 1, // 2,
-  others: '',
-}
 const exampleHwaDo = {
   id: '01',
   building: '화도관',
@@ -32,8 +20,33 @@ const exampleHwaDo = {
   scale: 1, // 2,
   others: '',
 }
-exampleDatas.push( exampleSaeBit );
+const exampleSaeBit = {
+  id: '04',
+  building: '새빛관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/SaeBit.glb',
+  position: { x: 55, y: 0, z: -229 }, // { x: 118, y: 0, z: -458 },
+  angle: 74.5,
+  scale: 1, // 2,
+  others: '',
+}
+const exampleChambit = {
+  id: '09',
+  building: '참빛관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/ChamBit.glb',
+  position: { x: 128, y: 0, z: -235 }, // { x: -32, y: 0, z: -212 },
+  angle: -70,
+  scale: 1, // 2,
+  others: '',
+}
 exampleDatas.push( exampleHwaDo );
+exampleDatas.push( exampleSaeBit );
+exampleDatas.push( exampleChambit );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
@@ -205,7 +218,7 @@ function onClick( event ) {
   onPointerMove( event ); // get pointer position
   if ( INTERSECTED ) {
 
-    onClickModel( INTERSECTED );
+    INTERSECTED.userData.onClick();
 
   }
 
@@ -266,6 +279,35 @@ function createModel ( loader, data ) {
       management_team_phone_num: data.management_team_phone_num,
       viewPosition: data.viewPosition,
       others: data.others,
+
+      onPointerOver: function() {
+        for ( let child of model.children ) {
+
+          child.currentHex = child.material.emissive.getHex();
+          child.material.emissive.setHex( 0xff0000 );
+    
+        }
+      },
+
+      onPointerOut: function() {
+        for ( let child of model.children ) {
+
+          child.material.emissive.setHex( 0 );
+
+        }
+      },
+
+      onClick: function() {
+
+        console.log( model.name + ' clicked!' );
+        gui.open();
+        gui.controllers[ 0 ].setValue( model.name );
+        gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
+        gui.controllers[ 2 ].setValue( model.userData.management_team );
+        gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
+        gui.controllers[ 4 ].setValue( model.userData.id );
+
+      }
     }
     
     createFont( model.position, model.name );
@@ -281,39 +323,6 @@ function createModel ( loader, data ) {
     console.error( error );
 
   } );
-
-}
-
-function highlight( model ) {
-
-  for ( let child of model.children ) {
-
-    child.currentHex = child.material.emissive.getHex();
-    child.material.emissive.setHex( 0xff0000 );
-
-  }
-
-}
-
-function lowlight( model ) {
-
-  for ( let child of model.children ) {
-
-    child.material.emissive.setHex( 0 );
-
-  }
-
-}
-
-function onClickModel( model ) {
-
-  console.log( model.name + ' clicked!' );
-  gui.open();
-  gui.controllers[ 0 ].setValue( model.name );
-  gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
-  gui.controllers[ 2 ].setValue( model.userData.management_team );
-  gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
-  gui.controllers[ 4 ].setValue( model.userData.id );
 
 }
 
@@ -382,13 +391,13 @@ function getIntersects() {
   intersects = raycaster.intersectObjects( buildings, true );
   if ( intersects.length > 0 ) { 
     
-    if ( INTERSECTED ) lowlight( INTERSECTED );
+    if ( INTERSECTED ) INTERSECTED.userData.onPointerOut();
     INTERSECTED = intersects[ 0 ].object.parent;
-    highlight( INTERSECTED );
+    INTERSECTED.userData.onPointerOver();
   
   } else { 
     
-    if ( INTERSECTED ) lowlight( INTERSECTED );
+    if ( INTERSECTED ) INTERSECTED.userData.onPointerOut();
     INTERSECTED = undefined;
   
   }
