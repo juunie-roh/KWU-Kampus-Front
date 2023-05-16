@@ -20,6 +20,18 @@ const exampleHwaDo = {
   scale: 1, // 2,
   others: '',
 }
+const exampleBiMa = {
+  id: '03',
+  building: '비마관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/BiMa.glb',
+  position: { x: 79, y: 0, z: -148 }, // { x: -32, y: 0, z: -212 },
+  angle: 23,
+  scale: 1, // 2,
+  others: '',
+}
 const exampleSaeBit = {
   id: '04',
   building: '새빛관',
@@ -45,6 +57,7 @@ const exampleChambit = {
   others: '',
 }
 exampleDatas.push( exampleHwaDo );
+exampleDatas.push( exampleBiMa ); 
 exampleDatas.push( exampleSaeBit );
 exampleDatas.push( exampleChambit );
 
