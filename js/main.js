@@ -6,9 +6,9 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 
 // basic javascripts
 
-const exampleDatas = [];
+const datas = [];
 
-const exampleHwaDo = {
+const HwaDo = {
   id: '01',
   building: '화도관',
   building_phone_num: '',
@@ -20,7 +20,7 @@ const exampleHwaDo = {
   scale: 1, // 2,
   others: '',
 }
-const exampleBiMa = {
+const BiMa = {
   id: '03',
   building: '비마관',
   building_phone_num: '',
@@ -32,7 +32,7 @@ const exampleBiMa = {
   scale: 1, // 2,
   others: '',
 }
-const exampleSaeBit = {
+const SaeBit = {
   id: '04',
   building: '새빛관',
   building_phone_num: '',
@@ -44,7 +44,7 @@ const exampleSaeBit = {
   scale: 1, // 2,
   others: '',
 }
-const exampleChambit = {
+const ChamBit = {
   id: '09',
   building: '참빛관',
   building_phone_num: '',
@@ -56,10 +56,24 @@ const exampleChambit = {
   scale: 1, // 2,
   others: '',
 }
-exampleDatas.push( exampleHwaDo );
-exampleDatas.push( exampleBiMa ); 
-exampleDatas.push( exampleSaeBit );
-exampleDatas.push( exampleChambit );
+const KWSquare = {
+  id: '16',
+  building: '광운스퀘어&80주년기념관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/KWSquare.glb',
+  position: { x: 42, y: 0, z: -70 }, // { x: -32, y: 0, z: -212 },
+  angle: -119,
+  scale: 1, // 2,
+  others: '',
+}
+
+datas.push( HwaDo );
+datas.push( BiMa ); 
+datas.push( SaeBit );
+datas.push( ChamBit );
+datas.push( KWSquare );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
@@ -134,7 +148,7 @@ function init() {
   // GLTF Loader, load models
 
   const gltfLoader = new GLTFLoader();
-  exampleDatas.forEach( ( data ) => {
+  datas.forEach( ( data ) => {
     createModel( gltfLoader, data );
   } );
 
