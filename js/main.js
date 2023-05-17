@@ -15,9 +15,9 @@ const HwaDo = {
   management_team: '',
   management_team_phone_num: '',
   modelPath: './models/HwaDo.glb',
-  position: { x: -16, y: 0, z: -106 }, // { x: -32, y: 0, z: -212 },
+  position: { x: -16, y: 0, z: -106 },
   angle: -118,
-  scale: 1, // 2,
+  scale: 1,
   others: '',
 }
 const BiMa = {
@@ -27,9 +27,9 @@ const BiMa = {
   management_team: '',
   management_team_phone_num: '',
   modelPath: './models/BiMa.glb',
-  position: { x: 79, y: 0, z: -148 }, // { x: -32, y: 0, z: -212 },
+  position: { x: 79, y: 0, z: -148 },
   angle: 23,
-  scale: 1, // 2,
+  scale: 1,
   others: '',
 }
 const SaeBit = {
@@ -39,9 +39,9 @@ const SaeBit = {
   management_team: '',
   management_team_phone_num: '',
   modelPath: './models/SaeBit.glb',
-  position: { x: 55, y: 0, z: -229 }, // { x: 118, y: 0, z: -458 },
+  position: { x: 55, y: 0, z: -229 },
   angle: 74.5,
-  scale: 1, // 2,
+  scale: 1,
   others: '',
 }
 const ChamBit = {
@@ -51,9 +51,9 @@ const ChamBit = {
   management_team: '',
   management_team_phone_num: '',
   modelPath: './models/ChamBit.glb',
-  position: { x: 128, y: 0, z: -235 }, // { x: -32, y: 0, z: -212 },
+  position: { x: 128, y: 0, z: -235 },
   angle: -70,
-  scale: 1, // 2,
+  scale: 1,
   others: '',
 }
 const KWSquare = {
@@ -63,9 +63,9 @@ const KWSquare = {
   management_team: '',
   management_team_phone_num: '',
   modelPath: './models/KWSquare.glb',
-  position: { x: 42, y: 0, z: -70 }, // { x: -32, y: 0, z: -212 },
+  position: { x: 42, y: 0, z: -70 },
   angle: -119,
-  scale: 1, // 2,
+  scale: 1,
   others: '',
 }
 
