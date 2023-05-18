@@ -68,12 +68,25 @@ const KWSquare = {
   scale: 1,
   others: '',
 }
+const OkUi = {
+  id: '02',
+  building: '옥의관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/OkUi.glb',
+  position: { x: 162, y: 0, z: -72 },
+  angle: 212,
+  scale: 1,
+  others: '',
+}
 
 datas.push( HwaDo );
 datas.push( BiMa ); 
 datas.push( SaeBit );
 datas.push( ChamBit );
 datas.push( KWSquare );
+datas.push( OkUi );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
