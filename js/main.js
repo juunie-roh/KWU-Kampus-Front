@@ -20,6 +20,18 @@ const HwaDo = {
   scale: 1,
   others: '',
 }
+const OkUi = {
+  id: '02',
+  building: '옥의관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/OkUi.glb',
+  position: { x: 162, y: 0, z: -72 },
+  angle: 212,
+  scale: 1,
+  others: '',
+}
 const BiMa = {
   id: '03',
   building: '비마관',
@@ -56,6 +68,18 @@ const BokJi = {
   scale: 1,
   others: '',
 }
+const DaSan = {
+  id: '07',
+  building: '다산재',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/DaSan.glb',
+  position: { x: 131, y: 0, z: -156 },
+  angle: 42,
+  scale: 1,
+  others: '',
+}
 const ChamBit = {
   id: '09',
   building: '참빛관',
@@ -80,18 +104,6 @@ const KWSquare = {
   scale: 1,
   others: '',
 }
-const OkUi = {
-  id: '02',
-  building: '옥의관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  modelPath: './models/OkUi.glb',
-  position: { x: 162, y: 0, z: -72 },
-  angle: 212,
-  scale: 1,
-  others: '',
-}
 
 datas.push( HwaDo );
 datas.push( BiMa ); 
@@ -100,6 +112,7 @@ datas.push( BokJi );
 datas.push( ChamBit );
 datas.push( KWSquare );
 datas.push( OkUi );
+datas.push( DaSan );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
