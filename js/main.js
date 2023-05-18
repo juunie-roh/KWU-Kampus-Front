@@ -44,6 +44,18 @@ const SaeBit = {
   scale: 1,
   others: '',
 }
+const BokJi = {
+  id: '05',
+  building: '복지관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/BokJi.glb',
+  position: { x: 120, y: 0, z: 5 },
+  angle: -28,
+  scale: 1,
+  others: '',
+}
 const ChamBit = {
   id: '09',
   building: '참빛관',
@@ -84,6 +96,7 @@ const OkUi = {
 datas.push( HwaDo );
 datas.push( BiMa ); 
 datas.push( SaeBit );
+datas.push( BokJi );
 datas.push( ChamBit );
 datas.push( KWSquare );
 datas.push( OkUi );
