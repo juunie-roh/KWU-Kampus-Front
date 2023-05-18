@@ -106,13 +106,13 @@ const KWSquare = {
 }
 
 datas.push( HwaDo );
+datas.push( OkUi );
 datas.push( BiMa ); 
 datas.push( SaeBit );
 datas.push( BokJi );
+datas.push( DaSan );
 datas.push( ChamBit );
 datas.push( KWSquare );
-datas.push( OkUi );
-datas.push( DaSan );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
