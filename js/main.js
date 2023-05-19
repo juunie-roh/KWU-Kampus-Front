@@ -367,6 +367,8 @@ function createModel ( loader, data ) {
 
       onClick: function() {
 
+        controls.target.copy( model.position );
+        controls.update();
         console.log( model.name + ' clicked' );
         gui.open();
         gui.controllers[ 0 ].setValue( model.name );
