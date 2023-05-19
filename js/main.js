@@ -130,6 +130,8 @@ fixedHelp.addEventListener( 'click', () => {
 
 } );
 
+const subCategories = document.querySelectorAll( 'ul.sub-categories li a' );
+
 ///////////////////////////////
 ///// THREE.js from here: /////
 ///////////////////////////////
@@ -316,7 +318,7 @@ function render() {
 // custom functions
 
 /**
- * 건물의 모델링을 불러와 `scene`에 추가합니다.
+ * 건물의 모델링을 불러와 `scene`에 추가하고, `buildings` 리스트에 저장 및 `subCategories`의 이벤트 리스너를 설정합니다.
  * 
  * `loader` 를 사용해 `building.modelPath` 에 있는 모델을 불러옵니다.   
  * 모델의 위치, 회전시킬 각도, 크기 조정을 위한 스케일을 설정하여 `scene` 및 `buildings` 리스트에 추가하고, `createFont()` 에 `position` 을 전달합니다.
@@ -365,7 +367,7 @@ function createModel ( loader, data ) {
 
       onClick: function() {
 
-        console.log( model.name + ' clicked!' );
+        console.log( model.name + ' clicked' );
         gui.open();
         gui.controllers[ 0 ].setValue( model.name );
         gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
@@ -379,6 +381,33 @@ function createModel ( loader, data ) {
     createFont( model.position, model.name );
     buildings.push( model );
     scene.add( model );
+
+    // subCategories Event Listener
+    subCategories.forEach( ( subCategory ) => {
+
+      const subId = subCategory.getAttribute( 'data-id' );
+      if ( subId === model.userData.id ) {
+
+        const target = model;
+
+        // hover event
+        subCategory.addEventListener( 'mouseover', () => {
+          target.userData.onPointerOver();
+        } );
+        subCategory.addEventListener( 'mouseout', () => {
+          target.userData.onPointerOut();
+        } );
+
+        // click event
+        subCategory.addEventListener( 'click', ( e ) => {
+      
+          e.preventDefault();
+          target.userData.onClick();
+      
+        } );
+
+        }
+    } );
 
   }, ( progress ) => {
 
