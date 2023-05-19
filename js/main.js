@@ -303,7 +303,7 @@ function animate() {
 
     font.quaternion.copy( camera.quaternion );
 
-  });
+  } );
   controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
   render();
 
@@ -367,15 +367,16 @@ function createModel ( loader, data ) {
 
       onClick: function() {
 
+        camera.position.setY( 100 );
         controls.target.copy( model.position );
         controls.update();
         console.log( model.name + ' clicked' );
-        gui.open();
         gui.controllers[ 0 ].setValue( model.name );
         gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
         gui.controllers[ 2 ].setValue( model.userData.management_team );
         gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
         gui.controllers[ 4 ].setValue( model.userData.id );
+        // gui.open();
 
       }
     }
