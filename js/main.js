@@ -92,6 +92,18 @@ const ChamBit = {
   scale: 1,
   others: '',
 }
+const HanUl = {
+  id: '10',
+  building: '한울관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/HanUl.glb',
+  position: { x: -37, y: 0, z: 104 },
+  angle: -76,
+  scale: 1,
+  others: '',
+}
 const KWSquare = {
   id: '16',
   building: '광운스퀘어&80주년기념관',
@@ -112,6 +124,7 @@ datas.push( SaeBit );
 datas.push( BokJi );
 datas.push( DaSan );
 datas.push( ChamBit );
+datas.push( HanUl );
 datas.push( KWSquare );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
