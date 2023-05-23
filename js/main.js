@@ -104,6 +104,18 @@ const HanUl = {
   scale: 1,
   others: '',
 }
+const HanCheon = {
+  id: '11',
+  building: '한천재',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/HanCheon.glb',
+  position: { x: 8, y: 0, z: 65 },
+  angle: -20,
+  scale: 1,
+  others: '',
+}
 const KWSquare = {
   id: '16',
   building: '광운스퀘어&80주년기념관',
@@ -125,6 +137,7 @@ datas.push( BokJi );
 datas.push( DaSan );
 datas.push( ChamBit );
 datas.push( HanUl );
+datas.push( HanCheon );
 datas.push( KWSquare );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
