@@ -520,7 +520,7 @@ async function createFont( position, name ) {
     new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 5 } )
   );
   line.position.set( 0, 0, 0 );
-  line.material.depthTest = false; // for renderOrder
+  // line.material.depthTest = false; // for renderOrder
 
   // font loading function
   const loader = new FontLoader();
@@ -559,8 +559,8 @@ async function createFont( position, name ) {
 /**
  * `pointer` 에서 `camera` 가 바라보는 방향으로 `raycaster` 를 생성해 교차하는 아이템을 가져옵니다.   
  * 
- * `buildings[]` 에서 `raycaster` 와 교차하는 아이템을 확인하여 가장 앞에 있는 것을 `INTERSECTED`로 설정한 후 `highlight()` 를 수행합니다.   
- * 교차하는 아이템이 바뀌거나 사라졌을 때는 기존 아이템의 `lowlight()`를 수행합니다.
+ * `buildings[]` 에서 `raycaster` 와 교차하는 아이템을 확인하여 가장 앞에 있는 것을 `INTERSECTED`로 설정한 후 `onPointerOver()` 를 수행합니다.   
+ * 교차하는 아이템이 바뀌거나 사라졌을 때는 기존 아이템의 `onPointerOut()`를 수행합니다.
  */
 function getIntersects() {
 
