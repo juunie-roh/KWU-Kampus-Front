@@ -152,6 +152,30 @@ const KWSquare = {
   scale: 1,
   others: '',
 }
+const BitSolA = {
+  id: '17',
+  building: '빛솔재A동',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/BitSolA.glb',
+  position: { x: -118, y: 0, z: 180 },
+  angle: 15,
+  scale: 1,
+  others: '',
+}
+const BitSolB = {
+  id: '18',
+  building: '빛솔재B동',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/BitSolB.glb',
+  position: { x: -107, y: 0, z: 129 },
+  angle: 15,
+  scale: 1,
+  others: '',
+}
 
 datas.push( HwaDo );
 datas.push( OkUi );
@@ -165,6 +189,8 @@ datas.push( ChamBit );
 datas.push( HanUl );
 datas.push( HanCheon );
 datas.push( KWSquare );
+datas.push( BitSolA );
+datas.push( BitSolB );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
