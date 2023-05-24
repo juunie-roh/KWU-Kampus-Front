@@ -68,6 +68,30 @@ const BokJi = {
   scale: 1,
   others: '',
 }
+const DongHae = {
+  id: '06',
+  building: '연구문화관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/DongHae.glb',
+  position: { x: 50, y: 0, z: 65 },
+  angle: 159,
+  scale: 1,
+  others: '',
+}
+const IceRink = {
+  id: '06-1',
+  building: '아이스링크',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/IceRink.glb',
+  position: { x: 0, y: 0, z: 97 },
+  angle: 123,
+  scale: 1,
+  others: '',
+}
 const DaSan = {
   id: '07',
   building: '다산재',
@@ -134,6 +158,8 @@ datas.push( OkUi );
 datas.push( BiMa ); 
 datas.push( SaeBit );
 datas.push( BokJi );
+datas.push( DongHae );
+datas.push( IceRink );
 datas.push( DaSan );
 datas.push( ChamBit );
 datas.push( HanUl );
