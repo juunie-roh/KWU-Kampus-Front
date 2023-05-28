@@ -111,8 +111,8 @@ const YeonChon = {
   management_team: '',
   management_team_phone_num: '',
   modelPath: './models/YeonChon.glb',
-  position: { x: -177, y: 0, z: 146 },
-  angle: 145,
+  position: { x: -175, y: 0, z: 146 },
+  angle: 144,
   scale: 1,
   others: '',
 }
