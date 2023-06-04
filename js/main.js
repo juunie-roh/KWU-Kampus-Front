@@ -370,7 +370,7 @@ function init() {
 
   window.addEventListener( 'resize', onWindowResize );
   main.addEventListener( 'pointermove', onPointerMove );
-  main.addEventListener( 'mousedown', onClick );
+  main.addEventListener( 'click', onClick );
   // window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
   //   let worldDirection = new THREE.Vector3;
   //   let worldPosition = new THREE.Vector3;
@@ -549,9 +549,6 @@ function createModel ( loader, data ) {
  * @param { string } name name of the target building
  */
 async function createFont( position, name ) {
-
-  const group = new THREE.Group();
-
   // Drawing Lines:
   const points = [];
   points.push( new THREE.Vector3( 0, 0, 0 ) );
@@ -587,6 +584,7 @@ async function createFont( position, name ) {
   } ); //end load function
 
   // Create Group:
+  const group = new THREE.Group();
   group.add( line );
   // group.add( plane );
   group.position.copy( position );
