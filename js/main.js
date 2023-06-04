@@ -152,18 +152,6 @@ const HanCheon = {
   scale: 1,
   others: '',
 }
-const InternationalHouse = {
-  id: '13',
-  building: '국제기숙사',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  modelPath: './models/InternationalHouse.glb',
-  position: { x: -204, y: 0, z: 165 },
-  angle: 100,
-  scale: 1,
-  others: '',
-}
 const NuRi = {
   id: '14',
   building: '누리관',
@@ -225,7 +213,6 @@ datas.push( YeonChon );
 datas.push( ChamBit );
 datas.push( HanUl );
 datas.push( HanCheon );
-datas.push( InternationalHouse );
 datas.push( NuRi );
 datas.push( KWSquare );
 datas.push( BitSolA );
