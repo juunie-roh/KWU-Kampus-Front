@@ -8,32 +8,20 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 
 const datas = [];
 
-const HwaDo = {
-  id: '01',
-  building: '화도관',
+const BokJi = {
+  id: '04',
+  building: '복지관',
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/HwaDo.glb',
-  position: { x: -16, y: 0, z: -106 },
-  angle: -118,
-  scale: 1,
-  others: '',
-}
-const OkUi = {
-  id: '02',
-  building: '옥의관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  modelPath: './models/OkUi.glb',
-  position: { x: 162, y: 0, z: -72 },
-  angle: 212,
+  modelPath: './models/BokJi.glb',
+  position: { x: 120, y: 0, z: 5 },
+  angle: -28,
   scale: 1,
   others: '',
 }
 const BiMa = {
-  id: '03',
+  id: '05',
   building: '비마관',
   building_phone_num: '',
   management_team: '',
@@ -45,7 +33,7 @@ const BiMa = {
   others: '',
 }
 const SaeBit = {
-  id: '04',
+  id: '08',
   building: '새빛관',
   building_phone_num: '',
   management_team: '',
@@ -56,32 +44,8 @@ const SaeBit = {
   scale: 1,
   others: '',
 }
-const BokJi = {
-  id: '05',
-  building: '복지관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  modelPath: './models/BokJi.glb',
-  position: { x: 120, y: 0, z: 5 },
-  angle: -28,
-  scale: 1,
-  others: '',
-}
-const DongHae = {
-  id: '06',
-  building: '연구문화관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  modelPath: './models/DongHae.glb',
-  position: { x: 50, y: 0, z: 65 },
-  angle: 159,
-  scale: 1,
-  others: '',
-}
 const IceRink = {
-  id: '06-1',
+  id: '09',
   building: '아이스링크',
   building_phone_num: '',
   management_team: '',
@@ -92,8 +56,44 @@ const IceRink = {
   scale: 1,
   others: '',
 }
+const DongHae = {
+  id: '10',
+  building: '연구문화관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/DongHae.glb',
+  position: { x: 50, y: 0, z: 65 },
+  angle: 159,
+  scale: 1,
+  others: '',
+}
+const OkUi = {
+  id: '12',
+  building: '옥의관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/OkUi.glb',
+  position: { x: 162, y: 0, z: -72 },
+  angle: 212,
+  scale: 1,
+  others: '',
+}
+const HwaDo = {
+  id: '17',
+  building: '화도관',
+  building_phone_num: '',
+  management_team: '',
+  management_team_phone_num: '',
+  modelPath: './models/HwaDo.glb',
+  position: { x: -16, y: 0, z: -106 },
+  angle: -118,
+  scale: 1,
+  others: '',
+}
 const DaSan = {
-  id: '07',
+  id: '03',
   building: '다산재',
   building_phone_num: '',
   management_team: '',
@@ -105,7 +105,7 @@ const DaSan = {
   others: '',
 }
 const YeonChon = {
-  id: '08',
+  id: '11',
   building: '연촌재',
   building_phone_num: '',
   management_team: '',
@@ -117,7 +117,7 @@ const YeonChon = {
   others: '',
 }
 const ChamBit = {
-  id: '09',
+  id: '14',
   building: '참빛관',
   building_phone_num: '',
   management_team: '',
@@ -129,7 +129,7 @@ const ChamBit = {
   others: '',
 }
 const HanUl = {
-  id: '10',
+  id: '15',
   building: '한울관',
   building_phone_num: '',
   management_team: '',
@@ -141,7 +141,7 @@ const HanUl = {
   others: '',
 }
 const HanCheon = {
-  id: '11',
+  id: '16',
   building: '한천재',
   building_phone_num: '',
   management_team: '',
@@ -154,7 +154,7 @@ const HanCheon = {
 }
 const InternationalHouse = {
   id: '13',
-  building: '국제기숙사',
+  building: '인터내셔널 하우스',
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
@@ -165,7 +165,7 @@ const InternationalHouse = {
   others: '',
 }
 const NuRi = {
-  id: '14',
+  id: '02',
   building: '누리관',
   building_phone_num: '',
   management_team: '',
@@ -177,8 +177,8 @@ const NuRi = {
   others: '',
 }
 const KWSquare = {
-  id: '16',
-  building: '광운스퀘어&80주년기념관',
+  id: '01',
+  building: '80주년 기념관 & 광운 스퀘어',
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
@@ -189,8 +189,8 @@ const KWSquare = {
   others: '',
 }
 const BitSolA = {
-  id: '17',
-  building: '빛솔재A동',
+  id: '06',
+  building: '빛솔재 A동',
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
@@ -201,8 +201,8 @@ const BitSolA = {
   others: '',
 }
 const BitSolB = {
-  id: '18',
-  building: '빛솔재B동',
+  id: '07',
+  building: '빛솔재 B동',
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
@@ -499,7 +499,8 @@ function createModel ( loader, data ) {
       }
     }
     
-    createFont( model.position, model.name );
+    // removing spaces from the model.name as this font does not support spaces.
+    createFont( model.position, model.name.replace( /\s/g, '' ) );
     buildings.push( model );
     scene.add( model );
 
