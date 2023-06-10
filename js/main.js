@@ -10,7 +10,7 @@ const datas = [];
 let receivedData;
 
 const BokJi = {
-  id: '04',
+  building_code: '04',
   building: '복지관',
   building_phone_num: '',
   management_team: '',
@@ -24,7 +24,7 @@ const BokJi = {
   others: '',
 }
 const BiMa = {
-  id: '05',
+  building_code: '05',
   building: '비마관',
   building_phone_num: '',
   management_team: '',
@@ -38,7 +38,7 @@ const BiMa = {
   others: '',
 }
 const SaeBit = {
-  id: '08',
+  building_code: '08',
   building: '새빛관',
   building_phone_num: '',
   management_team: '',
@@ -52,7 +52,7 @@ const SaeBit = {
   others: '',
 }
 const IceRink = {
-  id: '09',
+  building_code: '09',
   building: '아이스링크',
   building_phone_num: '',
   management_team: '',
@@ -66,7 +66,7 @@ const IceRink = {
   others: '',
 }
 const DongHae = {
-  id: '10',
+  building_code: '10',
   building: '연구문화관',
   building_phone_num: '',
   management_team: '',
@@ -80,7 +80,7 @@ const DongHae = {
   others: '',
 }
 const OkUi = {
-  id: '12',
+  building_code: '12',
   building: '옥의관',
   building_phone_num: '',
   management_team: '',
@@ -94,7 +94,7 @@ const OkUi = {
   others: '',
 }
 const HwaDo = {
-  id: '17',
+  building_code: '17',
   building: '화도관',
   building_phone_num: '',
   management_team: '',
@@ -108,7 +108,7 @@ const HwaDo = {
   others: '',
 }
 const DaSan = {
-  id: '03',
+  building_code: '03',
   building: '다산재',
   building_phone_num: '',
   management_team: '',
@@ -122,7 +122,7 @@ const DaSan = {
   others: '',
 }
 const YeonChon = {
-  id: '11',
+  building_code: '11',
   building: '연촌재',
   building_phone_num: '',
   management_team: '',
@@ -136,7 +136,7 @@ const YeonChon = {
   others: '',
 }
 const ChamBit = {
-  id: '14',
+  building_code: '14',
   building: '참빛관',
   building_phone_num: '',
   management_team: '',
@@ -150,7 +150,7 @@ const ChamBit = {
   others: '',
 }
 const HanUl = {
-  id: '15',
+  building_code: '15',
   building: '한울관',
   building_phone_num: '',
   management_team: '',
@@ -164,7 +164,7 @@ const HanUl = {
   others: '',
 }
 const HanCheon = {
-  id: '16',
+  building_code: '16',
   building: '한천재',
   building_phone_num: '',
   management_team: '',
@@ -178,7 +178,7 @@ const HanCheon = {
   others: '',
 }
 const InternationalHouse = {
-  id: '13',
+  building_code: '13',
   building: '인터내셔널 하우스',
   building_phone_num: '',
   management_team: '',
@@ -192,7 +192,7 @@ const InternationalHouse = {
   others: '',
 }
 const NuRi = {
-  id: '02',
+  building_code: '02',
   building: '누리관',
   building_phone_num: '',
   management_team: '',
@@ -206,7 +206,7 @@ const NuRi = {
   others: '',
 }
 const KWSquare = {
-  id: '01',
+  building_code: '01',
   building: '80주년 기념관 & 광운 스퀘어',
   building_phone_num: '',
   management_team: '',
@@ -220,7 +220,7 @@ const KWSquare = {
   others: '',
 }
 const BitSolA = {
-  id: '06',
+  building_code: '06',
   building: '빛솔재 A동',
   building_phone_num: '',
   management_team: '',
@@ -234,7 +234,7 @@ const BitSolA = {
   others: '',
 }
 const BitSolB = {
-  id: '07',
+  building_code: '07',
   building: '빛솔재 B동',
   building_phone_num: '',
   management_team: '',
