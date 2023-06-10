@@ -7,6 +7,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 // basic javascripts
 
 const datas = [];
+let receivedData;
 
 const BokJi = {
   id: '04',
@@ -14,8 +15,10 @@ const BokJi = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/BokJi.glb',
-  position: { x: 120, y: 0, z: 5 },
+  model_path: './models/BokJi.glb',
+  position_x: 120,
+  position_y: 0,
+  position_z: 5,
   angle: -28,
   scale: 1,
   others: '',
@@ -26,8 +29,10 @@ const BiMa = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/BiMa.glb',
-  position: { x: 79, y: 0, z: -148 },
+  model_path: './models/BiMa.glb',
+  position_x: 79,
+  position_y: 0,
+  position_z: -148,
   angle: 23,
   scale: 1,
   others: '',
@@ -38,8 +43,10 @@ const SaeBit = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/SaeBit.glb',
-  position: { x: 55, y: 0, z: -229 },
+  model_path: './models/SaeBit.glb',
+  position_x: 55,
+  position_y: 0,
+  position_z: -229,
   angle: 74.5,
   scale: 1,
   others: '',
@@ -50,8 +57,10 @@ const IceRink = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/IceRink.glb',
-  position: { x: 0, y: 0, z: 97 },
+  model_path: './models/IceRink.glb',
+  position_x: 0,
+  position_y: 0,
+  position_z: 97,
   angle: 123,
   scale: 1,
   others: '',
@@ -62,8 +71,10 @@ const DongHae = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/DongHae.glb',
-  position: { x: 50, y: 0, z: 65 },
+  model_path: './models/DongHae.glb',
+  position_x: 50,
+  position_y: 0,
+  position_z: 65,
   angle: 159,
   scale: 1,
   others: '',
@@ -74,8 +85,10 @@ const OkUi = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/OkUi.glb',
-  position: { x: 162, y: 0, z: -72 },
+  model_path: './models/OkUi.glb',
+  position_x: 162,
+  position_y: 0,
+  position_z: -72,
   angle: 212,
   scale: 1,
   others: '',
@@ -86,8 +99,10 @@ const HwaDo = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/HwaDo.glb',
-  position: { x: -16, y: 0, z: -106 },
+  model_path: './models/HwaDo.glb',
+  position_x: -16,
+  position_y: 0,
+  position_z: -106,
   angle: -118,
   scale: 1,
   others: '',
@@ -98,8 +113,10 @@ const DaSan = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/DaSan.glb',
-  position: { x: 131, y: 0, z: -156 },
+  model_path: './models/DaSan.glb',
+  position_x: 131,
+  position_y: 0,
+  position_z: -156,
   angle: 42,
   scale: 1,
   others: '',
@@ -110,8 +127,10 @@ const YeonChon = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/YeonChon.glb',
-  position: { x: -175, y: 0, z: 146 },
+  model_path: './models/YeonChon.glb',
+  position_x: -175,
+  position_y: 0,
+  position_z: 146,
   angle: 144,
   scale: 1,
   others: '',
@@ -122,8 +141,10 @@ const ChamBit = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/ChamBit.glb',
-  position: { x: 128, y: 0, z: -235 },
+  model_path: './models/ChamBit.glb',
+  position_x: -128,
+  position_y: 0,
+  position_z: -235,
   angle: -70,
   scale: 1,
   others: '',
@@ -134,8 +155,10 @@ const HanUl = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/HanUl.glb',
-  position: { x: -37, y: 0, z: 104 },
+  model_path: './models/HanUl.glb',
+  position_x: -37,
+  position_y: 0,
+  position_z: 104,
   angle: -76,
   scale: 1,
   others: '',
@@ -146,8 +169,10 @@ const HanCheon = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/HanCheon.glb',
-  position: { x: 8, y: 0, z: 65 },
+  model_path: './models/HanCheon.glb',
+  position_x: 8,
+  position_y: 0,
+  position_z: 65,
   angle: -20,
   scale: 1,
   others: '',
@@ -158,8 +183,10 @@ const InternationalHouse = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/InternationalHouse.glb',
-  position: { x: -204, y: 0, z: 165 },
+  model_path: './models/InternationalHouse.glb',
+  position_x: -204,
+  position_y: 0,
+  position_z: 165,
   angle: 100,
   scale: 1,
   others: '',
@@ -170,8 +197,10 @@ const NuRi = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/NuRi.glb',
-  position: { x: -2, y: 0, z: 290 },
+  model_path: './models/NuRi.glb',
+  position_x: -2,
+  position_y: 0,
+  position_z: 290,
   angle: -27,
   scale: 1,
   others: '',
@@ -182,8 +211,10 @@ const KWSquare = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/KWSquare.glb',
-  position: { x: 42, y: 0, z: -70 },
+  model_path: './models/KWSquare.glb',
+  position_x: 42,
+  position_y: 0,
+  position_z: -70,
   angle: -119,
   scale: 1,
   others: '',
@@ -194,8 +225,10 @@ const BitSolA = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/BitSolA.glb',
-  position: { x: -118, y: 0, z: 180 },
+  model_path: './models/BitSolA.glb',
+  position_x: -118,
+  position_y: 0,
+  position_z: 180,
   angle: 15,
   scale: 1,
   others: '',
@@ -206,8 +239,10 @@ const BitSolB = {
   building_phone_num: '',
   management_team: '',
   management_team_phone_num: '',
-  modelPath: './models/BitSolB.glb',
-  position: { x: -107, y: 0, z: 129 },
+  model_path: './models/BitSolB.glb',
+  position_x: -107,
+  position_y: 0,
+  position_z: 129,
   angle: 15,
   scale: 1,
   others: '',
@@ -307,9 +342,22 @@ function init() {
   // GLTF Loader, load models
 
   const gltfLoader = new GLTFLoader();
-  datas.forEach( ( data ) => {
-    createModel( gltfLoader, data );
+  fetch( "http://13.124.194.184:8080/buildings/info", {
+    method: 'GET',
+  } )
+  .then( res => res.json() )
+  .then ( res => {
+
+    receivedData = res;
+    receivedData.forEach( ( data ) => {
+      createModel( gltfLoader, data );
+    } );
+
   } );
+
+  // datas.forEach( ( data ) => {
+  //   createModel( gltfLoader, data );
+  // } );
 
   // world floor
 
@@ -445,21 +493,22 @@ function render() {
  */
 function createModel ( loader, data ) {
 
-  if ( data.modelPath === '' ) { console.error( 'modelPath not found' ); }
-  loader.load( data.modelPath, async ( gltf ) => {
+  // more error handling needed
+  if ( !data.model_path ) { console.error( 'model_path not found.' ); return; }
+  loader.load( data.model_path, async ( gltf ) => {
 
     const model = await gltf.scene;
     if ( !model ) {
       // error handling
     }
     model.name = data.building;
-    model.position.set( data.position.x, data.position.y, data.position.z );
+    model.position.set( data.position_x, data.position_y, data.position_z );
     model.rotateY( Math.PI / 180 * data.angle );
     model.scale.setScalar( data.scale );
 
     model.userData = {
       // isActive: false, // not used
-      id: data.id,
+      id: data.building_code,
       building_phone_num: data.building_phone_num,
       management_team: data.management_team,
       management_team_phone_num: data.management_team_phone_num,
