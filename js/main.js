@@ -142,7 +142,7 @@ const ChamBit = {
   management_team: '',
   management_team_phone_num: '',
   model_path: './models/ChamBit.glb',
-  position_x: -128,
+  position_x: 128,
   position_y: 0,
   position_z: -235,
   angle: -70,
@@ -534,7 +534,7 @@ function createModel ( loader, data ) {
 
       onClick: function() {
 
-        camera.position.setY( 100 );
+        // camera.position.setY( 100 );
         controls.target.copy( model.position );
         controls.update();
         console.log( model.name + ' clicked' );
