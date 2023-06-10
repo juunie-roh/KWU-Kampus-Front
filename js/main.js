@@ -342,22 +342,22 @@ function init() {
   // GLTF Loader, load models
 
   const gltfLoader = new GLTFLoader();
-  fetch( "http://13.124.194.184:8080/buildings/info", {
-    method: 'GET',
-  } )
-  .then( res => res.json() )
-  .then ( res => {
+  // fetch( "http://13.124.194.184:8080/buildings/info", {
+  //   method: 'GET',
+  // } )
+  // .then( res => res.json() )
+  // .then ( res => {
 
-    receivedData = res;
-    receivedData.forEach( ( data ) => {
-      createModel( gltfLoader, data );
-    } );
+  //   receivedData = res;
+  //   receivedData.forEach( ( data ) => {
+  //     createModel( gltfLoader, data );
+  //   } );
 
-  } );
-
-  // datas.forEach( ( data ) => {
-  //   createModel( gltfLoader, data );
   // } );
+
+  datas.forEach( ( data ) => {
+    createModel( gltfLoader, data );
+  } );
 
   // world floor
 
