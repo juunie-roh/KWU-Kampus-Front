@@ -2,6 +2,41 @@
 
 This repository is for main page of *Kwang-Woon University: Campus Tour* project.   
 
+## Notice   
+
+This project is internally defined list in `main.js` as default. 
+
+or
+
+You can use external server to get lists of models information, but your local address (i.g. 127.0.0.1/5000, localhost:3000 ...) will occur CORS violation (Access-Control-Allow-Origin).    
+You need to ignore the CORS via Chrome extension or other ways possible, to load models successfully.    
+<details>
+   <summary> To Use Server </summary>
+   from <code>main.js:345</code>:
+   
+   ```js
+   // activate this fetch
+   // fetch( "http://13.124.194.184:8080/buildings/info", {
+   //   method: 'GET',
+   // } )
+   // .then( res => res.json() )
+   // .then ( res => {
+   //
+   //   receivedData = res;
+   //   receivedData.forEach( ( data ) => {
+   //     createModel( gltfLoader, data );
+   //   } );
+   //
+   // } );
+   
+   // deactivate this forEach()
+   datas.forEach( ( data ) => {
+     createModel( gltfLoader, data );
+   } );
+   ```
+   
+</details>
+
 ## How to Run
 
 Follow steps bellow to run this project on your browser in local.
