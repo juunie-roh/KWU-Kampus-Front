@@ -1,6 +1,8 @@
 const floorList = document.getElementById('floors');
 const roomNums = document.querySelectorAll('#detail .img-wrap .roomNum');
 
+let details;
+
 const receivedFloorCount = 4;
 const receivedRoomCount = 4;
 
@@ -20,6 +22,17 @@ let floors = undefined;
 init();
 
 function init() {
+
+    fetch( "http://13.124.194.184:8080/detail/info/08", {
+        method: "GET"
+    } )
+    .then( res => res.json() )
+    .then( res => {
+
+        details = res;
+        console.log( details );
+
+    } )
     
     createFloors(receivedFloorCount, receivedRoomCount);
     setFloorBg(receivedBgUrl);
