@@ -8,7 +8,7 @@ This project is internally defined list in `main.js` as default.
 
 or
 
-You can use external server to get lists of models information, but your local address (i.g. 127.0.0.1/5000, localhost:3000 ...) will occur CORS violation (Access-Control-Allow-Origin).    
+You can use external server to get lists of models information, but your local address (i.g. 127.0.0.1/5000, localhost:3000 ...) will occur CORS violation. *(Access-Control-Allow-Origin)*    
 You need to ignore the CORS via Chrome extension or other ways possible, to load models successfully.    
 <details>
    <summary> To Use Server </summary>
@@ -51,7 +51,7 @@ Follow steps bellow to run this project on your browser in local.
    ```
    will install packages in need
 
-[Run through Terminal](#run-through-terminal--npx-vite)
+[Run through Terminal](#run-through-terminal)
 
 [Run through VSCode Extension](#run-through-vscode-extension)
 
