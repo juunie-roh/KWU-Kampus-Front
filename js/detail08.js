@@ -1,8 +1,6 @@
 const floorList = document.getElementById('floors');
 const roomNums = document.querySelectorAll('#detail .img-wrap .roomNum');
 
-let details;
-
 const f1 = [
     {
         building: "새빛관",
@@ -241,8 +239,8 @@ function setFloorBg ( bgUrl = "" ) {
  * * `roomNums` 요소 내의 `span`(방 번호)과 `.desc p`(해당 방 설명)의 innerText 변경
  * * `rooms` 에 클릭 이벤트 설정
  * * `prevElement`에 현재 선택된 `floor` 저장
- * @param {Element} floor `li` element in floors list
- * @param {number} i index value of the element
+ * @param { Element } floor `li` element in floors list
+ * @param { number } i index value of the element
  */
 function activateFloor ( floor, i, classifiedList ) {
 
@@ -276,22 +274,30 @@ function activateFloor ( floor, i, classifiedList ) {
  * 분류되지 않은 방 정보 리스트를 받아와서 층 별로 분류하고,
  * 방 번호를 오름차순으로 정렬하여 리턴합니다.
  * 
- * @param {Array} res raw data(floor list) received from server
+ * 현재는 지상 층만 분류합니다.
+ * 
+ * @param { Array } res raw data(floor list) received from server
  * @returns a classified floor list
  */
 function classifyList( res ) {
-    let floorList = [];
+    
+    let classifiedList = [];
     let floors = res.map( room => room.floor );
     let uniqFloors = [... new Set( floors )];
     console.log( uniqFloors );
     for ( let i = 0; i < uniqFloors.length; ++i ) {
+
         const regex = new RegExp( `0-0?${i + 1}+` );
         let floor = res.filter( data => regex.test( data.room_code ) );
-        floorList.push( floor.sort( function(a, b) {
+        classifiedList.push( floor.sort( function(a, b) {
+
             if ( a.room_no > b.room_no ) return 1;
             if ( a.room_no === b.room_no ) return 0;
             if ( a.room_no < b.room_no ) return -1;
-        }) );
+
+        } ) );
+
     }
-    return floorList;
+
+    return classifiedList;
 }
