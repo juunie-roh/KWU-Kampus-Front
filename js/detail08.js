@@ -146,9 +146,15 @@ function init() {
     .then( res => {
 
         let classifiedList = classifyList( res );
-        console.log( classifiedList );
+        // console.log( classifiedList );
         createFloors( classifiedList );
-
+        if ( sessionStorage.getItem( 'room_no' ) ) {
+            
+        } else {
+            // activate 1st floor as default
+            activateFloor( document.getElementById( '1' ), 0, classifiedList );
+        }
+        
     } )
     
     // createFloors( receivedFloorList );
@@ -191,16 +197,17 @@ function createFloors( classifiedList ) {
 
         }
 
+        liFloor.setAttribute( 'id', classifiedList[i][0].floor );
         liFloor.appendChild(ul); // li > div + ul
         floorList.appendChild(liFloor);
 
     }
 
     floors = document.querySelectorAll( '#floors>li' );
-    console.log( "Floors:\n", floors );
+    // console.log( "Floors:\n", floors );
     floors.forEach( ( floor, i ) => {
         // 1층을 Default로 보여주기 위한 설정
-        if (i === 0) { activateFloor( floor, i, classifiedList ); }
+        // if (i === 0) { activateFloor( floor, i, classifiedList ); }
     
         const floorTitle = floor.querySelector( '.floor-title' );
         floorTitle.addEventListener( 'click', ( e ) => {
@@ -285,19 +292,28 @@ function classifyList( res ) {
     let floors = res.map( room => room.floor );
     let uniqFloors = [... new Set( floors )];
     console.log( uniqFloors );
-    for ( let i = 0; i < uniqFloors.length; ++i ) {
+    uniqFloors.forEach( ( floor ) => {
 
-        const regex = new RegExp( `0-0?${i + 1}+` );
-        let floor = res.filter( data => regex.test( data.room_code ) );
-        classifiedList.push( floor.sort( function(a, b) {
+        let floorNum, regex;
+        if ( /^B+/.test( floor ) ) {
+            // Basement Floors
+            floorNum = ( '00' + floor.substr(1, 1) ).slice( -2 );
+            regex = new RegExp( `1-${floorNum}+` );
+        } else {
+            floorNum = ( '00' + floor ).slice( -2 );
+            regex = new RegExp( `0-${floorNum}` );
+        }
 
+        const classifiedFloor = res.filter( data => regex.test( data.room_code ) );
+        classifiedList.push( classifiedFloor.sort( function( a, b ) {
+            // Sort By room_no
             if ( a.room_no > b.room_no ) return 1;
             if ( a.room_no === b.room_no ) return 0;
             if ( a.room_no < b.room_no ) return -1;
 
         } ) );
 
-    }
+    } )
 
     return classifiedList;
 }
