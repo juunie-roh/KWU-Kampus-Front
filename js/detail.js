@@ -149,7 +149,7 @@ function init() {
         // console.log( classifiedList );
         createFloors( classifiedList );
         if ( sessionStorage.getItem( 'room_no' ) ) {
-            
+
         } else {
             // activate 1st floor as default
             activateFloor( document.getElementById( '1' ), 0, classifiedList );
@@ -192,7 +192,7 @@ function createFloors( classifiedList ) {
         for ( let j = 0; j < classifiedList[i].length; j++ ) {
 
             const liRoom = document.createElement( 'li' );
-            liRoom.innerText = classifiedList[i][j].room_no; // 임의로 i0j, 10호 넘어가면 못 씀
+            liRoom.innerText = classifiedList[i][j].room_no;
             ul.appendChild( liRoom ); // ul > li
 
         }
@@ -248,6 +248,7 @@ function setFloorBg ( bgUrl = "" ) {
  * * `prevElement`에 현재 선택된 `floor` 저장
  * @param { Element } floor `li` element in floors list
  * @param { number } i index value of the element
+ * @param { Array } classifiedList an array of classified floors
  */
 function activateFloor ( floor, i, classifiedList ) {
 
@@ -278,10 +279,10 @@ function activateFloor ( floor, i, classifiedList ) {
 }
 
 /**
- * 분류되지 않은 방 정보 리스트를 받아와서 층 별로 분류하고,
- * 방 번호를 오름차순으로 정렬하여 리턴합니다.
+ * 한 건물의 분류되지 않은 방 정보 리스트를 받아와서 층 별로 분류하고,
+ * 정보를 층 별로 분류하고, 방 번호를 오름차순으로 정렬하여 2차 Array 형태로 리턴합니다.
  * 
- * 현재는 지상 층만 분류합니다.
+ * `room_code`에 regular expression 을 적용해 검색하여 분류합니다.
  * 
  * @param { Array } res raw data(floor list) received from server
  * @returns a classified floor list
@@ -296,12 +297,12 @@ function classifyList( res ) {
 
         let floorNum, regex;
         if ( /^B+/.test( floor ) ) {
-            // Basement Floors
+            // if floor element starts with 'B'
             floorNum = ( '00' + floor.substr(1, 1) ).slice( -2 );
-            regex = new RegExp( `1-${floorNum}+` );
+            regex = new RegExp( `^1-${floorNum}+` );
         } else {
             floorNum = ( '00' + floor ).slice( -2 );
-            regex = new RegExp( `0-${floorNum}` );
+            regex = new RegExp( `^0-${floorNum}+` );
         }
 
         const classifiedFloor = res.filter( data => regex.test( data.room_code ) );
