@@ -139,7 +139,9 @@ init();
 
 function init() {
 
-    fetch( "http://13.124.194.184:8080/detail/info/08", {
+    sessionStorage.setItem( 'floor', 'B2' );
+
+    fetch( "http://13.124.194.184:8080/detail/info/10", {
         method: "GET"
     } )
     .then( res => res.json() )
@@ -148,11 +150,16 @@ function init() {
         let classifiedList = classifyList( res );
         // console.log( classifiedList );
         createFloors( classifiedList );
-        if ( sessionStorage.getItem( 'room_no' ) ) {
+        if ( sessionStorage.getItem( 'floor' ) ) {
+
+            const floor = ( '00' + sessionStorage.getItem( 'floor' ) ).slice( -2 );
+            activateFloor( document.getElementById( floor ), 0, classifiedList );
+            sessionStorage.removeItem( 'floor' );
 
         } else {
             // activate 1st floor as default
-            activateFloor( document.getElementById( '1' ), 0, classifiedList );
+            activateFloor( document.getElementById( '01' ), 0, classifiedList );
+
         }
         
     } )
@@ -193,13 +200,14 @@ function createFloors( classifiedList ) {
 
             const liRoom = document.createElement( 'li' );
             liRoom.innerText = classifiedList[i][j].room_no;
+            liRoom.setAttribute( 'id', classifiedList[i][j].room_code );
             ul.appendChild( liRoom ); // ul > li
 
         }
 
-        liFloor.setAttribute( 'id', classifiedList[i][0].floor );
-        liFloor.appendChild(ul); // li > div + ul
-        floorList.appendChild(liFloor);
+        liFloor.setAttribute( 'id', ( '00' + classifiedList[i][0].floor ).slice( -2 ) );
+        liFloor.appendChild( ul ); // li > div + ul
+        floorList.appendChild( liFloor );
 
     }
 
@@ -253,16 +261,18 @@ function setFloorBg ( bgUrl = "" ) {
 function activateFloor ( floor, i, classifiedList ) {
 
     floor.classList.add( 'active' ); 
-    const fl = classifiedList[ i ];
-    roomNums.forEach( ( rn, j ) => {
+    const activeFloor = classifiedList[ i ]; 
 
-        rn.querySelector( 'span' ).innerText = fl[j].facilities;
-        rn.querySelector( '.desc p' ).innerText = `${ fl[ j ] } description`;
+    roomNums.forEach( ( roomnum, idx ) => {
+
+        roomnum.querySelector( 'span' ).innerText = activeFloor[ idx ].facilities;
+        roomnum.querySelector( '.desc p' ).innerText = `${ activeFloor[ idx ] } description`;
 
     });
     
     rooms = floor.querySelectorAll( '#rooms li' );
     console.log( "activated rooms: \n", rooms );
+
     rooms.forEach( ( room, idx ) => {
         room.addEventListener( 'click', () => {
 
@@ -273,7 +283,7 @@ function activateFloor ( floor, i, classifiedList ) {
 
         })
     });
-
+    // remember previously activated floor
     prevElement = floor;
 
 }
