@@ -133,15 +133,17 @@ const receivedFloorList = [
 ];
 const receivedBgUrl = "../images/details-example.jpg";
 
-let rooms, prevElement, prevDesc, floors;
+let rooms, prevElement, prevDesc, floors, building_code;
 
 init();
 
 function init() {
 
     sessionStorage.setItem( 'floor', 'B2' );
+    sessionStorage.setItem( 'building_code', "08" );
+    building_code = sessionStorage.getItem( "building_code" );
 
-    fetch( "http://13.124.194.184:8080/detail/info/10", {
+    fetch( `http://13.124.194.184:8080/detail/info/${building_code}`, {
         method: "GET"
     } )
     .then( res => res.json() )
@@ -155,6 +157,7 @@ function init() {
             const floor = ( '00' + sessionStorage.getItem( 'floor' ) ).slice( -2 );
             activateFloor( document.getElementById( floor ), 0, classifiedList );
             sessionStorage.removeItem( 'floor' );
+            sessionStorage.removeItem( 'building_code' );
 
         } else {
             // activate 1st floor as default
