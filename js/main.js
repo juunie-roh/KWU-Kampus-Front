@@ -289,9 +289,7 @@ const main = document.querySelector( 'main' );
 ///// THREE.js from here: /////
 ///////////////////////////////
 
-let width, height, camera, controls, scene, renderer, raycaster, gui;
-let textTitle, textContent, help_content, building_content, categoty_content, info_help, info_building, info_category;
-let infoTag, infoPage, infoButton;
+let width, height, camera, controls, scene, renderer, raycaster;
 
 const pointer = new THREE.Vector2(); // mouse cursor position tracking
 let intersects = []; // list to find which building is selected
@@ -313,7 +311,7 @@ function init() {
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
-  scene.fog = new THREE.FogExp2( 0xcccccc, 0.003 );
+  // scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
 
   raycaster = new THREE.Raycaster(); // for mouse(pointer) tracking
 
@@ -322,8 +320,8 @@ function init() {
   renderer.setSize( width, height );
   main.appendChild( renderer.domElement ); // where to append
 
-  camera = new THREE.PerspectiveCamera( 60, width / height, 1, 700 );// 1000 );
-  camera.position.set( 200, 100, 0 ); // ( 400, 200, 0 );
+  camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );// 1000 );
+  camera.position.set( 300, 300, 0 ); // ( 400, 200, 0 );
 
   // controls
 
@@ -381,12 +379,12 @@ function init() {
   dirLight1.name = 'dirLight1';
   scene.add( dirLight1 );
 
-  const dirLight2 = new THREE.DirectionalLight( 0x002266 );
+  const dirLight2 = new THREE.DirectionalLight( 0x222222 );
   dirLight2.position.set( -9, -12, -10 );
   dirLight2.name = 'dirLight2';
   scene.add( dirLight2 );
 
-  const ambientLight = new THREE.AmbientLight( 0x222222 );
+  const ambientLight = new THREE.AmbientLight( 0x666666 );
   ambientLight.name = 'ambientLight';
   scene.add( ambientLight );
 
@@ -636,7 +634,7 @@ function getIntersects() {
   raycaster.setFromCamera( pointer, camera );
   intersects = raycaster.intersectObjects( buildings, true );
   if ( intersects.length > 0 ) { 
-    
+
     if ( INTERSECTED ) INTERSECTED.userData.onPointerOut();
     INTERSECTED = intersects[ 0 ].object.parent;
     INTERSECTED.userData.onPointerOver();
