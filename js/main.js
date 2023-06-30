@@ -391,33 +391,6 @@ function init() {
   scene.add( ambientLight );
 
   // Create Info Pannel
-  textTitle = document.getElementsByClassName("infoTitle");
-  textContent = document.getElementsByClassName("infoContent");
-
-  info_help = new Array('※ 완성본이 아닌, 기능만 확인 가능한 버전입니다.', 'KWU Kampus', '조작법');
-  info_building = new Array('건물명', '전화번호', '시설관리팀', '시설관리팀 전화번호', 'Building ID');
-  info_category = new Array('카테고리명', 'ID', '건물번호', '호수', '기타번호');
-
-  help_content = new Array('모든 정보가 채워진 상태가 아니며, 상제 정보는 \'새빛관\'만 확인하실 수 있습니다.',
-                                 '광운대학교 시설 정보 취합 사이트 \'KWU Kampus\'입니다. 건물 또는 카테고리를 클릭해보세요. 해당 건물 및 시설에 대한 정보를 확인할 수 있습니다.',
-                                 '정보창: 해당 창의 우측 책갈피 클릭 // ' +
-                                  '카테고리 메뉴: 사이트의 우측 상단 버튼 클릭 // ' +
-                                  '지도 이동: 마우스 우 클릭 + 드래그 // ' +
-                                  '지도 회전: 마우스 좌 클릭 + 드래그 // ' +
-                                  '지도 확대/축소: 마우스 휠');
-  building_content = new Array(5);
-  categoty_content = new Array(5);
-
-  infoTag = document.getElementById('infoTag');
-  infoPage = document.getElementById('infoPage');
-  infoButton = document.getElementsByClassName('infoButton');
-
-  setInfo(info_help, help_content);
-  infoButton[0].textContent = '만족도 조사 하기';
-  // document.getElementById( 'infoHref' ).href = 'https://forms.gle/UuJ6kk4r8Gxd6ZT99';
-
-  infoPage.classList.remove('on');
-  infoTag.classList.remove('on');
 
   // // Grid Helper
   // const gridHelper = new THREE.GridHelper( 1000, 100 );
@@ -545,11 +518,11 @@ function createModel ( loader, data ) {
         controls.target.copy( model.position );
         controls.update();
         console.log( model.name + ' clicked' );
-        gui.controllers[ 0 ].setValue( model.name );
-        gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
-        gui.controllers[ 2 ].setValue( model.userData.management_team );
-        gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
-        gui.controllers[ 4 ].setValue( model.userData.id );
+        // gui.controllers[ 0 ].setValue( model.name );
+        // gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
+        // gui.controllers[ 2 ].setValue( model.userData.management_team );
+        // gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
+        // gui.controllers[ 4 ].setValue( model.userData.id );
         // gui.open();
 
       }
@@ -676,44 +649,3 @@ function getIntersects() {
   }
 
 }
-
-
-/**
- * 정보 요약창 생성
- * title_arr: 정보 항목
- * content_arr: 항목별 내용
- */
-
-function setInfo(title_arr, content_arr) {
-  // 초기화
-  for(var i = 0; i < textTitle.length; i++) {
-    textTitle[i].style.display = 'none';
-    textContent[i].style.display = 'none';
-  }
-
-  for(var i = 0; i < title_arr.length; i++) {
-    textTitle[i].style.display = 'block';
-    textContent[i].style.display = 'block';
-
-    textTitle[i].textContent = title_arr[i];
-    textContent[i].textContent = content_arr[i];
-  }
-
-  if(!infoPage.classList.contains('on')) {
-    infoPage.classList.toggle('on');
-    infoTag.classList.toggle('on');
-  }
-
-  infoButton[0].textContent = '상세 정보 보기';
-}
-
-infoTag.addEventListener('click', function() {
-  if(!infoPage.classList.contains('on')) {
-    setInfo(info_help, help_content);
-    infoButton[0].textContent = '만족도 조사 하기';
-  }
-  else {
-    infoPage.classList.remove('on');
-    infoTag.classList.remove('on');
-  }
-});
