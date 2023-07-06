@@ -18,8 +18,8 @@ const BokJi = {
   model_path: './models/BokJi.glb',
   position_x: 120,
   position_y: 0,
-  position_z: 5,
-  angle: -28,
+  position_z: 10,
+  angle: 63,
   scale: 1,
   others: '',
 }
