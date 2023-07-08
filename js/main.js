@@ -384,6 +384,11 @@ function init() {
   dirLight2.name = 'dirLight2';
   scene.add( dirLight2 );
 
+  const dirLight3 = new THREE.DirectionalLight( 0xdddddd );
+  dirLight3.position.set( 9, 2, -10 );
+  dirLight3.name = 'dirLight3';
+  scene.add( dirLight3 );
+
   const ambientLight = new THREE.AmbientLight( 0x666666 );
   ambientLight.name = 'ambientLight';
   scene.add( ambientLight );
