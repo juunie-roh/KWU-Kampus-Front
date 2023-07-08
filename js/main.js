@@ -502,7 +502,7 @@ function createModel ( loader, data ) {
         for ( let child of model.children ) {
 
           child.currentHex = child.material.emissive.getHex();
-          child.material.emissive.setHex( 0xff202c );
+          child.material.emissive.setHex( 0xff0000 );
     
         }
       },
