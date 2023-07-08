@@ -384,8 +384,8 @@ function init() {
   dirLight2.name = 'dirLight2';
   scene.add( dirLight2 );
 
-  const dirLight3 = new THREE.DirectionalLight( 0xdddddd );
-  dirLight3.position.set( 9, 2, -10 );
+  const dirLight3 = new THREE.DirectionalLight( 0x999999 );
+  dirLight3.position.set( 13, 12, -10 );
   dirLight3.name = 'dirLight3';
   scene.add( dirLight3 );
 
@@ -502,7 +502,7 @@ function createModel ( loader, data ) {
         for ( let child of model.children ) {
 
           child.currentHex = child.material.emissive.getHex();
-          child.material.emissive.setHex( 0xff0000 );
+          child.material.emissive.setHex( 0xff202c );
     
         }
       },
