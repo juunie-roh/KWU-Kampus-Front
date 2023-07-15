@@ -3,6 +3,7 @@ import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { MapControls } from 'three/addons/controls/MapControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import * as URL from './url.js';
 
 // basic javascripts
 
@@ -342,7 +343,7 @@ function init() {
   // GLTF Loader, load models
 
   const gltfLoader = new GLTFLoader();
-  // fetch( "http://13.124.194.184:8080/buildings/info", {
+  // fetch( URL.buildings, {
   //   method: 'GET',
   // } )
   // .then( res => res.json() )
@@ -489,13 +490,23 @@ function createModel ( loader, data ) {
     model.rotateY( Math.PI / 180 * data.angle );
     model.scale.setScalar( data.scale );
 
+    const facilities = await fetch( URL.importance + data.building_code )
+                             .then( res => res.json() )
+                             .then( datas => {
+
+                               let result = [];
+                               datas.forEach( ( data ) => { result.push( data ); } );
+                               return result;
+
+                             } );
+
     model.userData = {
-      // isActive: false, // not used
+
       id: data.building_code,
       building_phone_num: data.building_phone_num,
       management_team: data.management_team,
       management_team_phone_num: data.management_team_phone_num,
-      viewPosition: data.viewPosition,
+      importance_rooms: facilities,
       others: data.others,
 
       onPointerOver: function() {
@@ -517,18 +528,14 @@ function createModel ( loader, data ) {
 
       onClick: function() {
 
-        // camera.position.setY( 100 );
         controls.target.copy( model.position );
         controls.update();
         console.log( model.name + ' clicked' );
-        // gui.controllers[ 0 ].setValue( model.name );
-        // gui.controllers[ 1 ].setValue( model.userData.building_phone_num );
-        // gui.controllers[ 2 ].setValue( model.userData.management_team );
-        // gui.controllers[ 3 ].setValue( model.userData.management_team_phone_num );
-        // gui.controllers[ 4 ].setValue( model.userData.id );
-        // gui.open();
+        console.log( model.userData.importance_rooms );
+        sessionStorage.setItem( 'building_code', model.userData.id );
 
       }
+
     }
     
     // removing spaces from the model.name as this font does not support spaces.

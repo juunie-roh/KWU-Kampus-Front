@@ -1,3 +1,5 @@
+import * as URL from './url.js'
+
 const floorList = document.getElementById('floors');
 const roomNums = document.querySelectorAll('#detail .img-wrap .roomNum');
 
@@ -143,7 +145,7 @@ function init() {
     sessionStorage.setItem( 'building_code', "08" );
     building_code = sessionStorage.getItem( "building_code" );
 
-    fetch( `http://13.124.194.184:8080/detail/info/${building_code}`, {
+    fetch( URL.detail + building_code, {
         method: "GET"
     } )
     .then( res => res.json() )
