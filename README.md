@@ -4,12 +4,12 @@ This repository is for main page of *Kwang-Woon University: Campus Tour* project
 
 ## Notice   
 
-This project is internally defined list in `main.js` as default. 
+This uses internally defined list in `main.js` as default to load models informations,
 
-or
+also
 
-You can use external server to get lists of models information, but your local address (i.g. 127.0.0.1/5500, localhost:3000 ...) will occur CORS violation. *(Access-Control-Allow-Origin)*    
-You need to ignore the CORS via Chrome extension or other ways possible, to load models successfully.    
+You can  get lists of models information from the external server.   
+You need to ignore the CORS via Chrome extension or other ways possible, to load models' information successfully.    
 <details>
    <summary> To Use Server </summary>
    from <code>main.js:345</code>:
