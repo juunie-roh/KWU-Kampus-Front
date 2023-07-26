@@ -7,265 +7,247 @@ import * as URL from './url.js';
 
 // basic javascripts
 
-const datas = [];
+const datas = [
+  {
+    building_code: '04',
+    building: '복지관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/BokJi.glb',
+    position_x: 120,
+    position_y: 0,
+    position_z: 10,
+    angle: 63,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '05',
+    building: '비마관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/BiMa.glb',
+    position_x: 79,
+    position_y: 0,
+    position_z: -148,
+    angle: 23,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '08',
+    building: '새빛관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/SaeBit.glb',
+    position_x: 55,
+    position_y: 0,
+    position_z: -229,
+    angle: 74.5,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '09',
+    building: '아이스링크',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/IceRink.glb',
+    position_x: 0,
+    position_y: 0,
+    position_z: 97,
+    angle: 123,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '10',
+    building: '연구문화관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/DongHae.glb',
+    position_x: 50,
+    position_y: 0,
+    position_z: 65,
+    angle: 159,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '12',
+    building: '옥의관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/OkUi.glb',
+    position_x: 162,
+    position_y: 0,
+    position_z: -72,
+    angle: 212,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '17',
+    building: '화도관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/HwaDo.glb',
+    position_x: -16,
+    position_y: 0,
+    position_z: -106,
+    angle: -118,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '03',
+    building: '다산재',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/DaSan.glb',
+    position_x: 131,
+    position_y: 0,
+    position_z: -156,
+    angle: 42,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '11',
+    building: '연촌재',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/YeonChon.glb',
+    position_x: -175,
+    position_y: 0,
+    position_z: 146,
+    angle: 144,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '14',
+    building: '참빛관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/ChamBit.glb',
+    position_x: 128,
+    position_y: 0,
+    position_z: -235,
+    angle: -70,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '15',
+    building: '한울관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/HanUl.glb',
+    position_x: -37,
+    position_y: 0,
+    position_z: 104,
+    angle: -76,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '16',
+    building: '한천재',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/HanCheon.glb',
+    position_x: 8,
+    position_y: 0,
+    position_z: 65,
+    angle: -20,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '13',
+    building: '인터내셔널 하우스',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/InternationalHouse.glb',
+    position_x: -204,
+    position_y: 0,
+    position_z: 165,
+    angle: 100,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '02',
+    building: '누리관',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/NuRi.glb',
+    position_x: -2,
+    position_y: 0,
+    position_z: 290,
+    angle: -27,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '01',
+    building: '80주년 기념관 & 광운 스퀘어',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/KWSquare.glb',
+    position_x: 42,
+    position_y: 0,
+    position_z: -70,
+    angle: -119,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '06',
+    building: '빛솔재 A동',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/BitSolA.glb',
+    position_x: -118,
+    position_y: 0,
+    position_z: 180,
+    angle: 15,
+    scale: 1,
+    others: '',
+  },
+  {
+    building_code: '07',
+    building: '빛솔재 B동',
+    building_phone_num: '',
+    management_team: '',
+    management_team_phone_num: '',
+    model_path: './models/BitSolB.glb',
+    position_x: -107,
+    position_y: 0,
+    position_z: 129,
+    angle: 15,
+    scale: 1,
+    others: '',
+  }
+];
 let receivedData;
-
-const BokJi = {
-  building_code: '04',
-  building: '복지관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/BokJi.glb',
-  position_x: 120,
-  position_y: 0,
-  position_z: 10,
-  angle: 63,
-  scale: 1,
-  others: '',
-}
-const BiMa = {
-  building_code: '05',
-  building: '비마관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/BiMa.glb',
-  position_x: 79,
-  position_y: 0,
-  position_z: -148,
-  angle: 23,
-  scale: 1,
-  others: '',
-}
-const SaeBit = {
-  building_code: '08',
-  building: '새빛관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/SaeBit.glb',
-  position_x: 55,
-  position_y: 0,
-  position_z: -229,
-  angle: 74.5,
-  scale: 1,
-  others: '',
-}
-const IceRink = {
-  building_code: '09',
-  building: '아이스링크',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/IceRink.glb',
-  position_x: 0,
-  position_y: 0,
-  position_z: 97,
-  angle: 123,
-  scale: 1,
-  others: '',
-}
-const DongHae = {
-  building_code: '10',
-  building: '연구문화관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/DongHae.glb',
-  position_x: 50,
-  position_y: 0,
-  position_z: 65,
-  angle: 159,
-  scale: 1,
-  others: '',
-}
-const OkUi = {
-  building_code: '12',
-  building: '옥의관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/OkUi.glb',
-  position_x: 162,
-  position_y: 0,
-  position_z: -72,
-  angle: 212,
-  scale: 1,
-  others: '',
-}
-const HwaDo = {
-  building_code: '17',
-  building: '화도관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/HwaDo.glb',
-  position_x: -16,
-  position_y: 0,
-  position_z: -106,
-  angle: -118,
-  scale: 1,
-  others: '',
-}
-const DaSan = {
-  building_code: '03',
-  building: '다산재',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/DaSan.glb',
-  position_x: 131,
-  position_y: 0,
-  position_z: -156,
-  angle: 42,
-  scale: 1,
-  others: '',
-}
-const YeonChon = {
-  building_code: '11',
-  building: '연촌재',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/YeonChon.glb',
-  position_x: -175,
-  position_y: 0,
-  position_z: 146,
-  angle: 144,
-  scale: 1,
-  others: '',
-}
-const ChamBit = {
-  building_code: '14',
-  building: '참빛관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/ChamBit.glb',
-  position_x: 128,
-  position_y: 0,
-  position_z: -235,
-  angle: -70,
-  scale: 1,
-  others: '',
-}
-const HanUl = {
-  building_code: '15',
-  building: '한울관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/HanUl.glb',
-  position_x: -37,
-  position_y: 0,
-  position_z: 104,
-  angle: -76,
-  scale: 1,
-  others: '',
-}
-const HanCheon = {
-  building_code: '16',
-  building: '한천재',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/HanCheon.glb',
-  position_x: 8,
-  position_y: 0,
-  position_z: 65,
-  angle: -20,
-  scale: 1,
-  others: '',
-}
-const InternationalHouse = {
-  building_code: '13',
-  building: '인터내셔널 하우스',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/InternationalHouse.glb',
-  position_x: -204,
-  position_y: 0,
-  position_z: 165,
-  angle: 100,
-  scale: 1,
-  others: '',
-}
-const NuRi = {
-  building_code: '02',
-  building: '누리관',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/NuRi.glb',
-  position_x: -2,
-  position_y: 0,
-  position_z: 290,
-  angle: -27,
-  scale: 1,
-  others: '',
-}
-const KWSquare = {
-  building_code: '01',
-  building: '80주년 기념관 & 광운 스퀘어',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/KWSquare.glb',
-  position_x: 42,
-  position_y: 0,
-  position_z: -70,
-  angle: -119,
-  scale: 1,
-  others: '',
-}
-const BitSolA = {
-  building_code: '06',
-  building: '빛솔재 A동',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/BitSolA.glb',
-  position_x: -118,
-  position_y: 0,
-  position_z: 180,
-  angle: 15,
-  scale: 1,
-  others: '',
-}
-const BitSolB = {
-  building_code: '07',
-  building: '빛솔재 B동',
-  building_phone_num: '',
-  management_team: '',
-  management_team_phone_num: '',
-  model_path: './models/BitSolB.glb',
-  position_x: -107,
-  position_y: 0,
-  position_z: 129,
-  angle: 15,
-  scale: 1,
-  others: '',
-}
-
-datas.push( HwaDo );
-datas.push( OkUi );
-datas.push( BiMa ); 
-datas.push( SaeBit );
-datas.push( BokJi );
-datas.push( DongHae );
-datas.push( IceRink );
-datas.push( DaSan );
-datas.push( YeonChon );
-datas.push( ChamBit );
-datas.push( HanUl );
-datas.push( HanCheon );
-datas.push( InternationalHouse );
-datas.push( NuRi );
-datas.push( KWSquare );
-datas.push( BitSolA );
-datas.push( BitSolB );
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
 fixedHelp.addEventListener( 'click', () => {
@@ -490,15 +472,15 @@ function createModel ( loader, data ) {
     model.rotateY( Math.PI / 180 * data.angle );
     model.scale.setScalar( data.scale );
 
-    const facilities = await fetch( URL.importance + data.building_code )
-                             .then( res => res.json() )
-                             .then( datas => {
+    // const facilities = await fetch( URL.importance + data.building_code )
+    //                          .then( res => res.json() )
+    //                          .then( datas => {
 
-                               let result = [];
-                               datas.forEach( ( data ) => { result.push( data ); } );
-                               return result;
+    //                            let result = [];
+    //                            datas.forEach( ( data ) => { result.push( data ); } );
+    //                            return result;
 
-                             } );
+    //                          } );
 
     model.userData = {
 
@@ -506,7 +488,7 @@ function createModel ( loader, data ) {
       building_phone_num: data.building_phone_num,
       management_team: data.management_team,
       management_team_phone_num: data.management_team_phone_num,
-      importance_rooms: facilities,
+      // importance_rooms: facilities,
       others: data.others,
 
       onPointerOver: function() {
