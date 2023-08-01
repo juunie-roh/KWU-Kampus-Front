@@ -266,7 +266,7 @@ fixedHelp.addEventListener( 'click', () => {
 } );
 
 const subCategories = document.querySelectorAll( 'ul.sub-categories li a' );
-const mapContainer = document.getElementById( 'mapContainer' );
+const container = document.getElementById( 'mapContainer' );
 
 ///////////////////////////////
 ///// THREE.js from here: /////
@@ -289,8 +289,10 @@ function init() {
 
   // variables
 
-  width = mapContainer.clientWidth;
-  height = mapContainer.clientHeight;
+  // width = window.innerWidth;
+  width = container.clientWidth;
+  // height = window.innerHeight;
+  height = container.clientHeight;
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
@@ -301,7 +303,7 @@ function init() {
   renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( width, height );
-  mapContainer.appendChild( renderer.domElement ); // where to append
+  container.appendChild( renderer.domElement ); // where to append
 
   camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );// 1000 );
   camera.position.set( 300, 300, 0 ); // ( 400, 200, 0 );
@@ -383,8 +385,8 @@ function init() {
   // scene.add( gridHelper );
 
   window.addEventListener( 'resize', onWindowResize );
-  mapContainer.addEventListener( 'pointermove', onPointerMove );
-  mapContainer.addEventListener( 'click', onClick );
+  container.addEventListener( 'pointermove', onPointerMove );
+  container.addEventListener( 'click', onClick );
   // window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
   //   let worldDirection = new THREE.Vector3;
   //   let worldPosition = new THREE.Vector3;
@@ -400,6 +402,8 @@ function init() {
 
 function onWindowResize() {
   
+  width = container.clientWidth;
+  height = container.clientHeight;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize( width, height );

@@ -20,12 +20,15 @@ main {
   display: flex;
   justify-content: center;
   margin-top: var( --header-height );
-  width: 100%; height: calc(1vh - var(--header-height));
+  width: 100%;
 }
 
 main #mapContainer {
   position: relative;
   width: 1200px; height: 768px;
+  margin-top: 20px;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .inner {
@@ -457,6 +460,11 @@ header #menuBtn {
 
   /* fixed information modal */
   #guiContainer { top: 80px; }
+
+  main #mapContainer {
+    margin: 10px;
+    width: 100%;
+  }
 }
 
 @media screen and ( max-width: 720px ) {
