@@ -412,7 +412,7 @@ function onPointerMove( event ) {
   let gapX = event.clientX - event.offsetX;
   let gapY = event.clientY - event.offsetY;
   // pointer.set( ( event.clientX / width ) * 2 - 1, - ( event.clientY / height ) * 2 + 1 );
-  pointer.set((event.clientX - gapX) / (width) * 2 - 1, - (event.clientY - gapY) / (height) * 2 + 1)
+  pointer.set(((event.clientX - gapX) / width) * 2 - 1, - ((event.clientY - gapY) / height) * 2 + 1);
   getIntersects();
 
 }
