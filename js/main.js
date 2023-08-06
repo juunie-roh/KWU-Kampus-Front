@@ -306,7 +306,7 @@ function init() {
   container.appendChild( renderer.domElement ); // where to append
 
   camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );// 1000 );
-  camera.position.set( 300, 300, 0 ); // ( 400, 200, 0 );
+  camera.position.set( 350, 250, 0 ); // ( 400, 200, 0 );
 
   // controls
 
