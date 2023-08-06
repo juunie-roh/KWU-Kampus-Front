@@ -21,12 +21,13 @@ main {
   justify-content: center;
   margin-top: var( --header-height );
   width: 100%;
+  background: #dddddd;
 }
 
 main #mapContainer {
   position: relative;
-  width: 1200px; height: 768px;
-  margin-top: 20px;
+  width: 1200px; height: 500px;
+  margin: 10px;
   border-radius: 20px;
   overflow: hidden;
 }
@@ -164,92 +165,6 @@ header #menuBtn {
   background-color: #aaaaaa;
   border-radius: 20px;
 }
-
-/* fixed information modal */
-#infoTag {
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-.infoPageTag {
-  position: absolute;
-  top: 100px;
-  width: 40px; height: 40px;
-  background: var( --main-color );
-}
-.infoPageTag-bottom {
-  position: absolute;
-  top: 100px; left: 40px;
-  border: 20px solid var(--main-color);
-  border-top: 20px solid transparent;
-  border-right: 20px solid transparent;
-}
-.infoPageTag-top {
-  position: absolute;
-  top: 100px; left: 40px;
-  border: 20px solid var(--main-color);
-  border-bottom: 20px solid transparent;
-  border-right: 20px solid transparent;
-}
-
-#infoPage {
-  position: absolute;
-  left: -300px; top: 100px;
-  width: 300px; height: 400px;
-  background: #fff;
-  border-bottom: 2px solid var( --main-color );
-  padding: 20px;
-  transition: 0.3s ease;
-  overflow-y: scroll;
-}
-#infoPage::-webkit-scrollbar {
-  width: 16px;
-}
-#infoPage::-webkit-scrollbar-thumb {
-  background-clip: padding-box;
-  border: 6px solid transparent;
-  background-color: #aaaaaa;
-  border-radius: 20px;
-}
-
-#infoPage.on { transform: translateX( 100% );}
-#infoTag.on { transform: translate( 300px, -50px ); }
-
-.infoTitle {
-  font-size: 20px;
-  font-weight: 600;
-  color:#222;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 5px;
-  border-bottom: 1px solid #aaa;
-}
-
-.infoContent {
-  font-size: 15px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-bottom: 20px;
-}
-
-.infoButton {
-  width: 250px; height: 30px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-  font-size: 20px;
-  font-weight: 600;
-  color:#222;
-  border-width: 1px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.infoButton:hover {
-  transition: 0.3s ease-in-out;
-  border-color: var(--main-color);
-  background-color: var(--main-color);
-  color: #fff;
-}
-/* fixed information modal end */
 /* header end */
 
 /* fixed information modal */
@@ -271,7 +186,7 @@ header #menuBtn {
 
 /* fixed-how-to-use */
 #fixedHelp {
-  position: fixed;
+  position: absolute;
   right: 20px; bottom: 20px;
   display: block;
   width: 70px; height: 70px;
@@ -294,12 +209,63 @@ header #menuBtn {
 }
 /* fixed-how-to-use end */
 
+#noticeContainer {
+  position: relative;
+  width: 100%;
+  isolation: isolate;
+}
+#noticeContainer h2 {
+  margin: 40px 0;
+  font-size: 44px;
+  font-weight: 700;
+}
+#noticeContainer .notice-card-wrap {
+  display: flex;
+  justify-content: space-between; align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  background: #fff;
+}
+
+.notice-card {
+  display: flex; flex-direction: column;
+  width: 400px; height: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  background: #ddd;
+  transition: 0.3s ease-in-out;
+}
+.notice-card h3 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: right;
+}
+.notice-card .notice {
+  width: 100%; height: 100%;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.notice-card:hover {
+  background: var(--main-color);
+  box-shadow: 5px 5px 10px rgba( 0, 0, 0, 0.5 );
+}
+.notice-card:hover h3 {
+  color: #fff;
+}
+
+footer {
+  display: flex;
+  width: 100%; height: 300px;
+  margin-top: 80px;
+  background: #333;
+}
+
 /* detail_example: */
 #detail .inner {
   display: flex; flex-direction: row;
   height: calc( 100vh - var( --header-height ) );
 }
-
 
 /* floors */
 #detail .text-wrap {
@@ -460,11 +426,6 @@ header #menuBtn {
 
   /* fixed information modal */
   #guiContainer { top: 80px; }
-
-  main #mapContainer {
-    margin: 10px;
-    width: 100%;
-  }
 }
 
 @media screen and ( max-width: 720px ) {
