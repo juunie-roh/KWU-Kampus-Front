@@ -151,19 +151,19 @@ function init() {
     .then( res => res.json() )
     .then( res => {
 
-        let classifiedList = classifyList( res );
-        // console.log( classifiedList );
-        createFloors( classifiedList );
+        let classifiedFloors = classifyList( res );
+        // console.log( classifiedFloors );
+        createFloors( classifiedFloors );
         if ( sessionStorage.getItem( 'floor' ) ) {
 
             const floor = ( '00' + sessionStorage.getItem( 'floor' ) ).slice( -2 );
-            activateFloor( document.getElementById( floor ), 0, classifiedList );
+            activateFloor( document.getElementById( floor ), 0, classifiedFloors );
             sessionStorage.removeItem( 'floor' );
             sessionStorage.removeItem( 'building_code' );
 
         } else {
             // activate 1st floor as default
-            activateFloor( document.getElementById( '01' ), 0, classifiedList );
+            activateFloor( document.getElementById( '01' ), 0, classifiedFloors );
 
         }
         
@@ -183,9 +183,9 @@ function init() {
  * @param { number } roomCount the integer number of rooms in each floors
  * @result Create new elements under `ul#floors`
  */
-function createFloors( classifiedList ) {
+function createFloors( classifiedFloors ) {
 
-    for ( let i = 0; i < classifiedList.length; ++i ) {
+    for ( let i = 0; i < classifiedFloors.length; ++i ) {
 
         const liFloor = document.createElement( 'li' );
         const div = document.createElement( 'div' );
@@ -193,7 +193,7 @@ function createFloors( classifiedList ) {
 
         div.className = 'text'; // div.text
         span.className = 'floor-title'; // span.floor-title
-        span.innerText = `${classifiedList[i][0].floor}F`;
+        span.innerText = `${classifiedFloors[i][0].floor}F`;
 
         div.appendChild( span ); // div > span
         liFloor.appendChild( div ); // li > div > span
@@ -201,16 +201,16 @@ function createFloors( classifiedList ) {
         const ul = document.createElement( 'ul' );
         ul.setAttribute( 'id', 'rooms' ); // ul#rooms
 
-        for ( let j = 0; j < classifiedList[i].length; j++ ) {
+        for ( let j = 0; j < classifiedFloors[i].length; j++ ) {
 
             const liRoom = document.createElement( 'li' );
-            liRoom.innerText = classifiedList[i][j].room_no;
-            liRoom.setAttribute( 'id', classifiedList[i][j].room_code );
+            liRoom.innerText = classifiedFloors[i][j].room_no;
+            liRoom.setAttribute( 'id', classifiedFloors[i][j].room_code );
             ul.appendChild( liRoom ); // ul > li
 
         }
 
-        liFloor.setAttribute( 'id', ( '00' + classifiedList[i][0].floor ).slice( -2 ) );
+        liFloor.setAttribute( 'id', ( '00' + classifiedFloors[i][0].floor ).slice( -2 ) );
         liFloor.appendChild( ul ); // li > div + ul
         floorList.appendChild( liFloor );
 
@@ -220,7 +220,7 @@ function createFloors( classifiedList ) {
     // console.log( "Floors:\n", floors );
     floors.forEach( ( floor, i ) => {
         // 1층을 Default로 보여주기 위한 설정
-        // if (i === 0) { activateFloor( floor, i, classifiedList ); }
+        // if (i === 0) { activateFloor( floor, i, classifiedFloors ); }
     
         const floorTitle = floor.querySelector( '.floor-title' );
         floorTitle.addEventListener( 'click', ( e ) => {
@@ -232,7 +232,7 @@ function createFloors( classifiedList ) {
             if ( prevElement ) { prevElement.classList.remove( 'active' ); }
     
             // 선택한 층에 따라 표시되는 호수(방 번호) 변경
-            activateFloor( floor, i, classifiedList );
+            activateFloor( floor, i, classifiedFloors );
     
         } );
     
@@ -261,12 +261,12 @@ function setFloorBg ( bgUrl = "" ) {
  * * `prevElement`에 현재 선택된 `floor` 저장
  * @param { Element } floor `li` element in floors list
  * @param { number } i index value of the element
- * @param { Array } classifiedList an array of classified floors
+ * @param { Array } classifiedFloors an array of classified floors
  */
-function activateFloor ( floor, i, classifiedList ) {
+function activateFloor ( floor, i, classifiedFloors ) {
 
     floor.classList.add( 'active' ); 
-    const activeFloor = classifiedList[ i ]; 
+    const activeFloor = classifiedFloors[ i ]; 
 
     roomNums.forEach( ( roomnum, idx ) => {
 
@@ -304,32 +304,44 @@ function activateFloor ( floor, i, classifiedList ) {
  */
 function classifyList( res ) {
     
-    let classifiedList = [];
+    let classifiedFloors = [];
     let floors = res.map( room => room.floor );
-    let uniqFloors = [... new Set( floors )];
-    console.log( uniqFloors );
-    uniqFloors.forEach( ( floor ) => {
+    let uniqFloors = [... new Set( floors.sort(compareFloors(a, b)))];
+    uniqFloors.forEach( (uniqFloor) => {
 
         let floorNum, regex;
-        if ( /^B+/.test( floor ) ) {
+        if ( /^B+/.test( uniqFloor ) ) {
             // if floor element starts with 'B'
-            floorNum = ( '00' + floor.substr(1, 1) ).slice( -2 );
+            floorNum = ( '00' + uniqFloor.substr(1, 1) ).slice( -2 );
             regex = new RegExp( `^1-${floorNum}+` );
         } else {
-            floorNum = ( '00' + floor ).slice( -2 );
+            floorNum = ( '00' + uniqFloor ).slice( -2 );
             regex = new RegExp( `^0-${floorNum}+` );
         }
 
         const classifiedFloor = res.filter( data => regex.test( data.room_code ) );
-        classifiedList.push( classifiedFloor.sort( function( a, b ) {
-            // Sort By room_no
-            if ( a.room_no > b.room_no ) return 1;
-            if ( a.room_no === b.room_no ) return 0;
-            if ( a.room_no < b.room_no ) return -1;
-
-        } ) );
+        classifiedFloors.push(classifiedFloor.sort( function( a, b ) { return a.room_no < b.room_no ? -1 : a.room_no > b.room_no ? 1 : 0; }));
 
     } )
 
-    return classifiedList;
+    return classifiedFloors;
+}
+
+/**
+ * 건물 층 값인 문자열(B1, 10, 1, ...) 정렬을 위한 함수입니다.
+ * 문자열이 "B"(대문자)로 시작하면, B를 "-"로 바꾸어 비교합니다.
+ * 
+ * @param {String} a a value of floor to compare
+ * @param {String} b a value of floor to compare
+ * @returns Compared Result for sort() function.
+ */
+function compareFloors(a, b) {
+    
+    let _a, _b;
+
+    if (a.startsWith("B")) { _a = a.replace("B", "-") } else { _a = a }
+    if (b.startsWith("B")) { _b = b.replace("B", "-") } else { _b = b }
+
+    return _a - _b;
+
 }
