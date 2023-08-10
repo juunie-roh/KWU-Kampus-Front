@@ -137,19 +137,24 @@ const receivedBgUrl = "../images/details-example.jpg";
 
 let rooms, prevElement, prevDesc, floors, building_code;
 
+window.addEventListener('close', () => {
+    sessionStorage.removeItem('floor');
+    sessionStorage.removeItem('building_code');
+})
+
 init();
 
 function init() {
 
-    sessionStorage.setItem( 'floor', 'B2' );
-    sessionStorage.setItem( 'building_code', "08" );
+    sessionStorage.setItem('floor', 'B2');
+    sessionStorage.setItem('building_code', "08");
     building_code = sessionStorage.getItem( "building_code" );
 
-    fetch( URL.detail + building_code, {
+    fetch(URL.detail + building_code, {
         method: "GET"
-    } )
-    .then( res => res.json() )
-    .then( res => {
+    })
+    .then(res => res.json())
+    .then(res => {
 
         let classifiedFloors = classifyList( res );
         // console.log( classifiedFloors );
@@ -157,17 +162,17 @@ function init() {
         if ( sessionStorage.getItem( 'floor' ) ) {
 
             const floor = ( '00' + sessionStorage.getItem( 'floor' ) ).slice( -2 );
-            activateFloor( document.getElementById( floor ), 0, classifiedFloors );
-            sessionStorage.removeItem( 'floor' );
-            sessionStorage.removeItem( 'building_code' );
+            activateFloor( document.getElementById(floor), 0, classifiedFloors );
+            // sessionStorage.removeItem('floor');
+            // sessionStorage.removeItem('building_code');
 
         } else {
             // activate 1st floor as default
-            activateFloor( document.getElementById( '01' ), 0, classifiedFloors );
+            activateFloor( document.getElementById('01'), 0, classifiedFloors );
 
         }
         
-    } )
+    })
     
     // createFloors( receivedFloorList );
     setFloorBg( receivedBgUrl );
@@ -305,24 +310,24 @@ function activateFloor ( floor, i, classifiedFloors ) {
 function classifyList( res ) {
     
     let classifiedFloors = [];
-    let floors = res.map( room => room.floor );
-    let uniqFloors = [... new Set( floors.sort(compareFloors(a, b)))];
-    uniqFloors.forEach( (uniqFloor) => {
+    let floors = res.map(room => room.floor);
+    let uniqFloors = [... new Set(floors.sort(compareFloors(a, b)))];
+    uniqFloors.forEach((uniqFloor) => {
 
         let floorNum, regex;
-        if ( /^B+/.test( uniqFloor ) ) {
+        if (/^B+/.test(uniqFloor)) {
             // if floor element starts with 'B'
-            floorNum = ( '00' + uniqFloor.substr(1, 1) ).slice( -2 );
-            regex = new RegExp( `^1-${floorNum}+` );
+            floorNum = ('00' + uniqFloor.substr(1, 1)).slice(-2);
+            regex = new RegExp(`^1-${floorNum}+`);
         } else {
-            floorNum = ( '00' + uniqFloor ).slice( -2 );
-            regex = new RegExp( `^0-${floorNum}+` );
+            floorNum = ('00' + uniqFloor).slice(-2);
+            regex = new RegExp(`^0-${floorNum}+`);
         }
 
-        const classifiedFloor = res.filter( data => regex.test( data.room_code ) );
-        classifiedFloors.push(classifiedFloor.sort( function( a, b ) { return a.room_no < b.room_no ? -1 : a.room_no > b.room_no ? 1 : 0; }));
+        const classifiedFloor = res.filter(data => regex.test(data.room_code));
+        classifiedFloors.push(classifiedFloor.sort(function( a, b ) { return a.room_no < b.room_no ? -1 : a.room_no > b.room_no ? 1 : 0; }));
 
-    } )
+    });
 
     return classifiedFloors;
 }

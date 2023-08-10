@@ -27,7 +27,7 @@ main {
 main #mapContainer {
   position: relative;
   width: 1200px; height: 700px;
-  margin: 10px;
+  margin: 10px 50px;
   border-radius: 20px;
   overflow: hidden;
 }
@@ -222,28 +222,32 @@ header #menuBtn {
 #noticeContainer .notice-card-wrap {
   display: flex;
   justify-content: space-between; align-items: center;
+  gap: 20px;
   width: 100%;
+  overflow-x: auto;
   padding: 20px 0;
   background: #fff;
 }
 
 .notice-card {
   display: flex; flex-direction: column;
+  min-width: 400px;
   width: 400px; height: 500px;
-  padding: 20px;
-  border-radius: 30px;
+  padding: 10px;
+  border-radius: 20px;
   background: #ddd;
   transition-property: background-color, color, box-shadow;
   transition: 0.3s ease-in-out;
 }
 .notice-card h3 {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 24px;
   text-align: right;
   cursor: pointer;
 }
 .notice-card .notice {
   width: 100%; height: 100%;
+  overflow-y: auto;
   border-radius: 10px;
   background: #fff;
   color: #333;
