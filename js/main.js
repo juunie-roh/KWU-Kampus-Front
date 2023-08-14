@@ -7,7 +7,7 @@ import * as URL from './url.js';
 
 // basic javascripts
 
-const datas = [
+const buildingDatas = [
   {
     building_code: '04',
     building: '복지관',
@@ -283,9 +283,10 @@ const fonts = [];
 // const arrows = [];
 
 init();
+noticeInit();
 animate();
 
-function init() {
+async function init() {
 
   // variables
 
@@ -324,26 +325,6 @@ function init() {
 
   controls.maxPolarAngle = Math.PI / 2;
 
-  // GLTF Loader, load models
-
-  const gltfLoader = new GLTFLoader();
-  // fetch( URL.buildings, {
-  //   method: 'GET',
-  // } )
-  // .then( res => res.json() )
-  // .then ( res => {
-
-  //   receivedData = res;
-  //   receivedData.forEach( ( data ) => {
-  //     createModel( gltfLoader, data );
-  //   } );
-
-  // } );
-
-  datas.forEach( ( data ) => {
-    createModel( gltfLoader, data );
-  } );
-
   // world floor
 
   const planeSize = 1000; // 2000;
@@ -378,8 +359,6 @@ function init() {
   ambientLight.name = 'ambientLight';
   scene.add( ambientLight );
 
-  // Create Info Pannel
-
   // // Grid Helper
   // const gridHelper = new THREE.GridHelper( 1000, 100 );
   // scene.add( gridHelper );
@@ -395,6 +374,40 @@ function init() {
   //   console.log( worldDirection );
   //   console.log( worldPosition );
   // } );
+
+  // GLTF Loader, load models
+
+  const gltfLoader = new GLTFLoader();
+  // const datas = await fetch(URL.buildings, { method: 'GET' })
+  //                     .then(res => res.json())
+  //                     .then (res => { return res; });
+
+  buildingDatas.forEach((data) => {
+    createModel(gltfLoader, data);
+  });
+
+}
+
+async function noticeInit() {
+
+  const noticeDatas = await fetch(URL.notice, { method: 'GET' })
+                            .then(res => res.json())
+                            .then(res => { return res; });
+  // console.log(noticeDatas);
+
+  // Extract dept names and remove duplicates from raw data
+  const depts = [];
+  noticeDatas.forEach(data => { depts.push(data.dept); });
+
+  const uniqDepts = [...new Set(depts)];
+  console.log(uniqDepts);
+
+  uniqDepts.forEach(dept => {
+
+    const filtered = noticeDatas.filter(data => data.dept === dept);
+    createNotice(filtered);
+
+  });
 
 }
 
@@ -647,5 +660,45 @@ function getIntersects() {
     INTERSECTED = undefined;
   
   }
+
+}
+/**
+ * 서버로 부터 받은 공지사항 목록을 필터링하여 `li.notice-card` 를 생성합니다.
+ * @param { Array } filtered Filtered Array by dept of noticeDatas
+ */
+function createNotice(filtered) {
+
+  const noticeContainer = document.querySelector('ul.notice-card-wrap');
+  const li = document.createElement('li');
+  const h3 = document.createElement('h3');
+  const aLink1 = document.createElement('a');
+
+  li.className = 'notice-card';
+  if (filtered[0].site.includes(`https://ei.kw.ac.kr/`)) {
+    aLink1.href = `https://ei.kw.ac.kr/`;
+  }
+  aLink1.innerText = filtered[0].dept;
+  h3.append(aLink1);
+  li.append(h3);
+
+  const ul = document.createElement('ul');
+  ul.className = 'notice';
+  
+  filtered.forEach(item => {
+
+    const noticeLi = document.createElement('li');
+    const aLink2 = document.createElement('a');
+    const span = document.createElement('span');
+    aLink2.href = item.site;
+    aLink2.innerText = item.notice;
+    span.innerText = item.date;
+    aLink2.append(span);
+    noticeLi.append(aLink2);
+    ul.append(noticeLi);
+
+  });
+
+  li.append(ul);
+  noticeContainer.append(li);
 
 }
