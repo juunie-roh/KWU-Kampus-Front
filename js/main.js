@@ -646,17 +646,17 @@ async function createFont( position, name ) {
  */
 function getIntersects() {
 
-  raycaster.setFromCamera( pointer, camera );
-  intersects = raycaster.intersectObjects( buildings, true );
-  if ( intersects.length > 0 ) { 
+  raycaster.setFromCamera(pointer, camera);
+  intersects = raycaster.intersectObjects(buildings, true);
+  if (intersects.length > 0) { 
 
-    if ( INTERSECTED ) INTERSECTED.userData.onPointerOut();
-    INTERSECTED = intersects[ 0 ].object.parent;
+    if (INTERSECTED) INTERSECTED.userData.onPointerOut();
+    INTERSECTED = intersects[0].object.parent;
     INTERSECTED.userData.onPointerOver();
   
   } else { 
     
-    if ( INTERSECTED ) INTERSECTED.userData.onPointerOut();
+    if (INTERSECTED) INTERSECTED.userData.onPointerOut();
     INTERSECTED = undefined;
   
   }
@@ -674,9 +674,13 @@ function createNotice(filtered) {
   const aLink1 = document.createElement('a');
 
   li.className = 'notice-card';
-  if (filtered[0].site.includes(`https://ei.kw.ac.kr/`)) {
-    aLink1.href = `https://ei.kw.ac.kr/`;
-  }
+  aLink1.href = (filtered[0].site.includes(`https://chss.kw.ac.kr/`)) ? `https://chss.kw.ac.kr/` :
+                (filtered[0].site.includes(`https://ei.kw.ac.kr/`)) ? `https://ei.kw.ac.kr/` :
+                (filtered[0].site.includes(`https://biz.kw.ac.kr/`)) ? `https://biz.kw.ac.kr/` :
+                (filtered[0].site.includes(`https://ingenium.kw.ac.kr/`)) ? `https://ingenium.kw.ac.kr/` :
+                (filtered[0].site.includes(`https://npsw.kw.ac.kr/`)) ? `https://npsw.kw.ac.kr/` :
+                '#';
+
   aLink1.innerText = filtered[0].dept;
   h3.append(aLink1);
   li.append(h3);
@@ -689,9 +693,11 @@ function createNotice(filtered) {
     const noticeLi = document.createElement('li');
     const aLink2 = document.createElement('a');
     const span = document.createElement('span');
+
     aLink2.href = item.site;
     aLink2.innerText = item.notice;
     span.innerText = item.date;
+    
     aLink2.append(span);
     noticeLi.append(aLink2);
     ul.append(noticeLi);
