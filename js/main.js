@@ -272,7 +272,7 @@ const container = document.getElementById( 'mapContainer' );
 ///// THREE.js from here: /////
 ///////////////////////////////
 
-let width, height, camera, controls, scene, renderer, raycaster;
+let width, height, camera, controls, scene, renderer, raycaster, headerHeight;
 
 const pointer = new THREE.Vector2(); // mouse cursor position tracking
 let intersects = []; // list to find which building is selected
@@ -289,11 +289,11 @@ animate();
 async function init() {
 
   // variables
-
-  // width = window.innerWidth;
-  width = container.clientWidth;
-  // height = window.innerHeight;
-  height = container.clientHeight;
+  headerHeight = Number(getComputedStyle(document.documentElement).getPropertyValue('--header-height').slice(0, 2));
+  width = window.innerWidth - 20;
+  // width = container.clientWidth;
+  height = window.innerHeight - 20 - headerHeight;
+  // height = container.clientHeight;
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
@@ -432,8 +432,11 @@ async function noticeInit() {
 
 function onWindowResize() {
   
-  width = container.clientWidth;
-  height = container.clientHeight;
+  headerHeight = Number(getComputedStyle(document.documentElement).getPropertyValue('--header-height').slice(0, 2));
+  width = window.innerWidth - 20;
+  // width = container.clientWidth;
+  height = window.innerHeight - 20 - headerHeight;
+  // height = container.clientHeight;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize( width, height );
