@@ -19,7 +19,7 @@ main {
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: var( --header-height );
+  margin-top: var(--header-height);
   width: 100%;
   background: #dddddd;
 }
@@ -35,7 +35,7 @@ main #mapContainer {
 .inner {
   position: relative;
   width: 100%;
-  padding: 0 50px;
+  padding: 0 100px;
 }
 
 /* Layout 확인용 Test Bg Division */
@@ -60,7 +60,6 @@ header {
   background: linear-gradient( to bottom right, var( --main-color ), var( --main-dark ) );
   z-index: 99;
 }
-
 header>.inner {
   display: flex;
   justify-content: space-between; align-items: center;
@@ -209,71 +208,49 @@ header #menuBtn {
 }
 /* fixed-how-to-use end */
 
-#noticeContainer {
+#noticeContainer { position: relative; width: 100%; height: 100%; isolation: isolate; }
+#noticeContainer h2 { margin: 40px 0; font-size: 44px; font-weight: 700; }
+
+ul.notice-list-wrap {
   position: relative;
-  width: 100%;
-  isolation: isolate;
-}
-#noticeContainer h2 {
-  margin: 40px 0;
-  font-size: 44px;
-  font-weight: 700;
-}
-#noticeContainer .notice-card-wrap {
   display: flex;
   justify-content: space-between; align-items: center;
-  gap: 20px;
-  width: 100%;
+  width: 100%; height: 400px;
   overflow-x: auto;
-  padding: 20px 0;
+}
+ul.notice-list-wrap li.notice-list { width: 100%; height: 100%; white-space: nowrap; }
+li.notice-list h3 {
+  display: block;
+  position: sticky; top: 0;
+  z-index: 10;
+  padding: 10px 1em;
   background: #fff;
-}
-
-.notice-card {
-  display: flex; flex-direction: column;
-  min-width: 400px;
-  width: 400px; height: 500px;
-  padding: 10px;
-  border-radius: 20px;
-  background: #ddd;
-  transition-property: background-color, color, box-shadow;
-  transition: 0.3s ease-in-out;
-}
-.notice-card h3 {
-  margin-bottom: 10px;
-  font-size: 24px;
-  text-align: right;
+  border-top: 2px solid var(--main-color);
+  border-bottom: 1px solid #aaa;
+  color: #333;
+  font-size: 20px;
+  text-align: center;
   cursor: pointer;
 }
-.notice-card .notice {
+li.notice-list:hover h3,
+li.notice-list.active h3 { background: var(--main-color); color: #fff; }
+li.notice-list.active h3 { box-shadow: 0px 5px 10px rgba( 0, 0, 0, 0.5 ); }
+
+li.notice-list ul.notices { display: none; }
+li.notice-list.active ul.notices {
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 60px; left: 0;
+  font-size: 18px;
+}
+ul.notices li {
+  display: flex;
+  justify-content: space-between;
   width: 100%; height: 100%;
-  padding: 10px;
-  overflow-y: auto;
-  border-radius: 10px;
-  background: #fff;
-  color: #333;
-}
-.notice li {
-  display: block;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #777;
-}
-.notice a {
-  display: block;
-}
-.notice span {
-  display: block;
-  text-align: right;
-}
-.notice li:hover {
-  background:rgba( 0, 0, 0, 0.2 );
+  padding: 10px 20px;
 }
 
-.notice-card:hover {
-  box-shadow: 5px 5px 10px rgba( 0, 0, 0, 0.5 );
-  background: var(--main-color);
-  color: #fff;
-}
 
 
 footer {

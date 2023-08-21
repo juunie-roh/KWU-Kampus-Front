@@ -382,9 +382,7 @@ async function init() {
   //                     .then(res => res.json())
   //                     .then (res => { return res; });
 
-  buildingDatas.forEach((data) => {
-    createModel(gltfLoader, data);
-  });
+  buildingDatas.forEach(data => { createModel(gltfLoader, data); });
 
 }
 
@@ -402,12 +400,31 @@ async function noticeInit() {
   const uniqDepts = [...new Set(depts)];
   console.log(uniqDepts);
 
-  uniqDepts.forEach(dept => {
+  uniqDepts.forEach((dept, index) => {
 
     const filtered = noticeDatas.filter(data => data.dept === dept);
-    createNotice(filtered);
+    // createNotice(filtered);
+    createNoticeList(filtered, index);
 
   });
+
+  // click events
+  const noticeLis = document.querySelectorAll('li.notice-list');
+  let activeIndex = 0;
+  noticeLis.forEach((noticeLi, index) => {
+
+    noticeLi.addEventListener('click', (e) => {
+
+      e.preventDefault();
+      let currentActiveNoticeLi = document.querySelector('li.notice-list.active');
+      currentActiveNoticeLi.classList.remove('active');
+      e.target.parentElement.classList.add('active');
+      activeIndex = index;
+      console.log(activeIndex);
+
+    });
+
+  })
 
 }
 
@@ -664,6 +681,7 @@ function getIntersects() {
 }
 /**
  * 서버로 부터 받은 공지사항 목록을 필터링하여 `li.notice-card` 를 생성합니다.
+ * @deprecated
  * @param { Array } filtered Filtered Array by dept of noticeDatas
  */
 function createNotice(filtered) {
@@ -706,5 +724,40 @@ function createNotice(filtered) {
 
   li.append(ul);
   noticeContainer.append(li);
+
+}
+
+function createNoticeList(filtered, index) {
+
+  const noticeListContainer = document.querySelector('ul.notice-list-wrap');
+  const li = document.createElement('li');
+  const h3 = document.createElement('h3');
+
+  li.className = 'notice-list';
+  if (index === 0) li.classList.add('active'); // Set First Element as active
+  h3.innerText = filtered[0].dept;
+  li.append(h3);
+
+  const ul = document.createElement('ul');
+  ul.className = 'notices';
+
+  filtered.forEach(item => {
+    
+    const noticesLi = document.createElement('li');
+    const a = document.createElement('a');
+    const span = document.createElement('span');
+
+    a.href = item.site;
+    a.innerText = item.notice;
+    span.innerText = item.date;
+
+    noticesLi.append(a);
+    noticesLi.append(span);
+    ul.append(noticesLi);
+
+  });
+
+  li.append(ul);
+  noticeListContainer.append(li);
 
 }
