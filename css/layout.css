@@ -211,14 +211,14 @@ header #menuBtn {
 #noticeContainer { position: relative; width: 100%; height: 100%; isolation: isolate; }
 #noticeContainer h2 { margin: 40px 0; font-size: 44px; font-weight: 700; }
 
-ul.notice-list-wrap {
+ul.notice-header-wrap {
   position: relative;
   display: flex;
   justify-content: space-between; align-items: center;
   width: 100%; height: 400px;
   overflow-x: auto;
 }
-ul.notice-list-wrap li.notice-list { width: 100%; height: 100%; white-space: nowrap; }
+ul.notice-header-wrap li.notice-list { width: 100%; height: 100%; white-space: nowrap; }
 li.notice-list h3 {
   display: block;
   position: sticky; top: 0;
