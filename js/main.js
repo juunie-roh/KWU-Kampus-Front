@@ -410,6 +410,7 @@ async function noticeInit() {
 
   // click events
   const noticeLis = document.querySelectorAll('li.notice-list');
+  let activateIndex = 0;
   noticeLis.forEach((noticeLi, index) => {
 
     noticeLi.addEventListener('click', (e) => {
@@ -418,7 +419,8 @@ async function noticeInit() {
       let currentActiveNoticeLi = document.querySelector('li.notice-list.active');
       currentActiveNoticeLi.classList.remove('active');
       e.target.parentElement.classList.add('active');
-      activateNotice(index);
+      activateNotice(activateIndex, index);
+      activateIndex = index;
 
     });
 
@@ -728,16 +730,19 @@ function createNotice(filtered) {
 function createNoticeList(filtered, index) {
 
   const header = document.querySelector('ul.notice-header-wrap');
+  const list = document.querySelector('div.notice-list-wrap');
   const li = document.createElement('li');
   const h3 = document.createElement('h3');
 
   li.className = 'notice-list';
-  if (index === 0) li.classList.add('active'); // Set First Element as active
+  if (index === 0) { li.classList.add('active'); } // Set First Element as active 
   h3.innerText = filtered[0].dept;
   li.append(h3);
+  header.append(li);
 
   const ul = document.createElement('ul');
   ul.className = 'notices';
+  if (index === 0) { ul.classList.add('active'); }
 
   filtered.forEach(item => {
     
@@ -755,11 +760,14 @@ function createNoticeList(filtered, index) {
 
   });
 
-  li.append(ul);
-  header.append(li);
+  list.append(ul);
 
 }
 
-function activateNotice(index) {
-  console.log(index);
+function activateNotice(last, current) {
+
+  const noticesUls = document.querySelectorAll('ul.notices');
+  noticesUls[last].classList.remove('active');
+  noticesUls[current].classList.add('active');
+
 }
