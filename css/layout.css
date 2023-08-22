@@ -209,7 +209,7 @@ header #menuBtn {
 /* fixed-how-to-use end */
 
 #scrollDown {
-  display: block; width: 50px; height: 50px;
+  display: flex; justify-content: space-between; align-items: center; width: 50px; height: 50px;
   position: absolute; bottom: 40px; left: 50%;
   transform: translateX(-50%);
   transition-property: background-color, width;
@@ -217,25 +217,25 @@ header #menuBtn {
   border-radius: 50px;
   background: rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  white-space: nowrap;
-}
-#scrollDown span { 
-  display: inline-block;
-  position: relative; top: -16px;
-  padding: 0 1em;
-  height: 100%;
-  color: #fff; 
-  font-size: 24px;
 }
 #scrollDown:hover { 
   width: 280px;
   background: #333; 
 }
 #scrollDown svg {
-  display: inline-block;
+  display: block;
   width: 50px; height: 50px;
   fill: #fff;
 }
+#scrollDown span { 
+  display: none;
+  height: 100%;
+  padding-right: 1em;
+  color: #fff; 
+  font-size: 24px;
+  line-height: 50px;
+}
+#scrollDown:hover span { display: block; }
 
 
 #noticeContainer { position: relative; width: 100%; height: 100%; isolation: isolate; }
