@@ -403,7 +403,6 @@ async function noticeInit() {
   uniqDepts.forEach((dept, index) => {
 
     const filtered = noticeDatas.filter(data => data.dept === dept);
-    // createNotice(filtered);
     createNoticeList(filtered, index);
 
   });
@@ -682,54 +681,12 @@ function getIntersects() {
   }
 
 }
+
 /**
- * 서버로 부터 받은 공지사항 목록을 필터링하여 `li.notice-card` 를 생성합니다.
- * @deprecated
- * @param { Array } filtered Filtered Array by dept of noticeDatas
+ * 각 단과대별로 필터링 된 배열을 ul element로 생성합니다.
+ * @param {Array} filtered an array of filtered notices
+ * @param {Number} index an index number to set default element as active
  */
-function createNotice(filtered) {
-
-  const noticeContainer = document.querySelector('ul.notice-card-wrap');
-  const li = document.createElement('li');
-  const h3 = document.createElement('h3');
-  const aLink1 = document.createElement('a');
-
-  li.className = 'notice-card';
-  aLink1.href = (filtered[0].site.includes(`https://chss.kw.ac.kr/`)) ? `https://chss.kw.ac.kr/` :
-                (filtered[0].site.includes(`https://ei.kw.ac.kr/`)) ? `https://ei.kw.ac.kr/` :
-                (filtered[0].site.includes(`https://biz.kw.ac.kr/`)) ? `https://biz.kw.ac.kr/` :
-                (filtered[0].site.includes(`https://ingenium.kw.ac.kr/`)) ? `https://ingenium.kw.ac.kr/` :
-                (filtered[0].site.includes(`https://npsw.kw.ac.kr/`)) ? `https://npsw.kw.ac.kr/` :
-                '#';
-
-  aLink1.innerText = filtered[0].dept;
-  h3.append(aLink1);
-  li.append(h3);
-
-  const ul = document.createElement('ul');
-  ul.className = 'notice';
-  
-  filtered.forEach(item => {
-
-    const noticeLi = document.createElement('li');
-    const aLink2 = document.createElement('a');
-    const span = document.createElement('span');
-
-    aLink2.href = item.site;
-    aLink2.innerText = item.notice;
-    span.innerText = item.date;
-    
-    aLink2.append(span);
-    noticeLi.append(aLink2);
-    ul.append(noticeLi);
-
-  });
-
-  li.append(ul);
-  noticeContainer.append(li);
-
-}
-
 function createNoticeList(filtered, index) {
 
   const header = document.querySelector('ul.notice-header-wrap');
@@ -766,7 +723,11 @@ function createNoticeList(filtered, index) {
   list.append(ul);
 
 }
-
+/**
+ * 단과대 별 공지사항들의 내용이 담긴 ul element들 중 `last`를 비활성화하고, `current`를 활성화합니다.
+ * @param {Number} last an index of activated noticeUl
+ * @param {Number} current the target index of noticeUl to activate
+ */
 function activateNotice(last, current) {
 
   const noticesUls = document.querySelectorAll('ul.notices');
