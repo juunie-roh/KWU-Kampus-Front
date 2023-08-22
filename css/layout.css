@@ -228,7 +228,7 @@ header #menuBtn {
 }
 #scrollDown:hover { 
   width: 280px;
-  background: rgba(0, 0, 0, 1); 
+  background: #333; 
 }
 #scrollDown svg {
   display: inline-block;
