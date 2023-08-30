@@ -289,11 +289,7 @@ animate();
 async function init() {
 
   // variables
-  headerHeight = Number(getComputedStyle(document.documentElement).getPropertyValue('--header-height').slice(0, 2));
-  width = window.innerWidth - 20;
-  // width = container.clientWidth;
-  height = window.innerHeight - 20 - headerHeight;
-  // height = container.clientHeight;
+  updateWindowSize();
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
@@ -380,7 +376,7 @@ async function init() {
   const gltfLoader = new GLTFLoader();
   // const datas = await fetch(URL.buildings, { method: 'GET' })
   //                     .then(res => res.json())
-  //                     .then (res => { return res; });
+  //                     .then(json => { return json; });
 
   buildingDatas.forEach(data => { createModel(gltfLoader, data); });
 
@@ -389,17 +385,17 @@ async function init() {
 async function noticeInit() {
 
   const noticeDatas = await fetch(URL.notice, { method: 'GET' })
-                            .then(res => res.json())
-                            .then(res => { return res; });
+                            .then(res => res.json()) // if (res.status === 200) { return res.json() } else { error handling }
+                            .then(json => { return json; });
   // console.log(noticeDatas);
 
   // Extract dept names and remove duplicates from raw data
   const depts = [];
   noticeDatas.forEach(data => { depts.push(data.dept); });
-
   const uniqDepts = [...new Set(depts)];
-  console.log(uniqDepts);
+  // console.log(uniqDepts);
 
+  // create html elements for uniqDepts
   uniqDepts.forEach((dept, index) => {
 
     const filtered = noticeDatas.filter(data => data.dept === dept);
@@ -431,11 +427,7 @@ async function noticeInit() {
 
 function onWindowResize() {
   
-  headerHeight = Number(getComputedStyle(document.documentElement).getPropertyValue('--header-height').slice(0, 2));
-  width = window.innerWidth - 20;
-  // width = container.clientWidth;
-  height = window.innerHeight - 20 - headerHeight;
-  // height = container.clientHeight;
+  updateWindowSize();
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize( width, height );
@@ -456,11 +448,7 @@ function onPointerMove( event ) {
 function onClick( event ) {
 
   onPointerMove( event ); // get pointer position
-  if ( INTERSECTED ) {
-
-    INTERSECTED.userData.onClick();
-
-  }
+  INTERSECTED && INTERSECTED.userData.onClick();
 
 }
 
@@ -470,12 +458,8 @@ function animate() {
 
   window.requestAnimationFrame( animate );
 
-  // Let the groups generated from `createFont()` to face the camera all the time
-  fonts.forEach( ( font ) => {
-
-    font.quaternion.copy( camera.quaternion );
-
-  } );
+  // Let the groups generated from `createFont()` face the camera all the time
+  fonts.forEach(font => { font.quaternion.copy( camera.quaternion ) });
   controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
   render();
 
@@ -488,6 +472,18 @@ function render() {
 }
 
 // custom functions
+
+/**
+ * 3D 맵이 차지할 영역의 너비 및 높이를 업데이트 합니다.
+ * header 영역이 차지하는 부분과 margin 으로 설정한 10 씩을 제외한 전체화면입니다.
+ */
+function updateWindowSize() {
+
+  headerHeight = Number(getComputedStyle(document.documentElement).getPropertyValue('--header-height').slice(0, 2));
+  width = window.innerWidth - 20;
+  height = window.innerHeight - 20 - headerHeight;
+
+}
 
 /**
  * 건물의 모델링을 불러와 `scene`에 추가하고, `buildings` 리스트에 저장 및 `subCategories`의 이벤트 리스너를 설정합니다.
@@ -512,15 +508,15 @@ function createModel ( loader, data ) {
     model.rotateY( Math.PI / 180 * data.angle );
     model.scale.setScalar( data.scale );
 
-    // const facilities = await fetch( URL.importance + data.building_code )
-    //                          .then( res => res.json() )
-    //                          .then( datas => {
+    // const facilities = await fetch(URL.importance + data.building_code)
+    //                          .then(res => res.json())
+    //                          .then(datas => {
 
     //                            let result = [];
-    //                            datas.forEach( ( data ) => { result.push( data ); } );
+    //                            datas.forEach(data => { result.push(data); });
     //                            return result;
 
-    //                          } );
+    //                          });
 
     model.userData = {
 
@@ -552,8 +548,8 @@ function createModel ( loader, data ) {
 
         controls.target.copy( model.position );
         controls.update();
-        console.log( model.name + ' clicked' );
-        console.log( model.userData.importance_rooms );
+        // console.log( model.name + ' clicked' );
+        // console.log( model.userData.importance_rooms );
         sessionStorage.setItem( 'building_code', model.userData.id );
 
       }
@@ -592,14 +588,10 @@ function createModel ( loader, data ) {
         }
     } );
 
-  }, ( progress ) => {
-
+  }, progress => {
     // console.log( progress.loaded / progress.total * 100 + "% loaded!" );
-
-  }, ( error ) => {
-
+  }, error => {
     console.error( error );
-
   } );
 
 }
@@ -610,7 +602,7 @@ function createModel ( loader, data ) {
  * @param { THREE.Vector3 } position position of the target model
  * @param { string } name name of the target building
  */
-async function createFont( position, name ) {
+async function createFont(position, name) {
   // Drawing Lines:
   const points = [];
   points.push( new THREE.Vector3( 0, 0, 0 ) );
@@ -625,17 +617,17 @@ async function createFont( position, name ) {
 
   // font loading function
   const loader = new FontLoader();
-  await loader.load( './fonts/NanumSquareRound.json', function ( font ) {
+  await loader.load('./fonts/NanumSquareRound.json', font => {
 
-    const material = new THREE.MeshBasicMaterial( {
+    const material = new THREE.MeshBasicMaterial({
       color: 0x000000,
       transparent: false,
       side: THREE.FrontSide,
-    } );
+    });
 
     const message = name;
-    const shapes = font.generateShapes( message, 5 ); // 10 );
-    const geometry = new THREE.ShapeGeometry( shapes );
+    const shapes = font.generateShapes(message, 5); // 10 );
+    const geometry = new THREE.ShapeGeometry(shapes);
 
     // make shape ( N.B. edge view not visible )
     const text = new THREE.Mesh( geometry, material );
@@ -643,7 +635,7 @@ async function createFont( position, name ) {
     text.material.depthTest = false; // for renderOrder
     group.add( text );
 
-  } ); //end load function
+  }); //end load function
 
   // Create Group:
   const group = new THREE.Group();
