@@ -76,50 +76,6 @@ header ul.temp-links li { color: #fff; }
 header ul.temp-links li a { text-decoration: underline; }
 /* Temporary Links List end */
 
-header #menuBtn { 
-  width: 50px; height: 50px;
-  cursor: pointer;
-}
-#menuBtn .center {
-  position: relative; 
-  left: 5px; top: 12px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  width: 40px; height: 26px;
-}
-#menuBtn .center .bar {
-  position: relative;
-  width: 100%; height: 4px;
-  background-color: #fff;
-  border-radius: 4px;
-  transition: transform 0.3s;
-}
-#menuBtn.on .bar01 { transform: translateY( 11px ) rotate( 45deg ); }
-#menuBtn.on .bar02 { transform: scale( 0 ); }
-#menuBtn.on .bar03 { transform: translateY( -11px ) rotate( -45deg ); }
-
-#sideMenu { 
-  position: absolute;
-  display: block;
-  right: -340px; top: var( --header-height );
-  width: 340px; height: calc( 100vh - var( --header-height ) );
-  padding: 20px;
-  border-left: 2px solid var( --main-color );
-  background: #fff;
-  transform: translateX( 0 );
-  transition: 0.3s ease;
-  overflow: hidden;
-}
-#sideMenu.on { transform: translateX( -100% ); overflow-y: scroll; }
-
-#sideMenu::-webkit-scrollbar {
-  width: 20px;
-}
-#sideMenu::-webkit-scrollbar-thumb {
-  background-clip: padding-box;
-  border: 8px solid transparent;
-  background-color: #aaaaaa;
-  border-radius: 20px;
-}
 /* header end */
 
 /* fixed information modal */
@@ -300,8 +256,6 @@ ul.notices li {
   padding: 10px 20px;
 }
 ul.notices li a:hover { text-decoration: underline; }
-
-
 
 footer {
   display: flex;
