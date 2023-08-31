@@ -5,8 +5,6 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import * as URL from './url.js';
 
-// basic javascripts
-
 const buildingDatas = [
   {
     building_code: '04',
@@ -250,21 +248,9 @@ const buildingDatas = [
 let receivedData;
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
-fixedHelp.addEventListener( 'click', () => {
-
-  if ( fixedHelp.classList.contains( 'active' ) ) {
-
-    fixedHelp.classList.remove( 'active' );
-    fixedHelp.removeAttribute( 'style' );
-    return;
-
-  }
-
-  fixedHelp.classList.add( 'active' );
-  fixedHelp.style.height = fixedHelp.querySelector( 'ul' ).clientHeight + 40 + 'px';
-
-} );
-
+const mapMenuBtn = document.getElementById('mapMenuBtn');
+const mapMenu = document.getElementById('mapMenu');
+const categories = document.getElementsByClassName('category');
 const subCategories = document.querySelectorAll( 'ul.sub-categories li a' );
 const container = document.getElementById( 'mapContainer' );
 
@@ -278,8 +264,8 @@ const pointer = new THREE.Vector2(); // mouse cursor position tracking
 let intersects = []; // list to find which building is selected
 let INTERSECTED = undefined; // stores which building is selected
 
-const buildings = [];
-const fonts = [];
+const buildings = []; // Loaded Buildings List
+const fonts = []; // Loaded Fonts List
 // const arrows = [];
 
 init();
@@ -359,6 +345,8 @@ async function init() {
   // const gridHelper = new THREE.GridHelper( 1000, 100 );
   // scene.add( gridHelper );
 
+  // Event Listeners
+
   window.addEventListener( 'resize', onWindowResize );
   container.addEventListener( 'pointermove', onPointerMove );
   container.addEventListener( 'click', onClick );
@@ -370,6 +358,47 @@ async function init() {
   //   console.log( worldDirection );
   //   console.log( worldPosition );
   // } );
+
+  fixedHelp.addEventListener('click', () => {
+  
+    if (fixedHelp.classList.contains('active')) {
+      fixedHelp.classList.remove('active');
+      fixedHelp.removeAttribute('style');
+      return;
+    }
+    fixedHelp.classList.add('active');
+    fixedHelp.style.height = fixedHelp.querySelector('ul').clientHeight + 40 + 'px';
+    
+  });
+  
+  mapMenuBtn.addEventListener('click', () => {
+    
+    mapMenuBtn.classList.toggle('active');
+    mapMenu.classList.toggle('active');
+    
+  });
+
+  for (let category of categories) {
+
+    const text = category.querySelector( '.text' );
+    text.addEventListener('click', () => {
+
+      const textHeight = text.clientHeight;
+      const subCategoriesHeight = category.querySelector( '.sub-categories' ).clientHeight;
+
+      if (category.classList.contains('on')) {
+        category.classList.remove( 'on' );
+        category.style.height = textHeight + 'px';
+        return;
+      }
+
+      category.classList.add( 'on' );
+      category.style.height = category.clientHeight + subCategoriesHeight + 'px';
+      return;
+
+    });
+
+  };
 
   // GLTF Loader, load models
 
@@ -568,25 +597,19 @@ function createModel ( loader, data ) {
       if ( subId === model.userData.id ) {
 
         const target = model;
-
         // hover event
-        subCategory.addEventListener( 'mouseover', () => {
-          target.userData.onPointerOver();
-        } );
-        subCategory.addEventListener( 'mouseout', () => {
-          target.userData.onPointerOut();
-        } );
-
+        subCategory.addEventListener('mouseover', () => { target.userData.onPointerOver(); });
+        subCategory.addEventListener('mouseout', () => { target.userData.onPointerOut(); });
         // click event
-        subCategory.addEventListener( 'click', ( e ) => {
-      
+        subCategory.addEventListener('click', e => { 
           e.preventDefault();
           target.userData.onClick();
-      
-        } );
+          mapMenuBtn.classList.remove('active');
+          mapMenu.classList.remove('active');
+        });
 
-        }
-    } );
+      }
+    });
 
   }, progress => {
     // console.log( progress.loaded / progress.total * 100 + "% loaded!" );
@@ -715,6 +738,7 @@ function createNoticeList(filtered, index) {
   list.append(ul);
 
 }
+
 /**
  * 단과대 별 공지사항들의 내용이 담긴 ul element들 중 `last`를 비활성화하고, `current`를 활성화합니다.
  * @param {Number} last an index of activated noticeUl
