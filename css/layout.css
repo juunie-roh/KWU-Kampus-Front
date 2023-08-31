@@ -22,6 +22,7 @@ main {
   margin-top: var(--header-height);
   width: 100%;
   background: #dddddd;
+  overflow: hidden;
 }
 
 main #mapContainer {
