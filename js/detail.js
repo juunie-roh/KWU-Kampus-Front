@@ -343,10 +343,8 @@ function classifyList( res ) {
 function compareFloors(a, b) {
     
     let _a, _b;
-
-    if (a.startsWith("B")) { _a = a.replace("B", "-") } else { _a = a }
-    if (b.startsWith("B")) { _b = b.replace("B", "-") } else { _b = b }
-
+    _a = (a.startsWith("B")) ? a.replace("B", "-") : a;
+    _b = (b.startsWith("B")) ? b.replace("B", "-") : b;
     return _a - _b;
 
 }

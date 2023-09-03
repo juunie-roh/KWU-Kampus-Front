@@ -5,6 +5,10 @@
   --header-height: 80px;
 }
 
+@media screen and (max-width: 1200px) {
+  :root { --header-height: 60px; }
+}
+
 .page {
   position: relative;
   width: 100%;
@@ -37,6 +41,10 @@ main #mapContainer {
   position: relative;
   width: 100%;
   padding: 0 100px;
+}
+
+@media screen and (max-width: 1200px) {
+  .inner { padding: 0 20px; }
 }
 
 /* Layout 확인용 Test Bg Division */
@@ -76,6 +84,10 @@ header ul.temp-links li { color: #fff; }
 header ul.temp-links li a { text-decoration: underline; }
 /* Temporary Links List end */
 
+@media screen and (max-width: 1200px) {
+  header h1>a { font-size: 32px; }
+}
+
 /* header end */
 
 /* fixed information modal */
@@ -96,11 +108,11 @@ header ul.temp-links li a { text-decoration: underline; }
 /* fixed information modal end */
 
 #mapMenuBtn { 
-  position: absolute; top: 20px; right: 40px; z-index: 9;
+  position: absolute; top: 20px; right: 20px; z-index: 9;
   width: 60px; height: 60px;
   padding: 5px;
   border-radius: 100%;
-  background: #fff;
+  background: var(--main-color);
   cursor: pointer;
 }
 #mapMenuBtn .center {
@@ -112,7 +124,7 @@ header ul.temp-links li a { text-decoration: underline; }
 #mapMenuBtn .center .bar {
   position: relative;
   width: 100%; height: 4px;
-  background-color: #333;
+  background-color: #fff;
   border-radius: 4px;
   transition: transform 0.3s;
 }
@@ -125,13 +137,20 @@ header ul.temp-links li a { text-decoration: underline; }
   width: 300px; height: calc(100% - 40px);
   padding: 60px 10px;
   border-radius: 10px;
-  background: #fff;
+  background: var(--main-color);
   box-shadow: 10px 10px 10px rgba( 0, 0, 0, 0.22 );
   transform: translateX(calc(100% + 20px));
   transition: 0.4s;
-  overflow-y: auto;
+  overflow: hidden;
 }
 #mapMenu.active { transform: translateX(0); }
+.category-wrap {
+  width: 100%; height: 100%;
+  padding: 10px;
+  background: #fff;
+  border-radius: 10px;
+  overflow-y: auto;
+}
 .category {
   position: relative;
   width: 100%; height: 34px;
@@ -189,21 +208,21 @@ header ul.temp-links li a { text-decoration: underline; }
 
 #scrollDown {
   position: absolute; bottom: 40px; left: 50%; z-index: 5;
-  display: flex; justify-content: space-between; align-items: center; width: 50px; height: 50px;
+  display: flex; justify-content: space-between; align-items: center; width: 60px; height: 60px;
   transform: translateX(-50%);
   transition-property: width;
   transition: 0.4s;
-  border-radius: 50px;
+  border-radius: 60px;
   background: #333;
   overflow: hidden;
 }
 #scrollDown:hover { 
-  width: 280px;
+  width: 300px;
   background: #333; 
 }
 #scrollDown svg {
   display: block;
-  width: 50px; height: 50px;
+  width: 60px; height: 60px;
   fill: #fff;
 }
 #scrollDown span { 
@@ -212,7 +231,7 @@ header ul.temp-links li a { text-decoration: underline; }
   padding-right: 1em;
   color: #fff; 
   font-size: 24px;
-  line-height: 50px;
+  line-height: 60px;
 }
 #scrollDown:hover span { display: block; }
 
@@ -246,7 +265,7 @@ li.notice-list:hover h3,
 li.notice-list.active h3 { border-bottom: 2px solid var(--main-color); }
 li.notice-list.active h3 { background: var(--main-color); color: #fff; }
 
-.notice-list-wrap { width: 100%; height: 400px; overflow: auto; }
+.notice-list-wrap { width: 100%; height: 400px; overflow: auto; border-bottom: 2px solid #aaa; }
 .notice-list-wrap ul.notices { display: none; }
 .notice-list-wrap ul.notices.active { display: block; width: 100%; font-size: 18px }
 ul.notices li {
@@ -418,23 +437,3 @@ footer {
 #detail .img-wrap .roomNum:nth-child( 2 ) { left: 44%; top: 60%; }
 #detail .img-wrap .roomNum:nth-child( 3 ) { left: 37%; top: 34%; }
 #detail .img-wrap .roomNum:nth-child( 4 ) { left: 17%; top: 49%; }
-
-
-@media screen and ( max-width: 1200px ) {
-  :root { --header-height: 60px; }
-
-  /* layouts */
-  .inner { padding: 0 20px; }
-
-  /* header */
-  header h1>a { font-size: 32px }
-
-  /* fixed information modal */
-  #guiContainer { top: 80px; }
-}
-
-@media screen and ( max-width: 720px ) {
-  /* fixed information modal */
-  #guiContainer { width: calc( 100%  - 20px); }
-  #guiContainer .lil-gui.root { width: calc( 100% - 20px ); }
-}
