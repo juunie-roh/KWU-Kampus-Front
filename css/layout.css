@@ -230,7 +230,11 @@ header ul.temp-links li a { text-decoration: underline; }
   height: 100%;
   padding-right: 1em;
   color: #fff; 
+<<<<<<< HEAD
   font-size: 24px;
+=======
+  font-size: 26px;
+>>>>>>> f3185f94e950927d9cf4164934e50127796c388e
   line-height: 60px;
 }
 #scrollDown:hover span { display: block; }
