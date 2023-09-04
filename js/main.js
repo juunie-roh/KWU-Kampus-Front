@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { MapControls } from 'three/addons/controls/MapControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
@@ -250,6 +249,9 @@ let receivedData;
 const fixedHelp = document.getElementById( 'fixedHelp' );
 const mapMenuBtn = document.getElementById('mapMenuBtn');
 const mapMenu = document.getElementById('mapMenu');
+const detailsOpenBtn = document.getElementById('detailsOpenBtn');
+const detailsCloseBtn = document.getElementById('detailsCloseBtn');
+const details = document.getElementById('details');
 const categories = document.getElementsByClassName('category');
 const subCategories = document.querySelectorAll( 'ul.sub-categories li a' );
 const container = document.getElementById( 'mapContainer' );
@@ -399,6 +401,9 @@ async function init() {
     });
 
   };
+
+  detailsOpenBtn.addEventListener('click', () => { details.classList.add('active'); });
+  detailsCloseBtn.addEventListener('click', () => { details.classList.remove('active'); });
 
   // GLTF Loader, load models
 
@@ -612,7 +617,7 @@ function createModel ( loader, data ) {
     });
 
   }, progress => {
-    // console.log( progress.loaded / progress.total * 100 + "% loaded!" );
+    // console.log((progress.loaded / progress.total * 100).toString() + "% loaded!");
   }, error => {
     console.error( error );
   } );
@@ -626,6 +631,7 @@ function createModel ( loader, data ) {
  * @param { string } name name of the target building
  */
 async function createFont(position, name) {
+  if (!position || !name) { console.error("Creating Font Failed: parmas undefined"); return; } 
   // Drawing Lines:
   const points = [];
   points.push( new THREE.Vector3( 0, 0, 0 ) );
