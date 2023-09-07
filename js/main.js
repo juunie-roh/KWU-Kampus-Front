@@ -285,63 +285,20 @@ async function init() {
 
   raycaster = new THREE.Raycaster(); // for mouse(pointer) tracking
 
-  renderer = new THREE.WebGLRenderer( { antialias: true } );
+  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( width, height );
   container.appendChild( renderer.domElement ); // where to append
 
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
   camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );// 1000 );
   camera.position.set( 350, 250, 0 ); // ( 400, 200, 0 );
 
-  // controls
-
-  controls = new MapControls( camera, renderer.domElement );
-
-  //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
-
-  controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-  controls.dampingFactor = 0.05;
-
-  controls.screenSpacePanning = false;
-
-  controls.minDistance = 100;
-  controls.maxDistance = 500;
-
-  controls.maxPolarAngle = Math.PI / 2;
-
-  // world floor
-
-  const planeSize = 1000; // 2000;
-  const planeTexture = new THREE.TextureLoader().load( './images/KakaoMap_KWU.png' );
-  const worldFloor = new THREE.Mesh(
-    new THREE.PlaneGeometry( planeSize, planeSize, 8, 8 ),
-    new THREE.MeshBasicMaterial( { side: THREE.FrontSide, map: planeTexture } )
-  );
-  worldFloor.rotateX( Math.PI / ( -2 ) );
-  worldFloor.rotateZ( Math.PI / 2 );
-  worldFloor.name = 'worldFloor';
-  scene.add( worldFloor );
-
-  // lights
-
-  const dirLight1 = new THREE.DirectionalLight( 0xffffff );
-  dirLight1.position.set( 10, 12, 9 );
-  dirLight1.name = 'dirLight1';
-  scene.add( dirLight1 );
-
-  const dirLight2 = new THREE.DirectionalLight( 0x222222 );
-  dirLight2.position.set( -9, -12, -10 );
-  dirLight2.name = 'dirLight2';
-  scene.add( dirLight2 );
-
-  const dirLight3 = new THREE.DirectionalLight( 0x666666 );
-  dirLight3.position.set( 13, 12, -10 );
-  dirLight3.name = 'dirLight3';
-  scene.add( dirLight3 );
-
-  const ambientLight = new THREE.AmbientLight( 0x666666 );
-  ambientLight.name = 'ambientLight';
-  scene.add( ambientLight );
+  _setControls();
+  _setWorldFloor();
+  _setLights();
 
   // // Grid Helper
   // const gridHelper = new THREE.GridHelper( 1000, 100 );
@@ -506,6 +463,73 @@ function render() {
 }
 
 // custom functions
+
+/**
+ * 3D 맵의 컨트롤을 설정합니다.
+ */
+function _setControls() {
+
+  controls = new MapControls( camera, renderer.domElement );
+
+  //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+
+  controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+  controls.dampingFactor = 0.05;
+
+  controls.screenSpacePanning = false;
+
+  controls.minDistance = 100;
+  controls.maxDistance = 500;
+
+  controls.maxPolarAngle = Math.PI / 2;
+
+}
+
+/**
+ * 3D 환경의 바닥을 설정합니다.
+ */
+function _setWorldFloor() {
+
+  const planeSize = 1000; // 2000;
+  const planeTexture = new THREE.TextureLoader().load( './images/KakaoMap_KWU.png' );
+  const worldFloor = new THREE.Mesh(
+    new THREE.PlaneGeometry( planeSize, planeSize, 8, 8 ),
+    new THREE.MeshBasicMaterial( { side: THREE.FrontSide, map: planeTexture } )
+  );
+  worldFloor.rotateX( Math.PI / ( -2 ) );
+  worldFloor.rotateZ( Math.PI / 2 );
+  worldFloor.name = 'worldFloor';
+  scene.add( worldFloor );
+
+}
+
+/**
+ * 3D 빛 환경을 설정합니다.
+ */
+function _setLights() {
+
+  const hemisphereLight = new THREE.HemisphereLight(0xffeeb1, 0.5);
+  hemisphereLight.name = 'hemisphereLight';
+  scene.add(hemisphereLight);
+
+  const dirLight1 = new THREE.DirectionalLight(0xffffff, 1);
+  dirLight1.position.set( 10, 12, 9 );
+  dirLight1.target.position.set(0, 0, 0);
+  dirLight1.castShadow = true;
+  dirLight1.name = 'dirLight1';
+  scene.add( dirLight1 );
+
+  const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.8);
+  dirLight2.position.set( 13, 12, -10 );
+  dirLight2.target.position.set(0, 0, 0);
+  dirLight2.name = 'dirLight2';
+  scene.add( dirLight2 );
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.015);
+  ambientLight.name = 'ambientLight';
+  scene.add( ambientLight );
+
+}
 
 /**
  * 3D 맵이 차지할 영역의 너비 및 높이를 업데이트 합니다.
