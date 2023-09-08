@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { MapControls } from 'three/addons/controls/MapControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 import * as URL from './url.js';
 
 const buildingDatas = [
@@ -261,7 +262,6 @@ const container = document.getElementById( 'mapContainer' );
 ///////////////////////////////
 
 let width, height, camera, controls, scene, renderer, raycaster, headerHeight;
-
 const pointer = new THREE.Vector2(); // mouse cursor position tracking
 let intersects = []; // list to find which building is selected
 let INTERSECTED = undefined; // stores which building is selected
@@ -269,6 +269,17 @@ let INTERSECTED = undefined; // stores which building is selected
 const buildings = []; // Loaded Buildings List
 const fonts = []; // Loaded Fonts List
 // const arrows = [];
+
+let sphere, plane;
+let exrCubeRenderTarget;
+let exrBackground;
+const params = {
+  envMap: 'EXR',
+  roughness: 0.1,
+  metalness: 0.5,
+  exposure: 0.5,
+  debug: false,
+};
 
 init();
 noticeInit();
@@ -292,13 +303,54 @@ async function init() {
 
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  // renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
   camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );// 1000 );
   camera.position.set( 350, 250, 0 ); // ( 400, 200, 0 );
 
-  _setControls();
-  _setWorldFloor();
-  _setLights();
+  initControls();
+  initWorldFloor();
+  initLights();
+
+  // TEST SPHERE
+  const sphereGeo = new THREE.SphereGeometry(5, 32, 32);
+  const sphereMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 0,
+    roughness: 0,
+    ior: 1.5,
+    envMapIntensity: 1,
+    reflectivity: 1,
+    transmission: 1,
+    specularIntensity: 1,
+    opacity: 1,
+    side: THREE.DoubleSide,
+    transparent: true
+  })
+  const sphereMat2 = new THREE.MeshStandardMaterial({
+    metalness: params.metalness,
+    roughness: params.roughness,
+    envMapIntensity: 1.0
+  })
+  sphere = new THREE.Mesh(sphereGeo, sphereMat2);
+  sphere.position.set(0, 10, 0);
+  sphere.castShadow = true;
+  sphere.receiveShadow = true;
+  scene.add(sphere);
+
+  
+  THREE.DefaultLoadingManager.onLoad = () => { pmremGenerator.dispose(); }
+
+  new EXRLoader().load('../textures/sky_1k.exr', texture => {
+
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    exrCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
+    exrBackground = texture;
+
+  });
+
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  pmremGenerator.compileEquirectangularShader();
 
   // // Grid Helper
   // const gridHelper = new THREE.GridHelper( 1000, 100 );
@@ -458,7 +510,35 @@ function animate() {
 
 function render() {
 
-  renderer.render( scene, camera );
+  let background = scene.background;
+  let newEnvMap = exrCubeRenderTarget ? exrCubeRenderTarget.texture : null;
+
+  background = exrBackground;
+
+  buildings.forEach(building => {
+    building.traverse(n => {
+      
+      if (n.isMesh) {
+        n.material.envMap = newEnvMap;
+        n.material.needsUpdate = true;
+        if (n.name === 'Window' || n.name === 'Windows') {
+          n.material.roughness = 0.05;
+          n.material.metalness = 0.6;
+          n.material.reflectivity = 1;
+        }
+      }
+
+    })
+  })
+  
+  sphere.material.envMap = newEnvMap;
+  sphere.material.needsUpdate = true;
+  plane.material.needsUpdate = true;
+
+  scene.background = background;
+  renderer.toneMappingExposure = params.exposure;
+
+  renderer.render(scene, camera);
 
 }
 
@@ -467,7 +547,7 @@ function render() {
 /**
  * 3D 맵의 컨트롤을 설정합니다.
  */
-function _setControls() {
+function initControls() {
 
   controls = new MapControls( camera, renderer.domElement );
 
@@ -488,44 +568,50 @@ function _setControls() {
 /**
  * 3D 환경의 바닥을 설정합니다.
  */
-function _setWorldFloor() {
+function initWorldFloor() {
 
   const planeSize = 1000; // 2000;
   const planeTexture = new THREE.TextureLoader().load( './images/KakaoMap_KWU.png' );
-  const worldFloor = new THREE.Mesh(
-    new THREE.PlaneGeometry( planeSize, planeSize, 8, 8 ),
-    new THREE.MeshBasicMaterial( { side: THREE.FrontSide, map: planeTexture } )
+  plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(planeSize, planeSize, 8, 8),
+    new THREE.MeshBasicMaterial({ 
+      side: THREE.FrontSide, 
+      map: planeTexture
+    })
   );
-  worldFloor.rotateX( Math.PI / ( -2 ) );
-  worldFloor.rotateZ( Math.PI / 2 );
-  worldFloor.name = 'worldFloor';
-  scene.add( worldFloor );
+  plane.rotateX( Math.PI / ( -2 ) );
+  plane.rotateZ( Math.PI / 2 );
+  plane.name = 'worldFloor';
+  plane.castShadow = false;
+  plane.receiveShadow = true;
+  scene.add( plane );
 
 }
 
 /**
  * 3D 빛 환경을 설정합니다.
  */
-function _setLights() {
+function initLights() {
 
-  const hemisphereLight = new THREE.HemisphereLight(0xffeeb1, 0.5);
+  const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0.7);
   hemisphereLight.name = 'hemisphereLight';
+  hemisphereLight.castShadow = true;
   scene.add(hemisphereLight);
 
-  const dirLight1 = new THREE.DirectionalLight(0xffffff, 1);
+  const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.4);
   dirLight1.position.set( 10, 12, 9 );
   dirLight1.target.position.set(0, 0, 0);
   dirLight1.castShadow = true;
   dirLight1.name = 'dirLight1';
-  scene.add( dirLight1 );
+  // scene.add( dirLight1 );
 
-  const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.8);
+  const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
   dirLight2.position.set( 13, 12, -10 );
   dirLight2.target.position.set(0, 0, 0);
   dirLight2.name = 'dirLight2';
-  scene.add( dirLight2 );
+  // scene.add( dirLight2 );
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.015);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.20);
   ambientLight.name = 'ambientLight';
   scene.add( ambientLight );
 
@@ -616,8 +702,8 @@ function createModel ( loader, data ) {
     
     // removing spaces from the model.name as this font does not support spaces.
     createFont( model.position, model.name.replace( /\s/g, '' ) );
-    buildings.push( model );
-    scene.add( model );
+    buildings.push(model);
+    scene.add(model);
 
     // subCategories Event Listener
     subCategories.forEach( ( subCategory ) => {
