@@ -302,8 +302,8 @@ async function init() {
   renderer.setSize( width, height );
   container.appendChild( renderer.domElement ); // where to append
 
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  // renderer.shadowMap.enabled = true;
+  // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   // renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
   camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );// 1000 );
