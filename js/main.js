@@ -270,7 +270,7 @@ const buildings = []; // Loaded Buildings List
 const fonts = []; // Loaded Fonts List
 // const arrows = [];
 
-let sphere, plane;
+let plane;
 let exrCubeRenderTarget;
 let exrBackground;
 const params = {
@@ -313,30 +313,30 @@ async function init() {
   initLights();
 
   // TEST SPHERE
-  const sphereGeo = new THREE.SphereGeometry(5, 32, 32);
-  const sphereMat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    metalness: 0,
-    roughness: 0,
-    ior: 1.5,
-    envMapIntensity: 1,
-    reflectivity: 1,
-    transmission: 1,
-    specularIntensity: 1,
-    opacity: 1,
-    side: THREE.DoubleSide,
-    transparent: true
-  })
-  const sphereMat2 = new THREE.MeshStandardMaterial({
-    metalness: params.metalness,
-    roughness: params.roughness,
-    envMapIntensity: 1.0
-  })
-  sphere = new THREE.Mesh(sphereGeo, sphereMat2);
-  sphere.position.set(0, 10, 0);
-  sphere.castShadow = true;
-  sphere.receiveShadow = true;
-  scene.add(sphere);
+  // const sphereGeo = new THREE.SphereGeometry(5, 32, 32);
+  // const sphereMat = new THREE.MeshPhysicalMaterial({
+  //   color: 0xffffff,
+  //   metalness: 0,
+  //   roughness: 0,
+  //   ior: 1.5,
+  //   envMapIntensity: 1,
+  //   reflectivity: 1,
+  //   transmission: 1,
+  //   specularIntensity: 1,
+  //   opacity: 1,
+  //   side: THREE.DoubleSide,
+  //   transparent: true
+  // })
+  // const sphereMat2 = new THREE.MeshStandardMaterial({
+  //   metalness: params.metalness,
+  //   roughness: params.roughness,
+  //   envMapIntensity: 1.0
+  // })
+  // sphere = new THREE.Mesh(sphereGeo, sphereMat2);
+  // sphere.position.set(0, 10, 0);
+  // sphere.castShadow = true;
+  // sphere.receiveShadow = true;
+  // scene.add(sphere);
 
   
   THREE.DefaultLoadingManager.onLoad = () => { pmremGenerator.dispose(); }
@@ -531,8 +531,8 @@ function render() {
     })
   })
   
-  sphere.material.envMap = newEnvMap;
-  sphere.material.needsUpdate = true;
+  // sphere.material.envMap = newEnvMap;
+  // sphere.material.needsUpdate = true;
   plane.material.needsUpdate = true;
 
   scene.background = background;
@@ -595,7 +595,7 @@ function initLights() {
 
   const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0.7);
   hemisphereLight.name = 'hemisphereLight';
-  hemisphereLight.castShadow = true;
+  // hemisphereLight.castShadow = true;
   scene.add(hemisphereLight);
 
   const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.4);
