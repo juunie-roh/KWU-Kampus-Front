@@ -342,7 +342,7 @@ async function init() {
   
   THREE.DefaultLoadingManager.onLoad = () => { pmremGenerator.dispose(); }
 
-  new EXRLoader().load('../textures/sky_1k.exr', texture => {
+  new EXRLoader().load('./textures/sky_1k.exr', texture => {
 
     texture.mapping = THREE.EquirectangularReflectionMapping;
     exrCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
