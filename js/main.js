@@ -432,6 +432,7 @@ async function noticeInit() {
                             .then(res => res.json()) // if (res.status === 200) { return res.json() } else { error handling }
                             .then(json => { return json; });
   // console.log(noticeDatas);
+  if (!noticeDatas) return;
 
   // Extract dept names and remove duplicates from raw data
   const depts = [];
