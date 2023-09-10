@@ -277,8 +277,8 @@ let exrBackground;
 const params = {
   envMap: 'EXR',
   roughness: 0.1,
-  metalness: 0.5,
-  exposure: 0.5,
+  metalness: 0.6,
+  exposure: 0.9,
   debug: false,
 };
 
@@ -313,35 +313,9 @@ async function init() {
   initWorldFloor();
   initLights();
 
-  // TEST SPHERE
-  // const sphereGeo = new THREE.SphereGeometry(5, 32, 32);
-  // const sphereMat = new THREE.MeshPhysicalMaterial({
-  //   color: 0xffffff,
-  //   metalness: 0,
-  //   roughness: 0,
-  //   ior: 1.5,
-  //   envMapIntensity: 1,
-  //   reflectivity: 1,
-  //   transmission: 1,
-  //   specularIntensity: 1,
-  //   opacity: 1,
-  //   side: THREE.DoubleSide,
-  //   transparent: true
-  // })
-  // const sphereMat2 = new THREE.MeshStandardMaterial({
-  //   metalness: params.metalness,
-  //   roughness: params.roughness,
-  //   envMapIntensity: 1.0
-  // })
-  // sphere = new THREE.Mesh(sphereGeo, sphereMat2);
-  // sphere.position.set(0, 10, 0);
-  // sphere.castShadow = true;
-  // sphere.receiveShadow = true;
-  // scene.add(sphere);
-
-  
+  // EXR Loader
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
   THREE.DefaultLoadingManager.onLoad = () => { pmremGenerator.dispose(); }
-
   new EXRLoader().load('./textures/sky_1k.exr', texture => {
 
     texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -349,8 +323,6 @@ async function init() {
     exrBackground = texture;
 
   });
-
-  const pmremGenerator = new THREE.PMREMGenerator(renderer);
   pmremGenerator.compileEquirectangularShader();
 
   // // Grid Helper
@@ -504,7 +476,7 @@ function animate() {
   window.requestAnimationFrame( animate );
 
   // Let the groups generated from `createFont()` face the camera all the time
-  fonts.forEach(font => { font.quaternion.copy( camera.quaternion ) });
+  fonts.forEach(font => { font.quaternion.copy(camera.quaternion) });
   controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
   render();
 
@@ -524,18 +496,14 @@ function render() {
         n.material.envMap = newEnvMap;
         n.material.needsUpdate = true;
         if (n.name === 'Window' || n.name === 'Windows') {
-          n.material.roughness = 0.05;
-          n.material.metalness = 0.6;
+          n.material.roughness = params.roughness;
+          n.material.metalness = params.metalness;
           n.material.reflectivity = 1;
         }
       }
 
     })
   })
-  
-  // sphere.material.envMap = newEnvMap;
-  // sphere.material.needsUpdate = true;
-  plane.material.needsUpdate = true;
 
   scene.background = background;
   renderer.toneMappingExposure = params.exposure;
@@ -545,6 +513,18 @@ function render() {
 }
 
 // custom functions
+
+/**
+ * 3D 맵이 차지할 영역의 너비 및 높이를 업데이트 합니다.
+ * header 영역이 차지하는 부분과 margin 으로 설정한 10 씩을 제외한 전체화면입니다.
+ */
+function updateWindowSize() {
+
+  headerHeight = Number(getComputedStyle(document.documentElement).getPropertyValue('--header-height').slice(0, 2));
+  width = window.innerWidth - 20;
+  height = window.innerHeight - 20 - headerHeight;
+
+}
 
 /**
  * 3D 맵의 컨트롤을 설정합니다.
@@ -595,39 +575,27 @@ function initWorldFloor() {
  */
 function initLights() {
 
-  const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0.7);
+  const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0.35);
   hemisphereLight.name = 'hemisphereLight';
   // hemisphereLight.castShadow = true;
   scene.add(hemisphereLight);
 
-  const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.4);
+  const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.3);
   dirLight1.position.set( 10, 12, 9 );
   dirLight1.target.position.set(0, 0, 0);
   dirLight1.castShadow = true;
   dirLight1.name = 'dirLight1';
-  // scene.add( dirLight1 );
+  scene.add( dirLight1 );
 
   const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
   dirLight2.position.set( 13, 12, -10 );
   dirLight2.target.position.set(0, 0, 0);
   dirLight2.name = 'dirLight2';
-  // scene.add( dirLight2 );
+  scene.add( dirLight2 );
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.20);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.05);
   ambientLight.name = 'ambientLight';
   scene.add( ambientLight );
-
-}
-
-/**
- * 3D 맵이 차지할 영역의 너비 및 높이를 업데이트 합니다.
- * header 영역이 차지하는 부분과 margin 으로 설정한 10 씩을 제외한 전체화면입니다.
- */
-function updateWindowSize() {
-
-  headerHeight = Number(getComputedStyle(document.documentElement).getPropertyValue('--header-height').slice(0, 2));
-  width = window.innerWidth - 20;
-  height = window.innerHeight - 20 - headerHeight;
 
 }
 
@@ -678,6 +646,7 @@ function createModel ( loader, data ) {
 
           child.currentHex = child.material.emissive.getHex();
           child.material.emissive.setHex( 0xff0000 );
+          container.style.cursor = 'pointer';
     
         }
       },
@@ -686,6 +655,7 @@ function createModel ( loader, data ) {
         for ( let child of model.children ) {
 
           child.material.emissive.setHex( 0 );
+          container.style.cursor = 'default';
 
         }
       },
@@ -771,8 +741,8 @@ async function createFont(position, name) {
     const geometry = new THREE.ShapeGeometry(shapes);
 
     // make shape ( N.B. edge view not visible )
-    const text = new THREE.Mesh( geometry, material );
-    text.position.set( 25, 25, 25 );// ( 50, 50, 50 );
+    const text = new THREE.Mesh(geometry, material);
+    text.position.set(25, 25, 25);
     text.material.depthTest = false; // for renderOrder
     group.add( text );
 
@@ -786,7 +756,7 @@ async function createFont(position, name) {
   fonts.push( group );
   group.renderOrder = 1; // renderOrder (z-index)
   group.name = name + ' Font';
-  scene.add( group );
+  scene.add(group);
 
 }
 
