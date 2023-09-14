@@ -2,6 +2,9 @@ import * as URL from './url.js'
 
 const floorList = document.getElementById('floors');
 const roomNums = document.querySelectorAll('#detail .img-wrap .roomNum');
+const descOpenBtn = document.getElementById('descOpenBtn');
+const descCloseBtn = document.getElementById('descCloseBtn');
+const descMenu = document.getElementById('descMenu');
 
 const f1 = [
     {
@@ -149,6 +152,9 @@ function init() {
     sessionStorage.setItem('floor', 'B2');
     sessionStorage.setItem('building_code', "08");
     building_code = sessionStorage.getItem( "building_code" );
+
+    descOpenBtn.addEventListener('click', () => { descMenu.classList.add('active'); });
+    descCloseBtn.addEventListener('click', () => { descMenu.classList.remove('active'); });   
 
     fetch(URL.detail + building_code, {
         method: "GET"

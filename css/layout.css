@@ -412,7 +412,7 @@ footer {
   position: relative;
   width: 100%; height: 3em;
   padding: 1em;
-  background: #ddd;
+  background: #bbb;
 
   color: #333;
   font-size: 20px;
@@ -422,6 +422,63 @@ footer {
   position: relative;
   width: 100%; height: 100%;
 }
+
+/* desc Menus */
+#descMenu {
+  position: absolute; bottom: 20px; left: 20px; z-index: 10;
+  display: block;
+  width: calc(100% - 40px); height: 55%;
+  padding: 60px 10px 10px 10px;
+  background: #ddd;
+  box-shadow: 10px 10px 10px rgba( 0, 0, 0, 0.22 );
+  border-radius: 10px;
+  transform: translateY(calc(100% + 20px));
+  transition: transform .4s;
+  overflow: hidden;
+}
+#descMenu.active { transform: translateY(0); }
+@media screen and (max-width: 1024px) {
+  #descMenu { height: calc(100% - 40px);  padding: 40px 10px 10px 10px; }
+}
+.desc-wrap {
+  position: relative; z-index: 7;
+  display: flex;
+  width: 100%; height: 100%;
+  background: #fff;
+  border-radius: 10px;
+}
+#descOpenBtn {
+  position: absolute; bottom: 20px; left: 50%; z-index: 5;
+  display: block;
+  width: 60px; height: 60px;
+  border-radius: 100%;
+  background: #ddd;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+#descOpenBtn svg {
+  width: 60px; height: 60px;
+  fill: var(--main-color);
+}
+#descCloseBtn {
+  position: absolute; top: 0;
+  width: 100%;
+  background: #ddd;
+  border-radius: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+#descCloseBtn svg {
+  width: 60px; height: 60px;
+  fill: var(--main-color);
+}
+@media screen and (max-width: 1024px) {
+  #descOpenBtn,
+  #descOpenBtn svg,
+  #descCloseBtn svg { width: 40px; height: 40px; }
+  #descCloseBtn { height: 40px; }
+}
+/* desc Menus end */
 
 /* roomNums */
 #detail .img-wrap .roomNum {
