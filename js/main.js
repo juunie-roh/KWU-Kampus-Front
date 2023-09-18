@@ -427,6 +427,78 @@ const noticeExamples = [
     "date": "2023-09-01"
   },
 ];
+const facilitiesExamples = [
+  {
+    "building": "새빛관",
+    "floor": "1",
+    "room_no": "105",
+    "building_code": "08",
+    "room_code": "0-0105-0",
+    "facilities": "코딩컨설팅룸",
+    "category": null,
+    "importance": true
+  },
+  {
+    "building": "새빛관",
+    "floor": "4",
+    "room_no": "404",
+    "building_code": "08",
+    "room_code": "0-0404-0",
+    "facilities": "소융대\r\n교학팀/학사",
+    "category": "행정기관",
+    "importance": true
+  },
+  {
+    "building": "새빛관",
+    "floor": "4",
+    "room_no": "405",
+    "building_code": "08",
+    "room_code": "0-0405-0",
+    "facilities": "소프트\r\n학생회실",
+    "category": null,
+    "importance": true
+  },
+  {
+    "building": "새빛관",
+    "floor": "4",
+    "room_no": "406",
+    "building_code": "08",
+    "room_code": "0-0406-0",
+    "facilities": "컴정공\r\n학생회실",
+    "category": null,
+    "importance": true
+  },
+  {
+    "building": "새빛관",
+    "floor": "5",
+    "room_no": "508",
+    "building_code": "08",
+    "room_code": "0-0508-0",
+    "facilities": "스마트융합\r\n대학원교학팀",
+    "category": "행정기관",
+    "importance": true
+  },
+  {
+    "building": "새빛관",
+    "floor": "4",
+    "room_no": "407",
+    "building_code": "08",
+    "room_code": "0-0407-0",
+    "facilities": "정보융합\r\n학생회실",
+    "category": null,
+    "importance": true
+  },
+  {
+    "building": "새빛관",
+    "floor": "4",
+    "room_no": "408",
+    "building_code": "08",
+    "room_code": "0-0408-0",
+    "facilities": "소융대\r\n학생회실",
+    "category": null,
+    "importance": true
+  }
+];
 let receivedData;
 
 const fixedHelp = document.getElementById( 'fixedHelp' );
@@ -438,6 +510,7 @@ const details = document.getElementById('details');
 const categories = document.getElementsByClassName('category');
 const subCategories = document.querySelectorAll( 'ul.sub-categories li a' );
 const container = document.getElementById( 'mapContainer' );
+const detailBuildingTitle = document.getElementById('detailBuildingTitle');
 
 ///////////////////////////////
 ///// THREE.js from here: /////
@@ -639,7 +712,6 @@ function onPointerMove( event ) {
   event.preventDefault();
   let gapX = event.clientX - event.offsetX;
   let gapY = event.clientY - event.offsetY;
-  // pointer.set( ( event.clientX / width ) * 2 - 1, - ( event.clientY / height ) * 2 + 1 );
   pointer.set(((event.clientX - gapX) / width) * 2 - 1, - ((event.clientY - gapY) / height) * 2 + 1);
   getIntersects();
 
@@ -821,7 +893,7 @@ function createModel ( loader, data ) {
       building_phone_num: data.building_phone_num,
       management_team: data.management_team,
       management_team_phone_num: data.management_team_phone_num,
-      // importance_rooms: facilities,
+      importance_rooms: facilitiesExamples,
       others: data.others,
 
       onPointerOver: function() {
@@ -847,7 +919,8 @@ function createModel ( loader, data ) {
 
         controls.target.copy( model.position );
         controls.update();
-        // console.log( model.name + ' clicked' );
+        setDetails(model);
+        details.classList.add('active');
         // console.log( model.userData.importance_rooms );
         sessionStorage.setItem( 'building_code', model.userData.id );
 
@@ -940,6 +1013,17 @@ async function createFont(position, name) {
   group.renderOrder = 1; // renderOrder (z-index)
   group.name = name + ' Font';
   scene.add(group);
+
+}
+
+/**
+ * 생성된 모델 정보를 토대로 관련 정보를 `details`에 입력합니다.
+ * 
+ * @param {THREE.Group} model 
+ */
+function setDetails(model) {
+
+  detailBuildingTitle.innerText = model.name;
 
 }
 
