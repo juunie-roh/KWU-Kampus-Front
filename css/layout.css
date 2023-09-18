@@ -271,7 +271,7 @@ header ul.temp-links li a { text-decoration: underline; }
 }
 #detailsCloseBtn {
   position: absolute; right: 0px; top: 0px;
-  height: 100%;
+  width: 60px; height: 100%;
   background: #ddd;
   line-height: 100%;
   cursor: pointer;
