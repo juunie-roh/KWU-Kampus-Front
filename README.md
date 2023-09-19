@@ -76,3 +76,16 @@ Follow steps bellow to run this project on your browser in local.
 4. Install VSCode Extension with id `ritwickdey.LiveServer`
 
 5. Open `index.html` in Live Server
+
+## 3D Map
+
+### Three.js
+
+This project started from [three.js example: map control](https://threejs.org/examples/?q=map#misc_controls_map).
+
+I've made each buildings' 3D model using [blender](https://www.blender.org/).
+
+Created pointer(cursor) action through raycaster from three.js.
+
+Added environment background from [HDRIs](https://polyhaven.com/hdris).
+
