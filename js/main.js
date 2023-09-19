@@ -886,6 +886,7 @@ function createModel ( loader, data ) {
     //                            return result;
 
     //                          });
+    const facilities = facilitiesExamples;
 
     model.userData = {
 
@@ -893,7 +894,7 @@ function createModel ( loader, data ) {
       building_phone_num: data.building_phone_num,
       management_team: data.management_team,
       management_team_phone_num: data.management_team_phone_num,
-      importance_rooms: facilitiesExamples,
+      importance_rooms: facilities,
       others: data.others,
 
       onPointerOver: function() {
