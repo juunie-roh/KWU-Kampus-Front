@@ -99,6 +99,7 @@ header ul.temp-links li a { text-decoration: underline; }
   background: #ddd;
   cursor: pointer;
 }
+#mapMenuBtn:hover { background: #bbb; }
 #mapMenuBtn .center {
   position: relative; 
   left: 5px; top: 12px;
@@ -256,13 +257,8 @@ header ul.temp-links li a { text-decoration: underline; }
   text-align: center;
   font-size: 24px;
 }
-.details-wrap span {
-  width: 100%; height: auto;
-  margin-bottom: 10px;
-  font-size: 20px;
-}
 .details-wrap .img-wrap {
-  width: 100%; height: 250px;
+  width: 100%; height: 50%;
   margin-bottom: 20px;
   border: 1px solid black;
   border-radius: 5px;
@@ -273,8 +269,23 @@ header ul.temp-links li a { text-decoration: underline; }
   width: 100%; height: 100%;
   object-fit: cover;
 }
-ul.fac-list {
+.details-wrap .text-wrap {
+  display: flex; justify-content: center; align-items: center;
+  width: 100%; height: 50%;
+}
+.text-wrap .fac-wrap {
+  width: 100%; height: 100%;
+}
+.fac-wrap span {
   width: 100%; height: auto;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+ul.fac-list {
+  width: 50%; height: auto;
+  margin-bottom: 10px;
+  background: #eee;
+  border-radius: 5px;
   overflow-y: auto;
   font-size: 16px;
 }
@@ -282,6 +293,26 @@ ul.fac-list li {
   width: 100%;
   padding: 5px;
 }
+.text-wrap .fac-wrap {
+  width: 100%; height: 100%;
+}
+.details-wrap .button-wrap {
+  display: flex; justify-content: center;
+  width: 100%;
+}
+.button-wrap button {
+  width: 80%;
+  padding: 5px 0;
+  /* transform: translateX(-50%); */
+  border: none;
+  border-radius: 200px;
+  background: var(--main-color);
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+.button-wrap button:hover { background: var(--main-dark); }
+.button-wrap button:active { background: var(--main-color); }
 #detailsOpenBtn {
   position: absolute; left: 20px; top: 50%; z-index: 5;
   display: block;
@@ -291,6 +322,7 @@ ul.fac-list li {
   transform: translateY(-50%);
   cursor: pointer;
 }
+#detailsOpenBtn:hover { background: #bbb; }
 #detailsOpenBtn svg {
   width: 100%; height: 100%;
   fill: var(--main-color);
@@ -299,9 +331,11 @@ ul.fac-list li {
   position: absolute; right: 0px; top: 0px;
   width: 60px; height: 100%;
   background: #ddd;
+  border-radius: 10px;
   line-height: 100%;
   cursor: pointer;
 }
+#detailsCloseBtn:hover { background: #bbb; }
 #detailsCloseBtn svg {
   width: 100%; height: 100%;
   fill: var(--main-color);
