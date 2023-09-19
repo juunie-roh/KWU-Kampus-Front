@@ -742,26 +742,29 @@ function render() {
   let background = scene.background;
   let newEnvMap = exrCubeRenderTarget ? exrCubeRenderTarget.texture : null;
 
-  background = exrBackground;
+  // If render, execute below only when the `background` of the scene doesn't matches with `exrBackground`.
+  if(background != exrBackground) {
 
-  buildings.forEach(building => {
-    building.traverse(n => {
-      
-      if (n.isMesh) {
-        n.material.envMap = newEnvMap;
-        n.material.needsUpdate = true;
-        if (n.name === 'Window' || n.name === 'Windows') {
-          n.material.roughness = params.roughness;
-          n.material.metalness = params.metalness;
-          n.material.reflectivity = 1;
+    background = exrBackground;
+    buildings.forEach(building => {
+      building.traverse(n => {
+        
+        if (n.isMesh) {
+          n.material.envMap = newEnvMap;
+          n.material.needsUpdate = true;
+          if (n.name === 'Window' || n.name === 'Windows') {
+            n.material.roughness = params.roughness;
+            n.material.metalness = params.metalness;
+            n.material.reflectivity = 1;
+          }
         }
-      }
-
+  
+      })
     })
-  })
 
-  scene.background = background;
-  renderer.toneMappingExposure = params.exposure;
+    scene.background = background;
+    renderer.toneMappingExposure = params.exposure;
+  }
 
   renderer.render(scene, camera);
 
