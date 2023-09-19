@@ -256,6 +256,27 @@ header ul.temp-links li a { text-decoration: underline; }
   text-align: center;
   font-size: 24px;
 }
+.details-wrap span {
+  width: 100%; height: auto;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.details-wrap .img-wrap {
+  width: 100%; height: 200px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+}
+ul.fac-list {
+  width: 100%; height: auto;
+  overflow-y: auto;
+  font-size: 16px;
+}
+ul.fac-list li {
+  width: 100%;
+  padding: 5px;
+}
 #detailsOpenBtn {
   position: absolute; left: 20px; top: 50%; z-index: 5;
   display: block;

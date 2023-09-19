@@ -724,7 +724,7 @@ function onClick( event ) {
 
 }
 
-// three.js required
+// three.js required functions
 
 function animate() {
 
@@ -742,29 +742,25 @@ function render() {
   let background = scene.background;
   let newEnvMap = exrCubeRenderTarget ? exrCubeRenderTarget.texture : null;
 
-  // If render, execute below only when the `background` of the scene doesn't matches with `exrBackground`.
-  if(background != exrBackground) {
-
-    background = exrBackground;
-    buildings.forEach(building => {
-      building.traverse(n => {
-        
-        if (n.isMesh) {
-          n.material.envMap = newEnvMap;
-          n.material.needsUpdate = true;
-          if (n.name === 'Window' || n.name === 'Windows') {
-            n.material.roughness = params.roughness;
-            n.material.metalness = params.metalness;
-            n.material.reflectivity = 1;
-          }
+  background = exrBackground;
+  buildings.forEach(building => {
+    building.traverse(n => {
+      
+      if (n.isMesh) {
+        n.material.envMap = newEnvMap;
+        n.material.needsUpdate = true;
+        if (n.name === 'Window' || n.name === 'Windows') {
+          n.material.roughness = params.roughness;
+          n.material.metalness = params.metalness;
+          n.material.reflectivity = 1;
         }
-  
-      })
-    })
+      }
 
-    scene.background = background;
-    renderer.toneMappingExposure = params.exposure;
-  }
+    })
+  })
+
+  scene.background = background;
+  renderer.toneMappingExposure = params.exposure;
 
   renderer.render(scene, camera);
 
@@ -774,7 +770,7 @@ function render() {
 
 /**
  * 3D 맵이 차지할 영역의 너비 및 높이를 업데이트 합니다.
- * header 영역이 차지하는 부분과 margin 으로 설정한 10 씩을 제외한 전체화면입니다.
+ * header 영역이 차지하는 부분과 margin 으로 설정한 10px 씩을 제외한 전체화면입니다.
  */
 function updateWindowSize() {
 
@@ -785,7 +781,8 @@ function updateWindowSize() {
 }
 
 /**
- * 3D 맵의 컨트롤을 설정합니다.
+ * 3D 맵의 컨트롤을 설정합니다. 
+ * three.js example: misc_controls_map 의 기본 설정입니다.
  */
 function initControls() {
 
@@ -807,11 +804,12 @@ function initControls() {
 
 /**
  * 3D 환경의 바닥을 설정합니다.
+ * 평면을 생상하고, 지정된 경로의 파일을 불러와 texture로 설정해 입힌 후, 각도를 맞추고 `scene`에 추가합니다.
  */
 function initWorldFloor() {
 
   const planeSize = 1000; // 2000;
-  const planeTexture = new THREE.TextureLoader().load( './images/KakaoMap_KWU.png' );
+  const planeTexture = new THREE.TextureLoader().load('./images/KakaoMap_KWU.png');
   plane = new THREE.Mesh(
     new THREE.PlaneGeometry(planeSize, planeSize, 8, 8),
     new THREE.MeshBasicMaterial({ 
@@ -1021,12 +1019,31 @@ async function createFont(position, name) {
 
 /**
  * 생성된 모델 정보를 토대로 관련 정보를 `details`에 입력합니다.
+ * `ul.fac-list`에 child가 있으면 모두 제거하는 작업을 포함합니다.
  * 
  * @param {THREE.Group} model 
  */
 function setDetails(model) {
 
+  const ul = document.querySelector('ul.fac-list');
+  while (ul.hasChildNodes()) { ul.removeChild(ul.firstChild); }
+
   detailBuildingTitle.innerText = model.name;
+  if (!model.userData.importance_rooms) {
+    // initializing
+    const li = document.createElement('li');
+    li.innerHTML = '주요 시설 정보가 없습니다.';
+    ul.appendChild(li);
+
+  } else {
+
+    model.userData.importance_rooms.forEach(room => {
+      const li = document.createElement('li');
+      li.innerHTML = room.facilities;
+      ul.appendChild(li);
+    })
+
+  }
 
 }
 
