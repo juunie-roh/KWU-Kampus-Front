@@ -525,7 +525,6 @@ const buildings = []; // Loaded Buildings List
 const fonts = []; // Loaded Fonts List
 // const arrows = [];
 
-// let sphere;
 let plane;
 let exrCubeRenderTarget;
 let exrBackground;
