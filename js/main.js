@@ -653,6 +653,9 @@ async function init() {
     } else if (bc === '06' || bc === '07') {
       // if the selected building is BitSol A or B (code 07 or 08)
       location.href = URL.dormitory;
+    } else if (bc === '13') {
+      // if the selected building is International House (code 13)
+      location.href = URL.international;
     } else {
       location.href = './pages/detail.html';
     }
