@@ -587,6 +587,7 @@ async function init() {
   // Event Listeners
 
   window.addEventListener( 'resize', onWindowResize );
+  window.addEventListener('unload', () => { sessionStorage.clear(); });
   container.addEventListener( 'pointermove', onPointerMove );
   container.addEventListener( 'click', onClick );
   // window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
@@ -643,8 +644,15 @@ async function init() {
   detailsCloseBtn.addEventListener('click', () => { details.classList.remove('active'); });
   detail_link.addEventListener('click', (e) => {
     e.preventDefault();
-    if (!sessionStorage.getItem('building_code')) {
+    const bc = sessionStorage.getItem('building_code');
+    if (!bc) {
       alert('선택된 건물이 없습니다.'); return;
+    } else if (bc === '09') {
+      // if the selected building is IceRink(code 09)
+      location.href = URL.icerink;
+    } else if (bc === '06' || bc === '07') {
+      // if the selected building is BitSol A or B (code 07 or 08)
+      location.href = URL.dormitory;
     } else {
       location.href = './pages/detail.html';
     }
