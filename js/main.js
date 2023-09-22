@@ -536,6 +536,7 @@ const params = {
   exposure: 0.9,
   debug: false,
 };
+let activeFacLi;
 
 init();
 noticeInit();
@@ -1061,6 +1062,24 @@ function setDetails(model) {
     model.userData.importance_rooms.forEach(room => {
       const li = document.createElement('li');
       li.innerHTML = room.facilities;
+      li.setAttribute('data-room', room.room_code);
+      li.setAttribute('data-floor', room.floor);
+      li.addEventListener('click', () => { 
+
+        activeFacLi && activeFacLi.classList.remove('active');
+
+        if (sessionStorage.getItem('room_code') === li.getAttribute('data-room')) {
+          sessionStorage.removeItem('room_code');
+          sessionStorage.removeItem('floor');
+          return;
+        }
+
+        li.classList.add('active');
+        sessionStorage.setItem('room_code', li.getAttribute('data-room'));
+        sessionStorage.setItem('floor', li.getAttribute('data-floor'));
+        activeFacLi = li;
+
+      });
       ul.appendChild(li);
     })
 
