@@ -511,6 +511,7 @@ const categories = document.getElementsByClassName('category');
 const subCategories = document.querySelectorAll( 'ul.sub-categories li a' );
 const container = document.getElementById( 'mapContainer' );
 const detailBuildingTitle = document.getElementById('detailBuildingTitle');
+const detail_link = document.getElementById('detail_link');
 
 ///////////////////////////////
 ///// THREE.js from here: /////
@@ -640,6 +641,14 @@ async function init() {
 
   detailsOpenBtn.addEventListener('click', () => { details.classList.add('active'); });
   detailsCloseBtn.addEventListener('click', () => { details.classList.remove('active'); });
+  detail_link.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!sessionStorage.getItem('building_code')) {
+      alert('선택된 건물이 없습니다.'); return;
+    } else {
+      location.href = './pages/detail.html';
+    }
+  })
 
   // GLTF Loader, load models
 
@@ -918,12 +927,12 @@ function createModel ( loader, data ) {
 
       onClick: function() {
 
-        controls.target.copy( model.position );
+        controls.target.copy(model.position);
         controls.update();
         setDetails(model);
         details.classList.add('active');
         // console.log( model.userData.importance_rooms );
-        sessionStorage.setItem( 'building_code', model.userData.id );
+        sessionStorage.setItem('building_code', model.userData.id);
 
       }
 
@@ -1027,6 +1036,8 @@ function setDetails(model) {
 
   const ul = document.querySelector('ul.fac-list');
   while (ul.hasChildNodes()) { ul.removeChild(ul.firstChild); }
+  const mng_team = document.getElementById('mng_team');
+  const mng_num = document.getElementById('mng_num');
 
   detailBuildingTitle.innerText = model.name;
   if (!model.userData.importance_rooms) {
@@ -1044,6 +1055,9 @@ function setDetails(model) {
     })
 
   }
+
+  mng_team.innerText = (model.userData.management_team) ? model.userData.management_team : '정보가 없습니다.';
+  mng_num.innerText = (model.userData.management_team_phone_num) ? model.userData.management_team_phone_num : '정보가 없습니다.';
 
 }
 

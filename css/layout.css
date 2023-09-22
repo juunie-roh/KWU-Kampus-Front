@@ -273,16 +273,14 @@ header ul.temp-links li a { text-decoration: underline; }
   display: flex; justify-content: center; align-items: center;
   width: 100%; height: 50%;
 }
-.text-wrap .fac-wrap {
-  width: 100%; height: 100%;
-}
+.text-wrap .fac-wrap { width: 100%; height: 100%; padding: 10px; }
 .fac-wrap span {
-  width: 100%; height: auto;
+  width: 100%; height: 24px;
   margin-bottom: 10px;
   font-size: 20px;
 }
 ul.fac-list {
-  width: 50%; height: auto;
+  width: 100%; height: calc(100% - 24px);
   margin-bottom: 10px;
   background: #eee;
   border-radius: 5px;
@@ -296,6 +294,15 @@ ul.fac-list li {
 .text-wrap .fac-wrap {
   width: 100%; height: 100%;
 }
+.text-wrap .mng-wrap { 
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  width: 100%; height: 100%; 
+  padding: 10px; 
+  font-size: 20px;
+}
+.mng-wrap p { width: 100%; font-weight: bold; border-bottom: 2px solid var(--main-color); }
+.mng-wrap span { font-size: 18px; }
 .details-wrap .button-wrap {
   display: flex; justify-content: center;
   width: 100%;
@@ -313,6 +320,7 @@ ul.fac-list li {
 }
 .button-wrap button:hover { background: var(--main-dark); }
 .button-wrap button:active { background: var(--main-color); }
+#detail_link { display: block; width: 100%; height: 100%; }
 #detailsOpenBtn {
   position: absolute; left: 20px; top: 50%; z-index: 5;
   display: block;
