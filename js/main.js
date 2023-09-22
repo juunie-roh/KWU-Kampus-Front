@@ -501,15 +501,15 @@ const facilitiesExamples = [
 ];
 let receivedData;
 
-const fixedHelp = document.getElementById( 'fixedHelp' );
+const fixedHelp = document.getElementById('fixedHelp');
 const mapMenuBtn = document.getElementById('mapMenuBtn');
 const mapMenu = document.getElementById('mapMenu');
 const detailsOpenBtn = document.getElementById('detailsOpenBtn');
 const detailsCloseBtn = document.getElementById('detailsCloseBtn');
 const details = document.getElementById('details');
 const categories = document.getElementsByClassName('category');
-const subCategories = document.querySelectorAll( 'ul.sub-categories li a' );
-const container = document.getElementById( 'mapContainer' );
+const subCategories = document.querySelectorAll('ul.sub-categories li a');
+const container = document.getElementById('mapContainer');
 const detailBuildingTitle = document.getElementById('detailBuildingTitle');
 const detail_link = document.getElementById('detail_link');
 
@@ -587,7 +587,6 @@ async function init() {
   // Event Listeners
 
   window.addEventListener( 'resize', onWindowResize );
-  window.addEventListener('unload', () => { sessionStorage.clear(); });
   container.addEventListener( 'pointermove', onPointerMove );
   container.addEventListener( 'click', onClick );
   // window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
@@ -738,7 +737,7 @@ function onPointerMove( event ) {
 
 function onClick( event ) {
 
-  onPointerMove( event ); // get pointer position
+  onPointerMove(event); // get pointer position
   INTERSECTED && INTERSECTED.userData.onClick();
 
 }
@@ -768,7 +767,7 @@ function render() {
       if (n.isMesh) {
         n.material.envMap = newEnvMap;
         n.material.needsUpdate = true;
-        if (n.name === 'Window' || n.name === 'Windows') {
+        if (n.name === 'Window') {
           n.material.roughness = params.roughness;
           n.material.metalness = params.metalness;
           n.material.reflectivity = 1;
