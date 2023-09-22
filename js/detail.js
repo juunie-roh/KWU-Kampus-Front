@@ -1,6 +1,7 @@
 import * as URL from './url.js'
 
 const floorList = document.getElementById('floors');
+const roomList = document.getElementById('rooms');
 const roomNums = document.querySelectorAll('#detail .img-wrap .roomNum');
 const descOpenBtn = document.getElementById('descOpenBtn');
 const descCloseBtn = document.getElementById('descCloseBtn');
@@ -11,7 +12,7 @@ const f1 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "1F",
+        floor: "1",
         room_no: 101,
         room_code: "0-0101-0",
         facilities: "대강의실",
@@ -22,7 +23,7 @@ const f1 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "1F",
+        floor: "1",
         room_no: 102,
         room_code: "0-0102-0",
         facilities: "계단강의실",
@@ -33,7 +34,7 @@ const f1 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "1F",
+        floor: "1",
         room_no: 103,
         room_code: "0-0103-0",
         facilities: "정보융합부 실습실2",
@@ -44,7 +45,7 @@ const f1 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "1F",
+        floor: "1",
         room_no: 104,
         room_code: "0-0104-0",
         facilities: "정보융합부 실습실1",
@@ -55,7 +56,7 @@ const f1 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "1F",
+        floor: "1",
         room_no: 105,
         room_code: "0-0105-0",
         facilities: "코딩컨설팅룸",
@@ -68,7 +69,7 @@ const f2 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "2F",
+        floor: "2",
         room_no: "202",
         room_code: "0-0202-0",
         facilities: "강의실",
@@ -79,7 +80,7 @@ const f2 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "2F",
+        floor: "2",
         room_no: "203",
         room_code: "0-0203-0",
         facilities: "강의실",
@@ -90,7 +91,7 @@ const f2 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "2F",
+        floor: "2",
         room_no: "204",
         room_code: "0-0204-0",
         facilities: "강의실",
@@ -101,7 +102,7 @@ const f2 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "2F",
+        floor: "2",
         room_no: "205",
         room_code: "0-0205-0",
         facilities: "강의실",
@@ -112,7 +113,7 @@ const f2 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "2F",
+        floor: "2",
         room_no: "206",
         room_code: "0-0206-0",
         facilities: "강의실",
@@ -123,7 +124,7 @@ const f2 = [
         building: "새빛관",
         building_code: "08",
         building_phone_num: null,
-        floor: "2F",
+        floor: "2",
         room_no: "207",
         room_code: "0-0207-0",
         facilities: "회의실",
@@ -132,10 +133,7 @@ const f2 = [
     }
 ];
 
-const receivedFloorList = [
-    f1,
-    f2
-];
+const receivedFloorList = f1.concat(f2);
 const receivedBgUrl = "../images/details-example.jpg";
 
 let rooms, prevElement, prevDesc, floors, building_code;
@@ -147,7 +145,7 @@ window.addEventListener('unload', () => {
 
 init();
 
-function init() {
+async function init() {
 
     sessionStorage.setItem('floor', 'B2');
     sessionStorage.setItem('building_code', "08");
@@ -156,29 +154,25 @@ function init() {
     descOpenBtn.addEventListener('click', () => { descMenu.classList.add('active'); });
     descCloseBtn.addEventListener('click', () => { descMenu.classList.remove('active'); });   
 
-    fetch(URL.detail + building_code, {
-        method: "GET"
-    })
-    .then(res => res.json())
-    .then(res => {
+    // const rawData = await fetch(URL.detail + building_code, { method: "GET" })
+    //                         .then(res => res.json())
+    //                         .then(json => { return json; })
+    const rawData = receivedFloorList;
+    const classifiedFloors = classifyList(rawData);
+    // console.log( classifiedFloors );
+    createFloors( classifiedFloors );
+    if ( sessionStorage.getItem( 'floor' ) ) {
 
-        let classifiedFloors = classifyList( res );
-        // console.log( classifiedFloors );
-        createFloors( classifiedFloors );
-        if ( sessionStorage.getItem( 'floor' ) ) {
+        const floor = ( '00' + sessionStorage.getItem( 'floor' ) ).slice( -2 );
+        activateFloor( document.getElementById(floor), 0, classifiedFloors );
+        // sessionStorage.removeItem('floor');
+        // sessionStorage.removeItem('building_code');
 
-            const floor = ( '00' + sessionStorage.getItem( 'floor' ) ).slice( -2 );
-            activateFloor( document.getElementById(floor), 0, classifiedFloors );
-            // sessionStorage.removeItem('floor');
-            // sessionStorage.removeItem('building_code');
+    } else {
+        // activate 1st floor as default
+        activateFloor( document.getElementById('01'), 0, classifiedFloors );
 
-        } else {
-            // activate 1st floor as default
-            activateFloor( document.getElementById('01'), 0, classifiedFloors );
-
-        }
-        
-    })
+    }
     
     // createFloors( receivedFloorList );
     setFloorBg( receivedBgUrl );
@@ -209,6 +203,7 @@ function createFloors( classifiedFloors ) {
         div.appendChild( span ); // div > span
         liFloor.appendChild( div ); // li > div > span
 
+        /*
         const ul = document.createElement( 'ul' );
         ul.setAttribute( 'id', 'rooms' ); // ul#rooms
 
@@ -220,9 +215,10 @@ function createFloors( classifiedFloors ) {
             ul.appendChild( liRoom ); // ul > li
 
         }
+        */
 
         liFloor.setAttribute( 'id', ( '00' + classifiedFloors[i][0].floor ).slice( -2 ) );
-        liFloor.appendChild( ul ); // li > div + ul
+        // liFloor.appendChild( ul ); // li > div + ul
         floorList.appendChild( liFloor );
 
     }
@@ -243,6 +239,7 @@ function createFloors( classifiedFloors ) {
             if ( prevElement ) { prevElement.classList.remove( 'active' ); }
     
             // 선택한 층에 따라 표시되는 호수(방 번호) 변경
+            roomList.innerHTML = '';
             activateFloor( floor, i, classifiedFloors );
     
         } );
@@ -276,6 +273,23 @@ function setFloorBg ( bgUrl = "" ) {
  */
 function activateFloor ( floor, i, classifiedFloors ) {
 
+    for ( let j = 0; j < classifiedFloors[i].length; j++ ) {
+
+        // 시설 리스트 생성
+        // if문은 임의로 작성했습니다.
+        // 추가 정보 필요 유무에 따라 Room List를 구성하는 element가 달라집니다.
+        if( j % 2 == 0 )
+            roomList.appendChild( listAddRoom( classifiedFloors[i][j] ) ); // ul > li
+        else
+            roomList.appendChild( listAddRoomAccordion( classifiedFloors[i][j] ) ); // ul > li
+
+        // 평면도 상에 호수 글자 생성
+        // imgBg[0].appendChild( mapAddRoom( classifiedFloors[i][j] ) );
+    }
+
+    floor.classList.add( 'active' );
+
+    /*
     floor.classList.add( 'active' ); 
     const activeFloor = classifiedFloors[ i ]; 
 
@@ -299,9 +313,65 @@ function activateFloor ( floor, i, classifiedFloors ) {
 
         })
     });
+    */
     // remember previously activated floor
     prevElement = floor;
 
+}
+
+/**
+ * i 층의 호(room)수를 받아와서
+ * detail_example.html에 Room List를 구성하는 새 element 를 생성합니다.
+ * 별도의 정보가 필요없는 시설이므로, `li`(시설명) element 만 생성합니다.
+ *
+ * @param roomInfo classifiedFloors[i][j]
+ * @returns {HTMLLIElement} `li` element in rooms list
+ */
+function listAddRoom( roomInfo ) {
+
+    const liRoom = document.createElement( 'li' );
+    liRoom.className = 'list-group-item';
+    liRoom.innerText = roomInfo.room_no + ' ' + roomInfo.facilities;
+    liRoom.setAttribute( 'id', roomInfo.room_code );
+
+    return liRoom;
+}
+
+/**
+ * i 층의 호(room)수를 받아와서
+ * detail_example.html에 Room List를 구성하는 새 element 를 생성합니다.
+ * 별도의 정보가 필요한 시설이므로, `button`(시설명) 과 `div`(시설정보) 가 담긴 `li` element 를 생성합니다.
+ *
+ * @param roomInfo classifiedFloors[i][j]
+ * @returns {HTMLLIElement} `li` element in rooms list
+ */
+function listAddRoomAccordion( roomInfo ) {
+
+    const accor_liRoom = document.createElement( 'li' );
+    accor_liRoom.className = 'accordion-item';
+
+    const accor_button = document.createElement( 'button' );
+    accor_button.className = 'accordion-button collapsed';
+    accor_button.type = 'button';
+    accor_button.setAttribute( 'data-bs-toggle', 'collapse' );
+    accor_button.setAttribute( 'data-bs-target', '#info-' + roomInfo.room_code );
+    accor_button.innerText = roomInfo.room_no + ' ' + roomInfo.facilities;
+    accor_button.setAttribute( 'id', roomInfo.room_code );
+
+    const accor_body = document.createElement( 'div' );
+    accor_body.className = 'accordion-collapse collapse';
+    accor_body.setAttribute( 'data-bs-parent', '#rooms' );
+    accor_body.id = 'info-' + roomInfo.room_code;
+
+    const accor_body_text = document.createElement( 'div' );
+    accor_body_text.className = 'accordion-body';
+    accor_body_text.innerText = roomInfo.room_code + ' 관련 추가 정보';
+
+    accor_liRoom.appendChild( accor_button ); // li > button
+    accor_body.appendChild( accor_body_text ); // div > div
+    accor_liRoom.appendChild( accor_body ); // li > button + div
+
+    return accor_liRoom;
 }
 
 /**
@@ -310,14 +380,14 @@ function activateFloor ( floor, i, classifiedFloors ) {
  * 
  * `room_code`에 regular expression 을 적용해 검색하여 분류합니다.
  * 
- * @param { Array } res raw data(floor list) received from server
+ * @param { Array } json raw data(floor list) received from server
  * @returns a classified floor list
  */
-function classifyList( res ) {
+function classifyList( json ) {
     
     let classifiedFloors = [];
-    let floors = res.map(room => room.floor);
-    let uniqFloors = [... new Set(floors.sort(compareFloors(a, b)))];
+    let floors = json.map(room => room.floor);
+    let uniqFloors = [... new Set(floors.sort(compareFloors))];
     uniqFloors.forEach((uniqFloor) => {
 
         let floorNum, regex;
@@ -330,7 +400,7 @@ function classifyList( res ) {
             regex = new RegExp(`^0-${floorNum}+`);
         }
 
-        const classifiedFloor = res.filter(data => regex.test(data.room_code));
+        const classifiedFloor = json.filter(data => regex.test(data.room_code));
         classifiedFloors.push(classifiedFloor.sort(function( a, b ) { return a.room_no < b.room_no ? -1 : a.room_no > b.room_no ? 1 : 0; }));
 
     });
