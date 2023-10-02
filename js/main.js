@@ -1049,6 +1049,7 @@ function setDetails(model) {
   while (ul.hasChildNodes()) { ul.removeChild(ul.firstChild); }
   const mng_team = document.getElementById('mng_team');
   const mng_num = document.getElementById('mng_num');
+  const buildingImg = document.getElementById('buildingImg');
 
   detailBuildingTitle.innerText = model.name;
   if (!model.userData.importance_rooms) {
@@ -1087,6 +1088,7 @@ function setDetails(model) {
 
   mng_team.innerText = (model.userData.management_team) ? model.userData.management_team : '정보가 없습니다.';
   mng_num.innerText = (model.userData.management_team_phone_num) ? model.userData.management_team_phone_num : '정보가 없습니다.';
+  buildingImg.src = `./images/buildings/${model.userData.id}.jpg`;
 
 }
 
