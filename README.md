@@ -54,6 +54,10 @@ github page 를 통해 해당 페이지를 publish 중이지만, 로컬 환경�
 
 이 프로젝트는 three.js 예제[three.js example: map control](https://threejs.org/examples/?q=map#misc_controls_map)에서 출발했습니다.   
 
+화면 상의 건물들 이름을 표시한 폰트들은 [three.js example: geometry text shapes](https://threejs.org/examples/?q=font#webgl_geometry_text_shapes)를 참고했고,   
+
+카메라 회전에 따라 글자들도 회전하면 가독성을 저해하므로, 글자들은 항상 카메라를 향하도록 추가적인 설정을 했습니다.
+
 각 건물의 모델링은 [blender](https://www.blender.org/)를 사용해 직접 제작했습니다.   
 
 Three.js 의 raycaster 요소를 참고해 화면상의 마우스 커서 인식 기능을 구현했습니다.   
