@@ -52,7 +52,7 @@ github page 를 통해 해당 페이지를 publish 중이지만, 로컬 환경�
 
 ### Three.js
 
-이 프로젝트는 three.js 예제[three.js example: map control](https://threejs.org/examples/?q=map#misc_controls_map)에서 출발했습니다.   
+이 프로젝트는 three.js 예제 [three.js example: map control](https://threejs.org/examples/?q=map#misc_controls_map)에서 출발했습니다.   
 
 화면 상의 건물들 이름을 표시한 폰트들은 [three.js example: geometry text shapes](https://threejs.org/examples/?q=font#webgl_geometry_text_shapes)를 참고했고,   
 
