@@ -1086,8 +1086,8 @@ function setDetails(model) {
 
   }
 
-  mng_team.innerText = (model.userData.management_team) ? model.userData.management_team : '정보가 없습니다.';
-  mng_num.innerText = (model.userData.management_team_phone_num) ? model.userData.management_team_phone_num : '정보가 없습니다.';
+  if (mng_team) mng_team.innerText = (model.userData.management_team) ? model.userData.management_team : '정보가 없습니다.';
+  if (mng_num) mng_num.innerText = (model.userData.management_team_phone_num) ? model.userData.management_team_phone_num : '정보가 없습니다.';
   buildingImg.src = `./images/buildings/${model.userData.id}.jpg`;
 
 }
