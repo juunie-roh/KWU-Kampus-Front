@@ -222,7 +222,8 @@ header ul.temp-links li a { text-decoration: underline; }
   #scrollDown:hover { width: 240px; }
   #scrollDown span { font-size: 20px; line-height: 40px;}
 }
-
+/* scrollDown button end */
+/* details start */
 #details {
   position: absolute; top: 20px; left: 20px; z-index: 10;
   display: block;
@@ -236,9 +237,6 @@ header ul.temp-links li a { text-decoration: underline; }
   overflow: hidden;
 }
 #details.active { transform: translateX(0); }
-@media screen and (max-width: 1024px) {
-  #details { width: calc(100% - 40px);  padding: 10px 40px 10px 10px; }
-}
 .details-wrap {
   position: relative; z-index: 7;
   display: flex; flex-direction: column;
@@ -364,13 +362,20 @@ ul.fac-list li.active { background: var(--main-color); color: #fff; }
   fill: var(--main-color);
 }
 @media screen and (max-width: 1024px) {
+  #details { width: calc(100% - 40px);  padding: 10px 40px 10px 10px; }
   #detailsOpenBtn, 
   #detailsCloseBtn { width: 40px; }
   #detailsOpenBtn { height: 40px; }
+  .details-wrap h3 { font-size: 20px; }
+  p.detail-heading { font-size: 18px; }
+  ul.fac-list,
+  ul.detail-notice-list { font-size: 14px; }
 }
+/* details end */
 
 /* 3D Map end */
 
+/* notice start */
 #noticeContainer { position: relative; width: 100%; height: 100%; isolation: isolate; }
 #noticeContainer h2 { margin: 40px 0; font-size: 44px; font-weight: 700; }
 
@@ -389,15 +394,14 @@ li.notice-list h3 {
   z-index: 10;
   padding: 10px 1em;
   background: #fff;
-  border-top: 2px solid var(--main-color);
-  border-bottom: 2px solid #aaa;
+  border-bottom: 2px solid var(--main-color);
   color: #333;
   font-size: 20px;
   text-align: center;
   cursor: pointer;
 }
 li.notice-list:hover h3,
-li.notice-list.active h3 { border-bottom: 2px solid var(--main-color); }
+li.notice-list.active h3 { border-top-left-radius: 10px; border-top-right-radius: 10px; }
 li.notice-list.active h3 { background: var(--main-color); color: #fff; }
 
 .notice-list-wrap { width: 100%; height: 400px; overflow: auto; border-bottom: 2px solid #aaa; }
@@ -410,6 +414,11 @@ ul.notices li {
   padding: 10px 20px;
 }
 ul.notices li a:hover { text-decoration: underline; }
+@media screen and (max-width: 1024px) {
+  li.notice-list h3 { font-size: 18px; }
+  .notice-list-wrap ul.notices.active { font-size: 16px; }
+}
+/* notice end */
 
 footer {
   display: flex;

@@ -967,7 +967,7 @@ function createModel ( loader, data ) {
         // click event
         subCategory.addEventListener('click', e => { 
           e.preventDefault();
-          if (width < 768) {
+          if (width < 1024) {
             controls.target.copy(model.position);
             controls.update();
           } else {
