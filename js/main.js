@@ -249,181 +249,181 @@ const noticeExamples = [
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 1",
+    "notice": "Dept 1 Notice Title 1",
     "date": "2023-06-13"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 2",
+    "notice": "Dept 1 Notice Title 2",
     "date": "2023-05-10"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 3",
+    "notice": "Dept 1 Notice Title 3",
     "date": "2023-03-29"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 4",
+    "notice": "Dept 1 Notice Title 4",
     "date": "2023-03-22"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 5",
+    "notice": "Dept 1 Notice Title 5",
     "date": "2023-03-17"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 6",
+    "notice": "Dept 1 Notice Title 6",
     "date": "2023-03-03"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 7",
+    "notice": "Dept 1 Notice Title 7",
     "date": "2023-02-27"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 8",
+    "notice": "Dept 1 Notice Title 8",
     "date": "2022-10-12"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 9",
+    "notice": "Dept 1 Notice Title 9",
     "date": "2022-09-21"
   },
   {
     "dept": "Dept Example 1",
     "site": "#",
-    "notice": "Notice Title 10",
+    "notice": "Dept 1 Notice Title 10",
     "date": "2022-04-11"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 1",
+    "notice": "Dept 2 Notice Title 1",
     "date": "2023-08-21"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 2",
+    "notice": "Dept 2 Notice Title 2",
     "date": "2023-03-24"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 3",
+    "notice": "Dept 2 Notice Title 3",
     "date": "2022-12-09"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 4",
+    "notice": "Dept 2 Notice Title 4",
     "date": "2022-11-16"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 5",
+    "notice": "Dept 2 Notice Title 5",
     "date": "2022-10-12"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 6",
+    "notice": "Dept 2 Notice Title 6",
     "date": "2023-08-21"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 7",
+    "notice": "Dept 2 Notice Title 7",
     "date": "2023-08-16"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 8",
+    "notice": "Dept 2 Notice Title 8",
     "date": "2023-06-28"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 9",
+    "notice": "Dept 2 Notice Title 9",
     "date": "2023-04-07"
   },
   {
     "dept": "Dept Example 2",
     "site": "#",
-    "notice": "Notice Title 10",
+    "notice": "Dept 2 Notice Title 10",
     "date": "2023-03-24"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 1",
+    "notice": "Dept 3 Notice Title 1",
     "date": "2023-09-06"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 2",
+    "notice": "Dept 3 Notice Title 2",
     "date": "2023-09-06"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 3",
+    "notice": "Dept 3 Notice Title 3",
     "date": "2023-09-06"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 4",
+    "notice": "Dept 3 Notice Title 4",
     "date": "2023-09-06"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 5",
+    "notice": "Dept 3 Notice Title 5",
     "date": "2023-09-06"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 6",
+    "notice": "Dept 3 Notice Title 6",
     "date": "2023-09-06"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 7",
+    "notice": "Dept 3 Notice Title 7",
     "date": "2023-09-05"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 8",
+    "notice": "Dept 3 Notice Title 8",
     "date": "2023-09-05"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 9",
+    "notice": "Dept 3 Notice Title 9",
     "date": "2023-09-05"
   },
   {
     "dept": "Dept Example 3",
     "site": "#",
-    "notice": "Notice Title 10",
+    "notice": "Dept 3 Notice Title 10",
     "date": "2023-09-01"
   },
 ];
