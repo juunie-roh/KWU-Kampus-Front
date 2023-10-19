@@ -967,7 +967,12 @@ function createModel ( loader, data ) {
         // click event
         subCategory.addEventListener('click', e => { 
           e.preventDefault();
-          target.userData.onClick();
+          if (width < 768) {
+            controls.target.copy(model.position);
+            controls.update();
+          } else {
+            target.userData.onClick();
+          }
           mapMenuBtn.classList.remove('active');
           mapMenu.classList.remove('active');
         });
