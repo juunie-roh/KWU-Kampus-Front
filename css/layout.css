@@ -290,8 +290,9 @@ ul.detail-notice-list {
 ul.detail-notice-list { height: calc(100% - 30px); }
 ul.fac-list li,
 ul.detail-notice-list li {
-  width: 100%;
+  width: calc(100% - 10px);
   padding: 5px;
+  margin: 5px;
   border-radius: 5px;
   cursor: pointer;
 }
