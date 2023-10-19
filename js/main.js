@@ -1192,7 +1192,7 @@ function setFacList(model) {
 }
 
 /**
- * `details` 중에서 선택된 건물과 관련된 공지사항을 불러와 설정합니다.   
+ * `details` 중에서 선택된 건물과 `building_code`가 일치하는 공지사항을 불러와 설정합니다.   
  * 
  * `ul.detail-notice-list`의 child가 있으면 모두 제거하는 작업을 포함합니다.
  * @param {string} building_code building id code of `INTERSECTED`
