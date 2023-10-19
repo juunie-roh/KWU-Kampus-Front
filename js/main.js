@@ -499,6 +499,75 @@ const facilitiesExamples = [
     "importance": true
   }
 ];
+const detailNoticeExamples = [
+  {
+    "building_code": "01",
+    "site": "#",
+    "notice": "01 Example 1",
+    "date": "2023-10-19"
+  },
+  {
+    "building_code": "01",
+    "site": "#",
+    "notice": "01 Example 2",
+    "date": "2023-10-10"
+  },
+  {
+    "building_code": "01",
+    "site": "#",
+    "notice": "01 Example 3",
+    "date": "2023-10-09"
+  },
+  {
+    "building_code": "01",
+    "site": "#",
+    "notice": "01 Example 4",
+    "date": "2023-10-05"
+  },
+  {
+    "building_code": "01",
+    "site": "#",
+    "notice": "01 Example 5",
+    "date": "2023-10-02"
+  },
+  {
+    "building_code": "01",
+    "site": "#",
+    "notice": "01 Example 6",
+    "date": "2023-10-01"
+  },
+  {
+    "building_code": "02",
+    "site": "#",
+    "notice": "02 Example 1",
+    "date": "2023-10-19"
+  },
+  {
+    "building_code": "03",
+    "site": "#",
+    "notice": "03 Example 1",
+    "date": "2023-10-19"
+  },
+  {
+    "building_code": "04",
+    "site": "#",
+    "notice": "04 Example 1",
+    "date": "2023-10-19"
+  },
+  {
+    "building_code": "05",
+    "site": "#",
+    "notice": "05 Example 1",
+    "date": "2023-10-19"
+  },
+  {
+    "building_code": "06",
+    "site": "#",
+    "notice": "06 Example 1",
+    "date": "2023-10-19"
+  }
+];
+let detailNoticeDatas;
 let receivedData;
 
 const fixedHelp = document.getElementById('fixedHelp');
@@ -510,7 +579,6 @@ const details = document.getElementById('details');
 const categories = document.getElementsByClassName('category');
 const subCategories = document.querySelectorAll('ul.sub-categories li a');
 const container = document.getElementById('mapContainer');
-const detailBuildingTitle = document.getElementById('detailBuildingTitle');
 const detail_link = document.getElementById('detail_link');
 
 ///////////////////////////////
@@ -540,6 +608,7 @@ let activeFacLi;
 
 init();
 noticeInit();
+detailNoticeInit();
 animate();
 
 async function init() {
@@ -713,6 +782,15 @@ async function noticeInit() {
 
   })
 
+}
+
+async function detailNoticeInit() {
+  // const detailNoticeDatas = await fetch(URL.detailNotice, { method: 'GET' })
+  //                           .then(res => res.json()) // if (res.status === 200) { return res.json() } else { error handling }
+  //                           .then(json => { return json; });
+
+  detailNoticeDatas = detailNoticeExamples;
+  
 }
 
 // window events
@@ -1043,27 +1121,42 @@ async function createFont(position, name) {
 }
 
 /**
- * 생성된 모델 정보를 토대로 관련 정보를 `details`에 입력합니다.
- * `ul.fac-list`에 child가 있으면 모두 제거하는 작업을 포함합니다.
+ * 선택된 모델 정보를 토대로 관련 정보를 `details`에 입력합니다.
+ * 주요 시설 정보(`setFacList`)와 건물 관련 공지사항(`setDetailNotice`)을 설정합니다.
  * 
- * @param {THREE.Group} model 
+ * @param {THREE.Group} model building model information of `INTERSECTED`
  */
 function setDetails(model) {
 
-  const fac_list = document.querySelector('ul.fac-list');
-  while (fac_list.hasChildNodes()) { fac_list.removeChild(fac_list.firstChild); }
   const mng_team = document.getElementById('mng_team');
   const mng_num = document.getElementById('mng_num');
   const buildingImg = document.getElementById('buildingImg');
 
-  detailBuildingTitle.innerText = model.name;
-  if (!model.userData.importance_rooms) {
-    // initializing
-    const li = document.createElement('li');
-    li.innerHTML = '주요 시설 정보가 없습니다.';
-    fac_list.appendChild(li);
+  if (mng_team) mng_team.innerText = (model.userData.management_team) ? model.userData.management_team : '정보가 없습니다.';
+  if (mng_num) mng_num.innerText = (model.userData.management_team_phone_num) ? model.userData.management_team_phone_num : '정보가 없습니다.';
+  buildingImg.src = `./images/buildings/${model.userData.id}.jpg`;
 
-  } else {
+  setFacList(model);
+  setDetailNotice(model.userData.id);
+
+}
+
+/**
+ * `details` 중에서 주요 시설 정보를 설정합니다.   
+ * 주요 시설을 선택할 수 있는 클릭 이벤트도 설정합니다.   
+ * 
+ * `ul.fac-list`에 child가 있으면 모두 제거하는 작업을 포함합니다.
+ * @param {THREE.Group} model building model information of `INTERSECTED`
+ */
+function setFacList(model) {
+
+  const ul = document.querySelector('ul.fac-list');
+  const detailBuildingTitle = document.getElementById('detailBuildingTitle');
+  // remove all the child nodes
+  while (ul.hasChildNodes()) { ul.removeChild(ul.firstChild); }
+
+  detailBuildingTitle.innerText = model.name;
+  if (model.userData.importance_rooms.length > 0) {
 
     model.userData.importance_rooms.forEach(room => {
       const li = document.createElement('li');
@@ -1086,14 +1179,58 @@ function setDetails(model) {
         activeFacLi = li;
 
       });
-      fac_list.appendChild(li);
+      ul.appendChild(li);
     })
 
-  }
+  } else {
+    // initializing
+    const li = document.createElement('li');
+    li.innerHTML = '주요 시설 정보가 없습니다.';
+    ul.appendChild(li);
 
-  if (mng_team) mng_team.innerText = (model.userData.management_team) ? model.userData.management_team : '정보가 없습니다.';
-  if (mng_num) mng_num.innerText = (model.userData.management_team_phone_num) ? model.userData.management_team_phone_num : '정보가 없습니다.';
-  buildingImg.src = `./images/buildings/${model.userData.id}.jpg`;
+  }
+}
+
+/**
+ * `details` 중에서 선택된 건물과 관련된 공지사항을 불러와 설정합니다.   
+ * 
+ * `ul.detail-notice-list`의 child가 있으면 모두 제거하는 작업을 포함합니다.
+ * @param {string} building_code building id code of `INTERSECTED`
+ */
+function setDetailNotice(building_code) {
+
+  const ul = document.querySelector('ul.detail-notice-list');
+  while(ul.hasChildNodes()) { ul.removeChild(ul.firstChild); }
+
+  const filtered = detailNoticeDatas.filter((item) => item.building_code === building_code);
+  // console.log(filtered);
+
+  if (filtered.length > 0) {
+
+    filtered.forEach(notice => {
+
+      const li = document.createElement('li');
+      const aLink = document.createElement('a');
+      const span = document.createElement('span');
+      aLink.innerHTML = notice.notice;
+      aLink.href = notice.site;
+
+      span.className = 'date';
+      span.innerHTML = notice.date;
+      aLink.append(span);
+      li.append(aLink);
+
+      ul.append(li);
+
+    })
+
+  } else {
+    // initializing
+    const li = document.createElement('li');
+    li.innerHTML = '공지사항이 없습니다.'
+    ul.appendChild(li);
+
+  }
 
 }
 
