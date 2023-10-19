@@ -1050,8 +1050,8 @@ async function createFont(position, name) {
  */
 function setDetails(model) {
 
-  const ul = document.querySelector('ul.fac-list');
-  while (ul.hasChildNodes()) { ul.removeChild(ul.firstChild); }
+  const fac_list = document.querySelector('ul.fac-list');
+  while (fac_list.hasChildNodes()) { fac_list.removeChild(fac_list.firstChild); }
   const mng_team = document.getElementById('mng_team');
   const mng_num = document.getElementById('mng_num');
   const buildingImg = document.getElementById('buildingImg');
@@ -1061,7 +1061,7 @@ function setDetails(model) {
     // initializing
     const li = document.createElement('li');
     li.innerHTML = '주요 시설 정보가 없습니다.';
-    ul.appendChild(li);
+    fac_list.appendChild(li);
 
   } else {
 
@@ -1086,7 +1086,7 @@ function setDetails(model) {
         activeFacLi = li;
 
       });
-      ul.appendChild(li);
+      fac_list.appendChild(li);
     })
 
   }
