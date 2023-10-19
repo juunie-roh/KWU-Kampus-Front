@@ -785,12 +785,10 @@ async function noticeInit() {
 }
 
 async function detailNoticeInit() {
-  // const detailNoticeDatas = await fetch(URL.detailNotice, { method: 'GET' })
+  // detailNoticeDatas = await fetch(URL.detailNotice, { method: 'GET' })
   //                           .then(res => res.json()) // if (res.status === 200) { return res.json() } else { error handling }
   //                           .then(json => { return json; });
-
   detailNoticeDatas = detailNoticeExamples;
-  
 }
 
 // window events
@@ -1217,8 +1215,8 @@ function setDetailNotice(building_code) {
 
       span.className = 'date';
       span.innerHTML = notice.date;
-      aLink.append(span);
       li.append(aLink);
+      li.append(span);
 
       ul.append(li);
 
