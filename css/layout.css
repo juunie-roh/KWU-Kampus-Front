@@ -385,6 +385,8 @@ ul.detail-notice-list li span.date {
   p.detail-heading { font-size: 18px; }
   ul.fac-list,
   ul.detail-notice-list { font-size: 14px; }
+  ul.detail-notice-list li a { font-size: 12px; }
+  ul.detail-notice-list li span.date { font-size: 10px; }
 }
 /* details end */
 
