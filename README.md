@@ -64,9 +64,9 @@ Three.js 의 raycaster 요소를 참고해 화면상의 마우스 커서 인식 
 
 환경맵(environmental map, 배경)에 사용된 소스는 [HDRIs](https://polyhaven.com/hdris)를 참고했습니다.   
 
-exr 파일(Open Source HDR file)을 사용해서 3D 환경의 광원을 설정했습니다.   
+directional, hemisphere, ambient light 등의 광원을 설정해봤으나, 해당 프로젝트는 자연광이 제일 자연스러우므로   
 
-directional, hemisphere, ambient light 도 설정했지만, 주된 광원은 exr 파일로 설정되어있습니다.
+exr(Open source HDR) 파일에 포함된 광원 데이터를 그대로 scene의 광원으로 활용했습니다.   
 
 ### Terrain Failure (지형 생성 실패)
 
