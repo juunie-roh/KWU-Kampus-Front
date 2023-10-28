@@ -5,7 +5,7 @@
 ## Notice   
 
 이 repository 에서는 서버 의존성을 임시로 제외하기 위해서, `main.js` 내에서 임시로 선언한 필요 데이터 리스트를 사용합니다.   
-원본 프로젝트는 서버와의 RESTful API를 통해 데이터 정보를 받아오고 있으나, 해당 서버는 http를 사용하고 있으므로 Security 정책에 맞지 않습니다.   
+원본 프로젝트는 서버와의 RESTful API를 통해 데이터 정보를 받아오고 있으나, 해당 서버는 http를 사용하고 있으므로 Security 정책에 맞지 않아 연결이 되지 않습니다.   
 RESTful API 사용 부분은 주석 처리되어있으니, 코드 내에서 확인하실 수 있습니다.   
 
 ## How to Run
@@ -63,3 +63,5 @@ exr(Open source HDR) 파일에 포함된 광원 데이터를 그대로 scene의 
 
 [국가 공간 정보 포털](http://data.nsdi.go.kr/dataset/20001) 제공 데이터인 DEM(Digital Elevation Model)을 Qgis 사용하여   
 학교 부지의 고도 데이터를 등고선화 및 추출했으나 Three.js의 지형 생성에 대한 이해도 부족 때문에 지형 생성까지는 실패했습니다.    
+<img width="1552" alt="Screenshot 2023-10-28 at 7 10 52 PM" src="https://github.com/juunie-roh/KWU-Kampus-Front/assets/65842841/eb411bdd-aae7-41ea-bdbf-5c16209d80a2">
+
