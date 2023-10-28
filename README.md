@@ -46,6 +46,12 @@ github page 를 통해 해당 페이지를 publish 중이지만, 로컬 환경�
 
 5. Open in Live Server 기능을 사용하면 열립니다!
 
+## Detail Page
+
+이 프로젝트는 건물마다 따로 페이지를 만들지 않고, 건물에 id를 부여하여 해당 값을 토대로 GET 요청을 한 후, 받은 데이터를 기준으로 화면을 형성하도록 만들었기 때문에 detail page가 정상적으로 형성되지 않습니다.   
+detail.js 파일의 코드에서 화면 생성, 데이터 분류 및 정렬을 확인하실 수 있습니다. 클릭한 건물 또는 시설의 id 값의 전달은 `sessionStorage`를 사용했습니다.(Vanilla Javascript)   
+
+
 ## 3D Map References
 
 ### Three.js
@@ -61,7 +67,6 @@ exr(Open source HDR) 파일에 포함된 광원 데이터를 그대로 scene의 
 
 ### Terrain Failure (지형 생성 실패)
 
+<img width="1552" alt="Screenshot 2023-10-28 at 7 10 52 PM" src="https://github.com/juunie-roh/KWU-Kampus-Front/assets/65842841/eb411bdd-aae7-41ea-bdbf-5c16209d80a2">
 [국가 공간 정보 포털](http://data.nsdi.go.kr/dataset/20001) 제공 데이터인 DEM(Digital Elevation Model)을 Qgis 사용하여   
 학교 부지의 고도 데이터를 등고선화 및 추출했으나 Three.js의 지형 생성에 대한 이해도 부족 때문에 지형 생성까지는 실패했습니다.    
-<img width="1552" alt="Screenshot 2023-10-28 at 7 10 52 PM" src="https://github.com/juunie-roh/KWU-Kampus-Front/assets/65842841/eb411bdd-aae7-41ea-bdbf-5c16209d80a2">
-
