@@ -590,6 +590,7 @@ const pointer = new THREE.Vector2(); // mouse cursor position tracking
 let intersects = []; // list to find which building is selected
 let INTERSECTED = undefined; // stores which building is selected
 
+const gltfLoader = new GLTFLoader();
 const buildings = []; // Loaded Buildings List
 const fonts = []; // Loaded Fonts List
 // const arrows = [];
@@ -732,12 +733,11 @@ async function init() {
 
   // GLTF Loader, load models
 
-  const gltfLoader = new GLTFLoader();
   // const datas = await fetch(URL.buildings, { method: 'GET' })
   //                     .then(res => res.json())
   //                     .then(json => { return json; });
 
-  buildingDatas.forEach(data => { createModel(gltfLoader, data); });
+  buildingDatas.forEach(data => { createModel(data); });
 
 }
 
@@ -908,7 +908,7 @@ function initWorldFloor() {
   // const planeSize = 1000; // 2000;
   // load terrian model
   const planeTexture = new THREE.TextureLoader().load('./images/KakaoMap_KWU.png');
-  new GLTFLoader().load('./models/Terrain.gltf', async (gltf) => {
+  gltfLoader.load('./models/Terrain.gltf', async (gltf) => {
     
     let terrain = new THREE.Object3D();
     terrain = await gltf.scene.children[0];
@@ -972,14 +972,13 @@ function initLights() {
  * 
  * `loader` 를 사용해 `building.modelPath` 에 있는 모델을 불러옵니다.   
  * 모델의 위치, 회전시킬 각도, 크기 조정을 위한 스케일을 설정하여 `scene` 및 `buildings` 리스트에 추가하고, `createFont()` 에 `position` 을 전달합니다.
- * @param { GLTFLoader } loader `GLTFLoader` used in this file.
  * @param { object } data Item stored in `receivedData` list, an object containing informations of each buildings.
  */
-function createModel ( loader, data ) {
+function createModel ( data ) {
 
   // more error handling needed
   if ( !data.model_path ) { console.error( 'model_path not found.' ); return; }
-  loader.load( data.model_path, async ( gltf ) => {
+  gltfLoader.load( data.model_path, async ( gltf ) => {
 
     const model = await gltf.scene;
     if ( !model ) {
