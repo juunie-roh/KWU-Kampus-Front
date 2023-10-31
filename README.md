@@ -68,8 +68,8 @@ Three.js 의 raycaster 요소를 참고해 화면상의 마우스 커서 인식 
 directional, hemisphere, ambient light 등의 광원을 설정해봤으나, 해당 프로젝트는 자연광이 제일 자연스러우므로   
 exr(Open source HDR) 파일에 포함된 광원 데이터를 그대로 scene의 광원으로 활용했습니다.   
 
-### Terrain Failure (지형 생성 실패)
+### Terrain
 
 <img width="1552" alt="Screenshot 2023-10-28 at 7 10 52 PM" src="https://github.com/juunie-roh/KWU-Kampus-Front/assets/65842841/eb411bdd-aae7-41ea-bdbf-5c16209d80a2">
 [국가 공간 정보 포털](http://data.nsdi.go.kr/dataset/20001) 제공 데이터인 DEM(Digital Elevation Model)을 Qgis 사용하여   
-학교 부지의 고도 데이터를 등고선화 및 추출했으나 Three.js의 지형 생성에 대한 이해도 부족 때문에 지형 생성까지는 실패했습니다.    
+학교 부지의 고도 데이터를 추출했고, Qgis plugin 중 하나인 qgis2three 를 사용해 지형 구현에 성공, 적용하기 위해 현재 수정 중입니다.
