@@ -14,7 +14,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/BokJi.glb',
     position_x: 120,
-    position_y: 0,
+    position_y: 20,
     position_z: 10,
     angle: 63,
     scale: 1,
@@ -28,7 +28,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/BiMa.glb',
     position_x: 79,
-    position_y: 0,
+    position_y: 25,
     position_z: -148,
     angle: 23,
     scale: 1,
@@ -42,7 +42,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/SaeBit.glb',
     position_x: 55,
-    position_y: 0,
+    position_y: 32,
     position_z: -229,
     angle: 74.5,
     scale: 1,
@@ -56,7 +56,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/IceRink.glb',
     position_x: 0,
-    position_y: 0,
+    position_y: 33,
     position_z: 97,
     angle: 123,
     scale: 1,
@@ -70,7 +70,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/DongHae.glb',
     position_x: 50,
-    position_y: 0,
+    position_y: 27,
     position_z: 65,
     angle: 159,
     scale: 1,
@@ -84,7 +84,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/OkUi.glb',
     position_x: 162,
-    position_y: 0,
+    position_y: 20.5,
     position_z: -72,
     angle: 212,
     scale: 1,
@@ -98,7 +98,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/HwaDo.glb',
     position_x: -16,
-    position_y: 0,
+    position_y: 27,
     position_z: -106,
     angle: -118,
     scale: 1,
@@ -112,7 +112,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/DaSan.glb',
     position_x: 131,
-    position_y: 0,
+    position_y: 26,
     position_z: -156,
     angle: 42,
     scale: 1,
@@ -126,7 +126,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/YeonChon.glb',
     position_x: -175,
-    position_y: 0,
+    position_y: 48,
     position_z: 146,
     angle: 144,
     scale: 1,
@@ -140,7 +140,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/ChamBit.glb',
     position_x: 128,
-    position_y: 0,
+    position_y: 31,
     position_z: -235,
     angle: -70,
     scale: 1,
@@ -154,7 +154,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/HanUl.glb',
     position_x: -37,
-    position_y: 0,
+    position_y: 38,
     position_z: 104,
     angle: -76,
     scale: 1,
@@ -168,7 +168,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/HanCheon.glb',
     position_x: 8,
-    position_y: 0,
+    position_y: 31,
     position_z: 65,
     angle: -20,
     scale: 1,
@@ -182,7 +182,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/InternationalHouse.glb',
     position_x: -204,
-    position_y: 0,
+    position_y: 48,
     position_z: 165,
     angle: 100,
     scale: 1,
@@ -196,7 +196,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/NuRi.glb',
     position_x: -2,
-    position_y: 0,
+    position_y: 22,
     position_z: 290,
     angle: -27,
     scale: 1,
@@ -210,7 +210,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/KWSquare.glb',
     position_x: 42,
-    position_y: 0,
+    position_y: 25,
     position_z: -70,
     angle: -119,
     scale: 1,
@@ -224,7 +224,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/BitSolA.glb',
     position_x: -119,
-    position_y: 0,
+    position_y: 44,
     position_z: 171,
     angle: 15,
     scale: 1,
@@ -238,7 +238,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/BitSolB.glb',
     position_x: -107,
-    position_y: 0,
+    position_y: 44,
     position_z: 129,
     angle: 15,
     scale: 1,
@@ -631,7 +631,7 @@ async function init() {
   // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   // renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
-  camera = new THREE.PerspectiveCamera( 60, width / height, 1, 1000 );// 1000 );
+  camera = new THREE.PerspectiveCamera( 60, width / height, 0.5, 1000 );// 1000 );
   camera.position.set( 300, 200, 0 ); // ( 400, 200, 0 );
 
   initControls();
@@ -893,31 +893,48 @@ function initControls() {
   controls.minDistance = 100;
   controls.maxDistance = 500;
 
-  controls.maxPolarAngle = Math.PI / 2;
+  controls.maxPolarAngle = Math.PI / 9 * 4;
 
 }
 
 /**
- * 3D 환경의 바닥을 설정합니다.
- * 평면을 생상하고, 지정된 경로의 파일을 불러와 texture로 설정해 입힌 후, 각도를 맞추고 `scene`에 추가합니다.
+ * 3D 환경의 바닥을 설정합니다.   
+ * ~평면을 생성하고, 지정된 경로의 파일을 불러와 texture로 설정해 입힌 후, 각도를 맞추고 `scene`에 추가합니다.~   
+ * 
+ * 추가 및 수정: 실제 고도를 반영한 지형 모델을 불러온 후, material을 변경하고 scene 에 추가합니다.
  */
 function initWorldFloor() {
 
-  const planeSize = 1000; // 2000;
+  // const planeSize = 1000; // 2000;
+  // load terrian model
   const planeTexture = new THREE.TextureLoader().load('./images/KakaoMap_KWU.png');
-  plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(planeSize, planeSize, 8, 8),
-    new THREE.MeshBasicMaterial({ 
-      side: THREE.FrontSide, 
-      map: planeTexture
+  new GLTFLoader().load('./models/Terrain.gltf', async (gltf) => {
+    
+    let terrain = new THREE.Object3D();
+    terrain = await gltf.scene.children[0];
+    terrain.rotateZ(Math.PI / 2);
+    terrain.children[0].material = new THREE.MeshBasicMaterial({
+      map: planeTexture,
     })
-  );
-  plane.rotateX( Math.PI / ( -2 ) );
-  plane.rotateZ( Math.PI / 2 );
-  plane.name = 'worldFloor';
-  plane.castShadow = false;
-  plane.receiveShadow = true;
-  scene.add( plane );
+    terrain.castShadow = true;
+    terrain.receiveShadow = true;
+    scene.add(terrain);
+
+  });
+  
+  // plane = new THREE.Mesh(
+  //   new THREE.PlaneGeometry(planeSize, planeSize, 8, 8),
+  //   new THREE.MeshBasicMaterial({ 
+  //     side: THREE.FrontSide, 
+  //     map: planeTexture
+  //   })
+  // );
+  // plane.rotateX( Math.PI / ( -2 ) );
+  // plane.rotateZ( Math.PI / 2 );
+  // plane.name = 'worldFloor';
+  // plane.castShadow = false;
+  // plane.receiveShadow = true;
+  // scene.add( plane );
 
 }
 
