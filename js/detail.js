@@ -138,11 +138,6 @@ const receivedBgUrl = "../images/details-example.jpg";
 
 let rooms, prevElement, prevDesc, floors, building_code;
 
-window.addEventListener('unload', () => {
-    sessionStorage.removeItem('floor');
-    sessionStorage.removeItem('building_code');
-})
-
 init();
 
 async function init() {

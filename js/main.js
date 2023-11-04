@@ -84,7 +84,7 @@ const buildingDatas = [
     management_team_phone_num: '',
     model_path: './models/OkUi.glb',
     position_x: 162,
-    position_y: 20.5,
+    position_y: 20,
     position_z: -72,
     angle: 212,
     scale: 1,
@@ -595,7 +595,6 @@ const buildings = []; // Loaded Buildings List
 const fonts = []; // Loaded Fonts List
 // const arrows = [];
 
-let plane;
 let exrCubeRenderTarget;
 let exrBackground;
 const params = {
@@ -614,9 +613,9 @@ animate();
 
 async function init() {
 
-  // variables
   updateWindowSize();
-
+  
+  // variables
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xcccccc );
   // scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
@@ -658,6 +657,7 @@ async function init() {
   // Event Listeners
 
   window.addEventListener( 'resize', onWindowResize );
+  window.addEventListener('load', () => { sessionStorage.clear(); });
   container.addEventListener( 'pointermove', onPointerMove );
   container.addEventListener( 'click', onClick );
   // window.addEventListener( 'dblclick', ( event ) => { // dev, 더블 클릭시 카메라의 위치에서 카메라 방향으로 
@@ -908,8 +908,9 @@ function initWorldFloor() {
   // const planeSize = 1000; // 2000;
   // load terrian model
   const planeTexture = new THREE.TextureLoader().load('./images/KakaoMap_KWU.png');
-  gltfLoader.load('./models/Terrain.gltf', async (gltf) => {
-    
+  gltfLoader.load('./models/Terrain.gltf', 
+  async (gltf) => {
+  
     let terrain = new THREE.Object3D();
     terrain = await gltf.scene.children[0];
     terrain.rotateZ(Math.PI / 2);
@@ -919,7 +920,10 @@ function initWorldFloor() {
     terrain.castShadow = true;
     terrain.receiveShadow = true;
     scene.add(terrain);
-
+  }, 
+  undefined, 
+  (error) => {
+    console.log(error);
   });
   
   // plane = new THREE.Mesh(
@@ -1056,7 +1060,7 @@ function createModel ( data ) {
         // hover event
         subCategory.addEventListener('mouseover', () => { target.userData.onPointerOver(); });
         subCategory.addEventListener('mouseout', () => { target.userData.onPointerOut(); });
-        // click event
+        // click event, seperated by device width
         subCategory.addEventListener('click', e => { 
           e.preventDefault();
           if (width < 1024) {
@@ -1209,7 +1213,7 @@ function setFacList(model) {
  * `details` 중에서 선택된 건물과 `building_code`가 일치하는 공지사항을 불러와 설정합니다.   
  * 
  * `ul.detail-notice-list`의 child가 있으면 모두 제거하는 작업을 포함합니다.
- * @param {string} building_code building id code of `INTERSECTED`
+ * @param {string} building_code building id code of `INTERSECTED`, given by mouse click event
  */
 function setDetailNotice(building_code) {
 
